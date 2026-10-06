@@ -1,0 +1,798 @@
+{
+  "categories": {
+    "桥梁": {
+      "sample_count": 2602,
+      "allowed_labels": [
+        "锈水痕",
+        "完好",
+        "接缝锈迹",
+        "粉红色色斑",
+        "轻度锈迹",
+        "粉红色色斑+深色变色",
+        "轻度锈蚀+渗水",
+        "锈水流痕",
+        "粉红色+深色渗水条纹",
+        "粉红色色斑+轻度水痕",
+        "深色渗水+粉红",
+        "涂装完好",
+        "轻度污染",
+        "粉红色色斑+横隔板变色",
+        "锈水流痕+渗水",
+        "粉红色色斑+点状污渍",
+        "粉红色+绿色变色",
+        "粉红色+渗水",
+        "锈迹",
+        "钢盖梁锈蚀",
+        "接隧道过渡段",
+        "黄色水痕",
+        "粉红色+轻度变色",
+        "粉红色+黄色痕迹",
+        "锈蚀+渗水+裂缝",
+        "排水管下方锈迹",
+        "钢盖梁少量锈渍",
+        "粉红色+深色变色",
+        "轻微锈迹",
+        "钢盖梁锈迹",
+        "预制构造接缝+梁底渗水",
+        "粉红色+轻度水痕",
+        "轻度锈迹+渗水",
+        "混凝土外观瑕疵",
+        "接缝渗水",
+        "沥青摊铺接缝",
+        "渗水/泛碱",
+        "锈蚀/碳化",
+        "苔藓/植被",
+        "已处治病害（修补）",
+        "蜂窝/麻面/气泡",
+        "裂缝",
+        "修补痕",
+        "铺装划痕",
+        "脚手架痕",
+        "修补痕迹",
+        "伸缩缝病害",
+        "剥落",
+        "其他"
+      ],
+      "label_specs": {
+        "完好": {
+          "count": 1904,
+          "descriptions": [
+            "补充视角",
+            "航拍沥青铺装平整、标线清晰、拱肋/护栏完好",
+            "航拍可见沥青铺装平整、标线清晰、拱肋/护栏完好"
+          ],
+          "rating_distribution": {
+            "": 1904
+          },
+          "default_rating": ""
+        },
+        "渗水/泛碱": {
+          "count": 288,
+          "descriptions": [
+            "梁底接缝大面积水渍泛黑，伴泄水孔",
+            "翼缘端部及横隔板顶部可见红色标记下水渍，疑似桥面排水病害",
+            "梁底沿接缝长条形水渍发黑，工艺色差明显"
+          ],
+          "rating_distribution": {
+            "2": 253,
+            "3": 35
+          },
+          "default_rating": "2"
+        },
+        "已处治病害（修补）": {
+          "count": 153,
+          "descriptions": [
+            "盖梁立面规则矩形修补块阵列，系对拉螺栓孔封堵痕",
+            "翼板底面见两处规则矩形褐色修补区，疑似预留孔洞封堵",
+            "梁底见多块矩形修补痕，呈规则排列疑为吊点孔封堵"
+          ],
+          "rating_distribution": {
+            "2": 146,
+            "3": 7
+          },
+          "default_rating": "2"
+        },
+        "粉红色色斑": {
+          "count": 68,
+          "descriptions": [
+            "预制桥面板底面粉红色变色（同类）",
+            "同类",
+            "典型粉红色变色"
+          ],
+          "rating_distribution": {
+            "2": 68
+          },
+          "default_rating": "2"
+        },
+        "锈蚀/碳化": {
+          "count": 56,
+          "descriptions": [
+            "高墩拉杆孔大量锈黄色斑点，疑似铁件未封堵",
+            "盖梁与墩柱顶部多处铁锈水流痕，疑似螺栓孔封堵不严",
+            "墩柱顶部牛腿区可见少量铁锈水流痕，疑似模板对拉螺栓未封"
+          ],
+          "rating_distribution": {
+            "2": 41,
+            "3": 15
+          },
+          "default_rating": "2"
+        },
+        "混凝土外观瑕疵": {
+          "count": 32,
+          "descriptions": [
+            "桥头铺装泥沙渍延伸明显",
+            "桥尾减速带区泥沙渍邻近防护棚",
+            "桥头减速振动带泥沙渍覆盖慢车道"
+          ],
+          "rating_distribution": {
+            "2": 31,
+            "3": 1
+          },
+          "default_rating": "2"
+        },
+        "沥青摊铺接缝": {
+          "count": 17,
+          "descriptions": [
+            "桥尾出口铺装色差外观正常",
+            "可见摊铺纵向接缝外观正常",
+            "桥尾段铺装色差无病害"
+          ],
+          "rating_distribution": {
+            "2": 17
+          },
+          "default_rating": "2"
+        },
+        "脚手架痕": {
+          "count": 9,
+          "descriptions": [
+            "梁底见模板拼缝印及局部白色泛碱，新桥工艺痕迹",
+            "横隔板模板印痕，整体结构完好",
+            "横隔板木模印痕及吊孔锈水"
+          ],
+          "rating_distribution": {
+            "2": 9
+          },
+          "default_rating": "2"
+        },
+        "苔藓/植被": {
+          "count": 7,
+          "descriptions": [
+            "桥台前植被生长茂盛逼近支座区，建议清理",
+            "陡崖侧梁底外缘可见少量苔藓沿翼缘附着，新桥竣工初期表面挂藻",
+            "梁侧轻微绿色藻苔，环境性"
+          ],
+          "rating_distribution": {
+            "2": 7
+          },
+          "default_rating": "2"
+        },
+        "锈水痕": {
+          "count": 5,
+          "descriptions": [
+            "盖梁中间墩柱头部黄色锈水痕迹",
+            "混凝土墩柱/盖梁上方有轻微黄色锈迹",
+            "补充视角，与4墩支座同病害"
+          ],
+          "rating_distribution": {
+            "3": 3,
+            "2": 2
+          },
+          "default_rating": "3"
+        },
+        "伸缩缝病害": {
+          "count": 5,
+          "descriptions": [
+            "伸缩缝处沥青轻微磨损"
+          ],
+          "rating_distribution": {
+            "2": 5
+          },
+          "default_rating": "2"
+        },
+        "锈水流痕": {
+          "count": 4,
+          "descriptions": [
+            "盖梁左侧明显黄色锈迹流痕",
+            "盖梁右侧黄色锈迹（文件名可能笔误，实为12号墩补充视角）",
+            "盖梁多条明显黄色竖向锈水"
+          ],
+          "rating_distribution": {
+            "3": 2,
+            "2": 2
+          },
+          "default_rating": "3"
+        },
+        "修补痕": {
+          "count": 4,
+          "descriptions": [
+            "横隔板有规则块状深色修补区，疑似已处治施工瑕疵",
+            "腹板可见竖向条状色差，疑似修补或脚手架痕",
+            "梁底见多处规则方形修补区，疑似吊孔封堵处理"
+          ],
+          "rating_distribution": {
+            "2": 4
+          },
+          "default_rating": "2"
+        },
+        "其他": {
+          "count": 4,
+          "descriptions": [
+            "终点桥台搭板段橙黄色新铺装，疑似搭板防水或临时铺面",
+            "终点桥台过渡段疑见黄色新铺/防水卷材，待现场确认",
+            "终点桥台搭板新铺面延续段，需现场核实是否补强"
+          ],
+          "rating_distribution": {
+            "2": 4
+          },
+          "default_rating": "2"
+        },
+        "接缝渗水": {
+          "count": 3,
+          "descriptions": [
+            "中跨伸缩缝处局部水迹无渗漏",
+            "中跨伸缩缝处少量水迹无渗漏",
+            "起点伸缩缝处局部水迹无渗漏"
+          ],
+          "rating_distribution": {
+            "2": 3
+          },
+          "default_rating": "2"
+        },
+        "剥落": {
+          "count": 3,
+          "descriptions": [
+            "顶板大面积剥落露筋疑似",
+            "盖梁端部混凝土剥落露骨料",
+            "梁端少量混凝土剥落"
+          ],
+          "rating_distribution": {
+            "2": 2,
+            "3": 1
+          },
+          "default_rating": "2"
+        },
+        "接缝锈迹": {
+          "count": 2,
+          "descriptions": [
+            "钢盖梁接缝处有黄色锈迹，雨天拍摄",
+            "补充视角"
+          ],
+          "rating_distribution": {
+            "2": 2
+          },
+          "default_rating": "2"
+        },
+        "轻度锈迹": {
+          "count": 2,
+          "descriptions": [
+            "补充视角"
+          ],
+          "rating_distribution": {
+            "2": 2
+          },
+          "default_rating": "2"
+        },
+        "粉红色色斑+深色变色": {
+          "count": 2,
+          "descriptions": [
+            "大面积早期泛碱",
+            "粉红色色斑+局部深色水痕"
+          ],
+          "rating_distribution": {
+            "2": 2
+          },
+          "default_rating": "2"
+        },
+        "粉红色+深色渗水条纹": {
+          "count": 2,
+          "descriptions": [
+            "补充视角，同主张类似",
+            "SAM3详查25处3.5m²"
+          ],
+          "rating_distribution": {
+            "3": 1,
+            "4": 1
+          },
+          "default_rating": "3"
+        },
+        "深色渗水+粉红": {
+          "count": 2,
+          "descriptions": [
+            "渗水条纹较明显"
+          ],
+          "rating_distribution": {
+            "3": 2
+          },
+          "default_rating": "3"
+        },
+        "涂装完好": {
+          "count": 2,
+          "descriptions": [
+            "补充视角，涂装完好",
+            "补充视角，涂装基本完好"
+          ],
+          "rating_distribution": {
+            "2": 2
+          },
+          "default_rating": "2"
+        },
+        "粉红色+深色变色": {
+          "count": 2,
+          "descriptions": [
+            "大面积早期变色",
+            "补充视角，底面变色"
+          ],
+          "rating_distribution": {
+            "2": 2
+          },
+          "default_rating": "2"
+        },
+        "轻度锈蚀+渗水": {
+          "count": 1,
+          "descriptions": [
+            "SAM3 标注 9 处共约 0.024 m²（已详查，远轻于右幅）"
+          ],
+          "rating_distribution": {
+            "3": 1
+          },
+          "default_rating": "3"
+        },
+        "粉红色色斑+轻度水痕": {
+          "count": 1,
+          "descriptions": [
+            "粉红色为主，少量深色水痕"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "轻度污染": {
+          "count": 1,
+          "descriptions": [
+            "桥台护坡区域，钢架标识正常"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "粉红色色斑+横隔板变色": {
+          "count": 1,
+          "descriptions": [
+            "色斑+横隔板深色污染"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "锈水流痕+渗水": {
+          "count": 1,
+          "descriptions": [
+            "大面积黄色锈水+渗水"
+          ],
+          "rating_distribution": {
+            "3": 1
+          },
+          "default_rating": "3"
+        },
+        "粉红色色斑+点状污渍": {
+          "count": 1,
+          "descriptions": [
+            "粉红色变色伴局部红色点状污渍，钢梁轻度水痕"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "粉红色+绿色变色": {
+          "count": 1,
+          "descriptions": [
+            "粉红色+绿藻变色"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "粉红色+渗水": {
+          "count": 1,
+          "descriptions": [
+            "粉红色+水痕较明显"
+          ],
+          "rating_distribution": {
+            "3": 1
+          },
+          "default_rating": "3"
+        },
+        "锈迹": {
+          "count": 1,
+          "descriptions": [
+            "V型支腿接缝下方多处锈迹流痕"
+          ],
+          "rating_distribution": {
+            "3": 1
+          },
+          "default_rating": "3"
+        },
+        "钢盖梁锈蚀": {
+          "count": 1,
+          "descriptions": [
+            "SAM3标注16处共0.15m²（已详查）"
+          ],
+          "rating_distribution": {
+            "4": 1
+          },
+          "default_rating": "4"
+        },
+        "接隧道过渡段": {
+          "count": 1,
+          "descriptions": [
+            "右侧区域棕黄色（疑似过渡段或未铺装完成区）"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "黄色水痕": {
+          "count": 1,
+          "descriptions": [
+            "远景视角，有少量水痕"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "粉红色+轻度变色": {
+          "count": 1,
+          "descriptions": [
+            "预制节段拼装痕迹明显"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "粉红色+黄色痕迹": {
+          "count": 1,
+          "descriptions": [
+            "桥面板底面粉红色，墩柱侧面有黄色痕迹"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "锈蚀+渗水+裂缝": {
+          "count": 1,
+          "descriptions": [
+            "SAM3标注16处0.18m²（已详查）"
+          ],
+          "rating_distribution": {
+            "4": 1
+          },
+          "default_rating": "4"
+        },
+        "排水管下方锈迹": {
+          "count": 1,
+          "descriptions": [
+            "排水管伸缩节下方少量锈水痕迹"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "钢盖梁少量锈渍": {
+          "count": 1,
+          "descriptions": [
+            "桥面粉红色+钢梁右下锈渍"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "轻微锈迹": {
+          "count": 1,
+          "descriptions": [
+            "右下墩柱侧面有少量锈迹"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "钢盖梁锈迹": {
+          "count": 1,
+          "descriptions": [
+            "竖向锈迹流痕（排水管下方）"
+          ],
+          "rating_distribution": {
+            "3": 1
+          },
+          "default_rating": "3"
+        },
+        "预制构造接缝+梁底渗水": {
+          "count": 1,
+          "descriptions": [
+            "SAM3 标注13处（HITL:6处构造接缝非病害"
+          ],
+          "rating_distribution": {
+            "3": 1
+          },
+          "default_rating": "3"
+        },
+        "粉红色+轻度水痕": {
+          "count": 1,
+          "descriptions": [
+            "含钢梁视角"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "轻度锈迹+渗水": {
+          "count": 1,
+          "descriptions": [
+            "SAM3 标注 8 处共约 0.14 m²（已详查）"
+          ],
+          "rating_distribution": {
+            "3": 1
+          },
+          "default_rating": "3"
+        },
+        "蜂窝/麻面/气泡": {
+          "count": 1,
+          "descriptions": [
+            "梁底见少量气泡和拉杆孔，工艺瑕疵"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "裂缝": {
+          "count": 1,
+          "descriptions": [
+            "6 号盖梁侧面见近水平向规则细线条，疑似合拢缝待 HITL 复核"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "铺装划痕": {
+          "count": 1,
+          "descriptions": [
+            "可见浅色轮迹但未破损"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        },
+        "修补痕迹": {
+          "count": 1,
+          "descriptions": [
+            "梁底有多处对拉螺杆孔及小型修补点（深色补丁/木楔残留），混凝土施工痕迹明显但无明显病害"
+          ],
+          "rating_distribution": {
+            "2": 1
+          },
+          "default_rating": "2"
+        }
+      }
+    },
+    "轨道": {
+      "sample_count": 800,
+      "allowed_labels": [
+        "裂缝(混凝土裂缝)",
+        "完好",
+        "裂缝(混凝土裂缝)、破损",
+        "破损",
+        "渗水泛碱",
+        "钢结构锈蚀",
+        "钢筋锈蚀",
+        "支座锈蚀",
+        "裂缝(混凝土裂缝)、渗水泛碱",
+        "钢筋锈蚀、破损",
+        "裂缝(混凝土裂缝)、破损、渗水泛碱",
+        "钢筋锈蚀、裂缝(混凝土裂缝)",
+        "钢结构锈蚀、裂缝(混凝土裂缝)",
+        "钢筋锈蚀、裂缝(混凝土裂缝)、破损",
+        "破损、支座锈蚀",
+        "钢筋锈蚀、破损、支座锈蚀",
+        "钢筋锈蚀、渗水泛碱",
+        "钢结构锈蚀、破损",
+        "钢筋锈蚀、破损、渗水泛碱",
+        "钢结构锈蚀、钢筋锈蚀、破损",
+        "破损、渗水泛碱",
+        "裂缝(混凝土裂缝)、破损、支座锈蚀"
+      ],
+      "label_specs": {
+        "裂缝(混凝土裂缝)": {
+          "count": 291,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 291
+          },
+          "default_rating": ""
+        },
+        "破损": {
+          "count": 120,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 120
+          },
+          "default_rating": ""
+        },
+        "完好": {
+          "count": 103,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 103
+          },
+          "default_rating": ""
+        },
+        "支座锈蚀": {
+          "count": 71,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 71
+          },
+          "default_rating": ""
+        },
+        "钢筋锈蚀": {
+          "count": 56,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 56
+          },
+          "default_rating": ""
+        },
+        "渗水泛碱": {
+          "count": 54,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 54
+          },
+          "default_rating": ""
+        },
+        "钢结构锈蚀": {
+          "count": 36,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 36
+          },
+          "default_rating": ""
+        },
+        "裂缝(混凝土裂缝)、破损": {
+          "count": 18,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 18
+          },
+          "default_rating": ""
+        },
+        "钢筋锈蚀、破损": {
+          "count": 14,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 14
+          },
+          "default_rating": ""
+        },
+        "裂缝(混凝土裂缝)、渗水泛碱": {
+          "count": 11,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 11
+          },
+          "default_rating": ""
+        },
+        "破损、支座锈蚀": {
+          "count": 4,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 4
+          },
+          "default_rating": ""
+        },
+        "钢筋锈蚀、裂缝(混凝土裂缝)": {
+          "count": 3,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 3
+          },
+          "default_rating": ""
+        },
+        "钢结构锈蚀、裂缝(混凝土裂缝)": {
+          "count": 3,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 3
+          },
+          "default_rating": ""
+        },
+        "钢筋锈蚀、裂缝(混凝土裂缝)、破损": {
+          "count": 3,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 3
+          },
+          "default_rating": ""
+        },
+        "钢筋锈蚀、破损、支座锈蚀": {
+          "count": 3,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 3
+          },
+          "default_rating": ""
+        },
+        "钢筋锈蚀、渗水泛碱": {
+          "count": 3,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 3
+          },
+          "default_rating": ""
+        },
+        "破损、渗水泛碱": {
+          "count": 2,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 2
+          },
+          "default_rating": ""
+        },
+        "裂缝(混凝土裂缝)、破损、渗水泛碱": {
+          "count": 1,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 1
+          },
+          "default_rating": ""
+        },
+        "钢结构锈蚀、破损": {
+          "count": 1,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 1
+          },
+          "default_rating": ""
+        },
+        "钢筋锈蚀、破损、渗水泛碱": {
+          "count": 1,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 1
+          },
+          "default_rating": ""
+        },
+        "钢结构锈蚀、钢筋锈蚀、破损": {
+          "count": 1,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 1
+          },
+          "default_rating": ""
+        },
+        "裂缝(混凝土裂缝)、破损、支座锈蚀": {
+          "count": 1,
+          "descriptions": [],
+          "rating_distribution": {
+            "": 1
+          },
+          "default_rating": ""
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "source_label_rows": 3403,
+  "deduplicated_label_rows": 3402,
+  "removed_exact_duplicates": 1,
+  "train_images": 3402,
+  "test_images": 1274,
+  "training_manifest": 3402,
+  "test_manifest": 1274,
+  "duplicate_test_basenames": [],
+  "category_counts": {
+    "桥梁": 2602,
+    "轨道": 800
+  },
+  "test_category_counts": {
+    "桥梁": 974,
+    "轨道": 300
+  }
+}

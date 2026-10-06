@@ -1,0 +1,20 @@
+# Large local inputs and model weights; download them from the recorded IDs.
+赛题四.zip
+data/raw/
+models/
+
+# Generated submission copies and archives.
+submission_staging/
+*.tar.gz
+
+# Runtime/cache files.
+**/__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+
+# Local-only review notes may contain manually entered comments.
+qa/review_annotations.jsonl
+
+# Temporary local logs produced by experiments.
+logs/*.tmp

@@ -1,0 +1,874 @@
+{
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "sample_size": 24,
+  "defect_type_exact_accuracy": 0.125,
+  "atomic_macro_f1": 0.130952,
+  "rating_accuracy": 0.333333,
+  "elapsed_seconds": 47.505,
+  "records": [
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (1)_5.JPG",
+        "defectType": "粉红色+轻度变色",
+        "defectDescription": "预制节段拼装痕迹明显",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/东溪河特大桥/跨中梁底 (1)_5.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (1)_5.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (2)_15.JPG",
+        "defectType": "深色渗水+粉红",
+        "defectDescription": "渗水条纹较明显",
+        "ratingScale(1-5)": "3",
+        "image": "训练集/东溪河特大桥/跨中梁底 (2)_15.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (2)_15.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (1)_10.JPG",
+        "defectType": "粉红色+绿色变色",
+        "defectDescription": "粉红色+绿藻变色",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/东溪河特大桥/跨中梁底 (1)_10.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (1)_10.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "柏杨河大桥（右幅）",
+        "defectLocation": "",
+        "filename": "右幅_第4跨-跨中梁底 (1).JPG",
+        "defectType": "修补痕",
+        "defectDescription": "横隔板有规则块状深色修补区，疑似已处治施工瑕疵",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/柏杨河大桥/右幅_第4跨-跨中梁底 (1).JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "柏杨河大桥（右幅）",
+        "defectLocation": "",
+        "filename": "右幅_第4跨-跨中梁底 (1).JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "西溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "DJI_20260421171104_0098_D.JPG",
+        "defectType": "其他",
+        "defectDescription": "终点桥台搭板段橙黄色新铺装，疑似搭板防水或临时铺面",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/西溪河特大桥/DJI_20260421171104_0098_D.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "西溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "DJI_20260421171104_0098_D.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (1)_6.JPG",
+        "defectType": "粉红色色斑+横隔板变色",
+        "defectDescription": "色斑+横隔板深色污染",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/东溪河特大桥/跨中梁底 (1)_6.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (1)_6.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (2)_10.JPG",
+        "defectType": "粉红色+轻度水痕",
+        "defectDescription": "含钢梁视角",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/东溪河特大桥/跨中梁底 (2)_10.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (2)_10.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（左幅）",
+        "defectLocation": "",
+        "filename": "12墩支座.JPG",
+        "defectType": "接缝锈迹",
+        "defectDescription": "钢盖梁接缝处有黄色锈迹，雨天拍摄",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/东溪河特大桥/12墩支座.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（左幅）",
+        "defectLocation": "",
+        "filename": "12墩支座.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "10号墩支座.JPG",
+        "defectType": "钢盖梁锈迹",
+        "defectDescription": "竖向锈迹流痕（排水管下方）",
+        "ratingScale(1-5)": "3",
+        "image": "训练集/东溪河特大桥/10号墩支座.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "10号墩支座.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (2)_3.JPG",
+        "defectType": "粉红色色斑",
+        "defectDescription": "同类",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/东溪河特大桥/跨中梁底 (2)_3.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "跨中梁底 (2)_3.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "后溪河大桥（右幅）",
+        "defectLocation": "",
+        "filename": "右幅_第4跨-5号墩支座.JPG",
+        "defectType": "苔藓/植被",
+        "defectDescription": "桥台前植被生长茂盛逼近支座区，建议清理",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/后溪河大桥/右幅_第4跨-5号墩支座.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "后溪河大桥（右幅）",
+        "defectLocation": "",
+        "filename": "右幅_第4跨-5号墩支座.JPG",
+        "defectType": "苔藓/植被",
+        "defectDescription": "桥墩下植被生长",
+        "ratingScale(1-5)": "2"
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"苔藓/植被\",\"defectDescription\":\"桥墩下植被生长\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"桥墩下绿植茂盛\"}",
+          "prediction": {
+            "defectType": "苔藓/植被",
+            "defectDescription": "桥墩下植被生长",
+            "ratingScale": "2",
+            "confidence": 0.9,
+            "evidence": "桥墩下绿植茂盛",
+            "raw": "{\"defectType\":\"苔藓/植被\",\"defectDescription\":\"桥墩下植被生长\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"桥墩下绿植茂盛\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "8跨支座.JPG",
+        "defectType": "粉红色色斑+点状污渍",
+        "defectDescription": "粉红色变色伴局部红色点状污渍，钢梁轻度水痕",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/东溪河特大桥/8跨支座.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "8跨支座.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（左幅）",
+        "defectLocation": "",
+        "filename": "9墩支座.JPG",
+        "defectType": "轻度锈迹+渗水",
+        "defectDescription": "SAM3 标注 8 处共约 0.14 m²（已详查）",
+        "ratingScale(1-5)": "3",
+        "image": "训练集/东溪河特大桥/9墩支座.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（左幅）",
+        "defectLocation": "",
+        "filename": "9墩支座.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "S00121.JPG",
+        "defectType": "接隧道过渡段",
+        "defectDescription": "右侧区域棕黄色（疑似过渡段或未铺装完成区）",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/东溪河特大桥/S00121.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "S00121.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "9号墩支座.JPG",
+        "defectType": "钢盖梁锈蚀",
+        "defectDescription": "SAM3标注16处共0.15m²（已详查）",
+        "ratingScale(1-5)": "4",
+        "image": "训练集/东溪河特大桥/9号墩支座.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "9号墩支座.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "17号墩支座_2.JPG",
+        "defectType": "黄色水痕",
+        "defectDescription": "远景视角，有少量水痕",
+        "ratingScale(1-5)": "2",
+        "image": "训练集/东溪河特大桥/17号墩支座_2.JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "东溪河特大桥（右幅）",
+        "defectLocation": "",
+        "filename": "17号墩支座_2.JPG",
+        "defectType": "完好",
+        "defectDescription": "无明显病害迹象",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "无明显病害迹象",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "无明显病害迹象",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"无明显病害迹象\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "桥梁",
+        "bridgeName": "青树湾1号大桥（右幅）",
+        "defectLocation": "",
+        "filename": "右幅_第14跨-跨中梁底 (2).JPG",
+        "defectType": "已处治病害（修补）",
+        "defectDescription": "横隔板大面积矩形修补痕",
+        "ratingScale(1-5)": "3",
+        "image": "训练集/青树湾1号大桥/右幅_第14跨-跨中梁底 (2).JPG"
+      },
+      "prediction": {
+        "questionCategory": "桥梁",
+        "bridgeName": "青树湾1号大桥（右幅）",
+        "defectLocation": "",
+        "filename": "右幅_第14跨-跨中梁底 (2).JPG",
+        "defectType": "锈蚀/碳化",
+        "defectDescription": "梁底混凝土出现锈蚀痕迹",
+        "ratingScale(1-5)": "2"
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"锈蚀/碳化\",\"defectDescription\":\"梁底混凝土出现锈蚀痕迹\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"梁底混凝土锈蚀痕迹\"}",
+          "prediction": {
+            "defectType": "锈蚀/碳化",
+            "defectDescription": "梁底混凝土出现锈蚀痕迹",
+            "ratingScale": "2",
+            "confidence": 0.9,
+            "evidence": "梁底混凝土锈蚀痕迹",
+            "raw": "{\"defectType\":\"锈蚀/碳化\",\"defectDescription\":\"梁底混凝土出现锈蚀痕迹\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"梁底混凝土锈蚀痕迹\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "1391938f-bb7b-442c-a00b-83442ba547c8.jpg",
+        "defectType": "支座锈蚀",
+        "defectDescription": "",
+        "ratingScale(1-5)": "",
+        "image": "训练集/轨道/1391938f-bb7b-442c-a00b-83442ba547c8.jpg"
+      },
+      "prediction": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "1391938f-bb7b-442c-a00b-83442ba547c8.jpg",
+        "defectType": "支座锈蚀",
+        "defectDescription": "支座锈蚀严重，表面剥落",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"支座锈蚀\",\"defectDescription\":\"支座锈蚀严重，表面剥落\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"锈蚀斑块、剥落\"}",
+          "prediction": {
+            "defectType": "支座锈蚀",
+            "defectDescription": "支座锈蚀严重，表面剥落",
+            "ratingScale": "",
+            "confidence": 0.9,
+            "evidence": "锈蚀斑块、剥落",
+            "raw": "{\"defectType\":\"支座锈蚀\",\"defectDescription\":\"支座锈蚀严重，表面剥落\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"锈蚀斑块、剥落\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "5e0f1a74-c30b-406d-bb74-661122328ebb.jpg",
+        "defectType": "破损",
+        "defectDescription": "",
+        "ratingScale(1-5)": "",
+        "image": "训练集/轨道/5e0f1a74-c30b-406d-bb74-661122328ebb.jpg"
+      },
+      "prediction": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "5e0f1a74-c30b-406d-bb74-661122328ebb.jpg",
+        "defectType": "破损",
+        "defectDescription": "混凝土表面有破损凹陷",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"破损\",\"defectDescription\":\"混凝土表面有破损凹陷\",\"ratingScale\":\"\",\"confidence\":0.95,\"evidence\":\"混凝土破损凹陷\"}",
+          "prediction": {
+            "defectType": "破损",
+            "defectDescription": "混凝土表面有破损凹陷",
+            "ratingScale": "",
+            "confidence": 0.95,
+            "evidence": "混凝土破损凹陷",
+            "raw": "{\"defectType\":\"破损\",\"defectDescription\":\"混凝土表面有破损凹陷\",\"ratingScale\":\"\",\"confidence\":0.95,\"evidence\":\"混凝土破损凹陷\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "b3068598-2d6a-4036-9d1e-fada6761c6d0.JPG",
+        "defectType": "钢筋锈蚀、渗水泛碱",
+        "defectDescription": "",
+        "ratingScale(1-5)": "",
+        "image": "训练集/轨道/b3068598-2d6a-4036-9d1e-fada6761c6d0.JPG"
+      },
+      "prediction": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "b3068598-2d6a-4036-9d1e-fada6761c6d0.JPG",
+        "defectType": "钢筋锈蚀",
+        "defectDescription": "混凝土内钢筋锈蚀明显",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"钢筋锈蚀\",\"defectDescription\":\"混凝土内钢筋锈蚀明显\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"锈蚀钢筋、混凝土剥落\"}",
+          "prediction": {
+            "defectType": "钢筋锈蚀",
+            "defectDescription": "混凝土内钢筋锈蚀明显",
+            "ratingScale": "",
+            "confidence": 0.9,
+            "evidence": "锈蚀钢筋、混凝土剥落",
+            "raw": "{\"defectType\":\"钢筋锈蚀\",\"defectDescription\":\"混凝土内钢筋锈蚀明显\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"锈蚀钢筋、混凝土剥落\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "b37ff41f-7aef-4191-baf6-b39d20bb9e0b.png",
+        "defectType": "钢筋锈蚀",
+        "defectDescription": "",
+        "ratingScale(1-5)": "",
+        "image": "训练集/轨道/b37ff41f-7aef-4191-baf6-b39d20bb9e0b.png"
+      },
+      "prediction": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "b37ff41f-7aef-4191-baf6-b39d20bb9e0b.png",
+        "defectType": "裂缝(混凝土裂缝)",
+        "defectDescription": "混凝土表面多处裂缝",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"裂缝(混凝土裂缝)\",\"defectDescription\":\"混凝土表面多处裂缝\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"多处明显裂缝\"}",
+          "prediction": {
+            "defectType": "裂缝(混凝土裂缝)",
+            "defectDescription": "混凝土表面多处裂缝",
+            "ratingScale": "",
+            "confidence": 0.9,
+            "evidence": "多处明显裂缝",
+            "raw": "{\"defectType\":\"裂缝(混凝土裂缝)\",\"defectDescription\":\"混凝土表面多处裂缝\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"多处明显裂缝\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "47f95203-4b1e-454c-8b87-bb766135146f.jpg",
+        "defectType": "破损、渗水泛碱",
+        "defectDescription": "",
+        "ratingScale(1-5)": "",
+        "image": "训练集/轨道/47f95203-4b1e-454c-8b87-bb766135146f.jpg"
+      },
+      "prediction": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "47f95203-4b1e-454c-8b87-bb766135146f.jpg",
+        "defectType": "裂缝(混凝土裂缝)",
+        "defectDescription": "混凝土表面有明显纵向裂缝",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"裂缝(混凝土裂缝)\",\"defectDescription\":\"混凝土表面有明显纵向裂缝\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"纵向裂缝贯穿混凝土表面\"}",
+          "prediction": {
+            "defectType": "裂缝(混凝土裂缝)",
+            "defectDescription": "混凝土表面有明显纵向裂缝",
+            "ratingScale": "",
+            "confidence": 0.9,
+            "evidence": "纵向裂缝贯穿混凝土表面",
+            "raw": "{\"defectType\":\"裂缝(混凝土裂缝)\",\"defectDescription\":\"混凝土表面有明显纵向裂缝\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"纵向裂缝贯穿混凝土表面\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "c170e5e3-111c-45a8-9729-ee48a3325f5a.png",
+        "defectType": "裂缝(混凝土裂缝)、破损",
+        "defectDescription": "",
+        "ratingScale(1-5)": "",
+        "image": "训练集/轨道/c170e5e3-111c-45a8-9729-ee48a3325f5a.png"
+      },
+      "prediction": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "c170e5e3-111c-45a8-9729-ee48a3325f5a.png",
+        "defectType": "裂缝(混凝土裂缝)",
+        "defectDescription": "混凝土表面有明显纵向裂缝",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"裂缝(混凝土裂缝)\",\"defectDescription\":\"混凝土表面有明显纵向裂缝\",\"ratingScale\":\"\",\"confidence\":0.95,\"evidence\":\"红色线条标示裂缝\"}",
+          "prediction": {
+            "defectType": "裂缝(混凝土裂缝)",
+            "defectDescription": "混凝土表面有明显纵向裂缝",
+            "ratingScale": "",
+            "confidence": 0.95,
+            "evidence": "红色线条标示裂缝",
+            "raw": "{\"defectType\":\"裂缝(混凝土裂缝)\",\"defectDescription\":\"混凝土表面有明显纵向裂缝\",\"ratingScale\":\"\",\"confidence\":0.95,\"evidence\":\"红色线条标示裂缝\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "truth": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "3c1f28d0-9f89-4571-bacf-637c897a4137.jpg",
+        "defectType": "完好",
+        "defectDescription": "",
+        "ratingScale(1-5)": "",
+        "image": "训练集/轨道/3c1f28d0-9f89-4571-bacf-637c897a4137.jpg"
+      },
+      "prediction": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "3c1f28d0-9f89-4571-bacf-637c897a4137.jpg",
+        "defectType": "钢结构锈蚀",
+        "defectDescription": "金属构件表面锈蚀明显",
+        "ratingScale(1-5)": ""
+      },
+      "raw": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"钢结构锈蚀\",\"defectDescription\":\"金属构件表面锈蚀明显\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"锈蚀区域明显\"}",
+          "prediction": {
+            "defectType": "钢结构锈蚀",
+            "defectDescription": "金属构件表面锈蚀明显",
+            "ratingScale": "",
+            "confidence": 0.9,
+            "evidence": "锈蚀区域明显",
+            "raw": "{\"defectType\":\"钢结构锈蚀\",\"defectDescription\":\"金属构件表面锈蚀明显\",\"ratingScale\":\"\",\"confidence\":0.9,\"evidence\":\"锈蚀区域明显\"}"
+          },
+          "valid": true
+        }
+      ]
+    }
+  ]
+}

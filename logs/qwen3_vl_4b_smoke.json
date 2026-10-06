@@ -1,0 +1,65 @@
+{
+  "model": "Qwen/Qwen3-VL-4B-Instruct",
+  "samples": [
+    {
+      "id": "巫溪互通大桥/DJI_20260422145358_0041_V.JPG",
+      "questionCategory": "桥梁",
+      "elapsed_seconds": 3.057,
+      "result": {
+        "questionCategory": "桥梁",
+        "bridgeName": "巫溪互通大桥",
+        "defectLocation": "",
+        "filename": "DJI_20260422145358_0041_V.JPG",
+        "defectType": "完好",
+        "defectDescription": "路面平整，标线清晰",
+        "ratingScale(1-5)": ""
+      },
+      "raw_records": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"路面平整，标线清晰\"}",
+          "prediction": {
+            "defectType": "完好",
+            "defectDescription": "路面平整，标线清晰",
+            "ratingScale": "",
+            "confidence": 1.0,
+            "evidence": "路面平整，标线清晰",
+            "raw": "{\"defectType\":\"完好\",\"defectDescription\":\"\",\"ratingScale\":\"\",\"confidence\":1.0,\"evidence\":\"路面平整，标线清晰\"}"
+          },
+          "valid": true
+        }
+      ]
+    },
+    {
+      "id": "轨道/002640ae-7af2-401f-a8a2-3acb34ecd2b0.png",
+      "questionCategory": "轨道",
+      "elapsed_seconds": 2.195,
+      "result": {
+        "questionCategory": "轨道",
+        "bridgeName": "",
+        "defectLocation": "",
+        "filename": "002640ae-7af2-401f-a8a2-3acb34ecd2b0.png",
+        "defectType": "裂缝(混凝土裂缝)",
+        "defectDescription": "混凝土表面有明显裂缝",
+        "ratingScale(1-5)": ""
+      },
+      "raw_records": [
+        {
+          "round": 1,
+          "raw": "{\"defectType\":\"裂缝(混凝土裂缝)\",\"defectDescription\":\"混凝土表面有明显裂缝\",\"ratingScale\":\"\",\"confidence\":0.95,\"evidence\":\"混凝土表面裂缝\"}",
+          "prediction": {
+            "defectType": "裂缝(混凝土裂缝)",
+            "defectDescription": "混凝土表面有明显裂缝",
+            "ratingScale": "",
+            "confidence": 0.95,
+            "evidence": "混凝土表面裂缝",
+            "raw": "{\"defectType\":\"裂缝(混凝土裂缝)\",\"defectDescription\":\"混凝土表面有明显裂缝\",\"ratingScale\":\"\",\"confidence\":0.95,\"evidence\":\"混凝土表面裂缝\"}"
+          },
+          "valid": true
+        }
+      ]
+    }
+  ],
+  "elapsed_seconds": 5.252,
+  "gpu": "<module 'torch.cuda' from 'C:\\\\Users\\\\MR\\\\.cache\\\\codex-runtimes\\\\codex-primary-runtime\\\\dependencies\\\\python\\\\Lib\\\\site-packages\\\\torch\\\\cuda\\\\__init__.py'>"
+}
