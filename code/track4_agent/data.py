@@ -178,10 +178,32 @@ def _build_lexicon(rows: list[dict[str, Any]]) -> dict[str, Any]:
                 "rating_distribution": dict(ratings.most_common()),
                 "default_rating": ratings.most_common(1)[0][0] if ratings else "",
             }
+        # Scene-conditioned counts keep the visual prompt small.  The scene is
+        # derived only from the training filename and is never a test answer.
+        scene_counts: dict[str, Counter[str]] = defaultdict(Counter)
+        for item in items:
+            name = str(item.get("filename", ""))
+            if category == "轨道":
+                scene = "track"
+            elif re.search(r"DJI_|^S\d|航拍", name, re.IGNORECASE):
+                scene = "aerial"
+            elif re.search(r"桥面|铺装|道路", name):
+                scene = "deck"
+            elif re.search(r"支座|墩", name):
+                scene = "support"
+            elif re.search(r"梁底|跨中|横隔板", name):
+                scene = "bottom"
+            else:
+                scene = "generic"
+            scene_counts[scene][item["defectType"]] += 1
+
         lexicon["categories"][category] = {
             "sample_count": len(items),
             "allowed_labels": list(counts.keys()),
             "label_specs": label_specs,
+            "scene_label_counts": {
+                scene: dict(counts.most_common()) for scene, counts in scene_counts.items()
+            },
         }
     return lexicon
 

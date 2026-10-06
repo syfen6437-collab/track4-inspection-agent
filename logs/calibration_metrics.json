@@ -1,9 +1,9 @@
 {
   "sample_size": 24,
   "defect_type_exact_accuracy": 0.041667,
-  "atomic_macro_f1": 0.093268,
-  "rating_accuracy": 0.791667,
-  "elapsed_seconds": 429.579,
+  "atomic_macro_f1": 0.049383,
+  "rating_accuracy": 0.458333,
+  "elapsed_seconds": 75.188,
   "category_counts": {
     "桥梁": 17,
     "轨道": 7

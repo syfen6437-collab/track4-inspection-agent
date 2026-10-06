@@ -1,0 +1,15 @@
+{
+  "purpose": "Track 4 bridge-focused optimization experiments",
+  "baseline_submission_score": 43.0,
+  "score_breakdown": {
+    "bridge": {"score": 4.31, "max": 10.0, "weight": 0.7645},
+    "track": {"score": 0.43, "max": 1.0, "weight": 0.2355}
+  },
+  "decision": "Do not overwrite the submitted result until a full validation run confirms an improvement.",
+  "experiments": [
+    {"name": "qwen3-vl-4b-scene-routing", "sample_size": 48, "defect_type_exact_accuracy": 0.083333, "rating_accuracy": 0.3125},
+    {"name": "qwen3-vl-4b-high-resolution", "sample_size": 24, "defect_type_exact_accuracy": 0.083333, "rating_accuracy": 0.291667},
+    {"name": "qwen3-vl-4b-review-crops", "sample_size": 12, "defect_type_exact_accuracy": 0.083333, "rating_accuracy": 0.333333},
+    {"name": "qwen3-vl-4b-vision-nearest-neighbor-probe", "sample_size": 5, "defect_type_exact_accuracy": 0.0}
+  ]
+}

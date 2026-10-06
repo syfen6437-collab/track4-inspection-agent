@@ -13,7 +13,7 @@ CODE_DIR = Path(__file__).resolve().parents[1]
 if str(CODE_DIR) not in sys.path:
     sys.path.insert(0, str(CODE_DIR))
 
-from track4_agent.model import crop_montage, sanitize_prediction
+from track4_agent.model import build_checklist_prompt, candidate_labels, checklist_prediction, crop_montage, sanitize_prediction
 from track4_agent.validation import validate_result
 
 
@@ -45,6 +45,29 @@ class PipelineTests(unittest.TestCase):
         self.assertTrue(valid)
         self.assertEqual(prediction["defectType"], "裂缝")
         self.assertEqual(prediction["ratingScale"], "2")
+
+    def test_checklist_prediction_maps_selected_atomic_labels(self) -> None:
+        lexicon = {
+            "categories": {
+                "桥梁": {
+                    "allowed_labels": ["完好", "裂缝", "裂缝、破损"],
+                    "label_specs": {
+                        "完好": {"count": 10, "rating_distribution": {"": 10}, "default_rating": ""},
+                        "裂缝": {"count": 3, "rating_distribution": {"2": 3}, "default_rating": "2"},
+                        "裂缝、破损": {"count": 1, "rating_distribution": {"3": 1}, "default_rating": "3"},
+                    },
+                    "scene_label_counts": {"bottom": {"裂缝": 2, "裂缝、破损": 1}},
+                }
+            }
+        }
+        prediction, valid = checklist_prediction(
+            '{"selected":["裂缝","破损"],"description":"梁底可见裂缝和破损","confidence":0.8}',
+            lexicon,
+            "桥梁",
+            "bottom",
+        )
+        self.assertTrue(valid)
+        self.assertEqual(prediction["defectType"], "裂缝、破损")
 
     def test_validate_result_accepts_exact_schema(self) -> None:
         manifest = [

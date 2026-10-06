@@ -14,11 +14,15 @@ from .data import OUTPUT_KEYS, read_jsonl, write_json, write_jsonl
 from .model import (
     ModelClient,
     build_prompt,
+    build_checklist_prompt,
+    build_presence_prompt,
     crop_montage,
     needs_review,
     quadrant_crops,
     resize_global,
     sanitize_prediction,
+    scene_key,
+    checklist_prediction,
 )
 
 
@@ -35,6 +39,11 @@ def _first_pass_images(path: Path, item: dict[str, Any], config: dict[str, Any])
     global_image = resize_global(image, max_side)
     if item["questionCategory"] == "轨道" and config.get("track_use_crops", True):
         return [global_image, crop_montage(image, int(config["crop_size"]))]
+    if item["questionCategory"] == "桥梁" and config.get("bridge_use_crops", True):
+        # Close views (supports, piers, girder bottoms and bridge decks) lose
+        # small defects when reduced to a single 384px full-frame image.
+        if scene_key(item) != "aerial":
+            return [global_image, crop_montage(image, int(config["crop_size"]))]
     return [global_image]
 
 
@@ -55,6 +64,8 @@ def _review_images(
             neighbor_path = raw_dir / "初赛测试集" / Path(neighbor_id)
             images.append(resize_global(_open_image(neighbor_path), 768))
         return images
+    if item["questionCategory"] == "桥梁" and config.get("bridge_review_crops_only", False):
+        return [crop_montage(image, int(config["crop_size"]))]
     return [
         resize_global(image, int(config["global_max_side"])),
         crop_montage(image, int(config["crop_size"])),
@@ -90,27 +101,63 @@ def infer_item(
 ) -> tuple[dict[str, Any], list[dict[str, Any]]]:
     raw_records: list[dict[str, Any]] = []
     first_images = _first_pass_images(image_path, item, config)
-    first_prompt = build_prompt(item, lexicon)
+    use_checklist = bool(config.get("bridge_checklist", False) and item["questionCategory"] == "桥梁")
+    first_prompt = build_checklist_prompt(item, lexicon) if use_checklist else build_prompt(item, lexicon)
+    coarse = ""
+    if config.get("two_stage_bridge", False) and item["questionCategory"] == "桥梁":
+        presence_raw = client.generate(first_images, build_presence_prompt(item))
+        presence = _parse_presence(presence_raw)
+        coarse = str(presence.get("coarse_type", ""))
+        raw_records.append({"round": 0, "raw": presence_raw, "presence": presence})
+        if coarse:
+            first_prompt += f"\n初筛模型观察到的粗类别（仅作辅助，必须重新核对图像）：{coarse}"
     first_raw = client.generate(first_images, first_prompt)
-    first_prediction, first_valid = sanitize_prediction(first_raw, lexicon, item["questionCategory"])
+    if use_checklist:
+        first_prediction, first_valid = checklist_prediction(
+            first_raw, lexicon, item["questionCategory"], scene_key(item)
+        )
+    else:
+        first_prediction, first_valid = sanitize_prediction(
+            first_raw, lexicon, item["questionCategory"], scene_key(item)
+        )
     raw_records.append({"round": 1, "raw": first_raw, "prediction": first_prediction, "valid": first_valid})
     chosen = first_prediction
 
     # Illegal label spellings are normalized against the training-derived
     # lexicon. Reserve the expensive visual review for genuinely uncertain or
     # contradictory predictions so the full test set stays within deadline.
-    should_review = allow_review and needs_review(
-        first_prediction, float(config["confidence_threshold"])
+    should_review = allow_review and (
+        needs_review(first_prediction, float(config["confidence_threshold"]))
+        or (
+            config.get("bridge_review_all", False)
+            and item["questionCategory"] == "桥梁"
+            and scene_key(item) != "aerial"
+        )
     )
     if should_review and raw_dir is not None:
         review_images = _review_images(image_path, item, config, neighbors or {}, raw_dir)
-        review_prompt = build_prompt(item, lexicon, review=True, prior_prediction=first_prediction)
+        review_prompt = (
+            build_checklist_prompt(item, lexicon, review=True)
+            if use_checklist
+            else build_prompt(item, lexicon, review=True, prior_prediction=first_prediction)
+        )
         review_raw = client.generate(review_images, review_prompt)
-        review_prediction, review_valid = sanitize_prediction(review_raw, lexicon, item["questionCategory"])
+        if use_checklist:
+            review_prediction, review_valid = checklist_prediction(
+                review_raw, lexicon, item["questionCategory"], scene_key(item)
+            )
+        else:
+            review_prediction, review_valid = sanitize_prediction(
+                review_raw, lexicon, item["questionCategory"], scene_key(item)
+            )
         raw_records.append(
             {"round": 2, "raw": review_raw, "prediction": review_prediction, "valid": review_valid}
         )
-        if review_valid or review_prediction["confidence"] >= first_prediction["confidence"]:
+        if (
+            (first_prediction["defectType"] == "完好" and review_prediction["defectType"] != "完好")
+            or review_valid
+            or review_prediction["confidence"] >= first_prediction["confidence"]
+        ):
             chosen = review_prediction
 
     final = {
@@ -123,6 +170,19 @@ def infer_item(
         "ratingScale(1-5)": chosen["ratingScale"],
     }
     return final, raw_records
+
+
+def _parse_presence(raw_text: str) -> dict[str, Any]:
+    cleaned = raw_text.strip()
+    first, last = cleaned.find("{"), cleaned.rfind("}")
+    if 0 <= first < last:
+        try:
+            value = json.loads(cleaned[first : last + 1])
+            if isinstance(value, dict):
+                return value
+        except json.JSONDecodeError:
+            pass
+    return {}
 
 
 def _load_checkpoint(path: Path) -> dict[str, dict[str, Any]]:
@@ -306,7 +366,7 @@ def run_calibration(
             config,
             raw_dir / row["image"],
             raw_dir=raw_dir,
-            allow_review=False,
+            allow_review=bool(config.get("calibration_review", False)),
         )
         records.append({"truth": row, "prediction": predicted, "raw": raw_records})
         print(f"[calibrate] {index}/{len(sample)}", flush=True)

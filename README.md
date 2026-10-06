@@ -33,3 +33,9 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 - `code/OPEN_SOURCE.md`：可复用开源项目和许可证说明
 
 本工程只支持本地开源模型推理，不调用赛事 API，不包含爬虫、测试数据探测或答案硬编码逻辑。
+
+## 优化实验状态
+
+当前代码已加入基于文件名场景的桥梁提示路由（航拍、桥面、墩/支座、梁底）和训练集场景标签统计，并支持桥梁近景多裁剪、候选清单复核及两阶段初筛配置。默认配置保持可直接运行；实验配置位于 `code/config/qwen3-vl-4b-*.json`。
+
+`logs/qwen3_vl_4b_calibration.json`、`logs/calibration_metrics.json` 和 `logs/embedding_probe.json` 记录了本地留出实验。实验结果尚未自动覆盖 `result/result.json`，只有通过本地校准和 `validate` 后才应重新打包提交。

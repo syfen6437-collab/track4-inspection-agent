@@ -1,0 +1,16 @@
+{
+  "model_id": "Qwen/Qwen3-VL-4B-Instruct",
+  "model_dir": "models/Qwen3-VL-4B-Instruct",
+  "seed": 20261005,
+  "checkpoint_every": 25,
+  "confidence_threshold": 0.55,
+  "max_new_tokens": 96,
+  "global_max_side": 640,
+  "bridge_max_side": 640,
+  "crop_size": 320,
+  "bridge_use_crops": true,
+  "bridge_review_enabled": false,
+  "track_use_crops": true,
+  "deadline_hours": 6.0,
+  "calibration_sample_size": 120
+}
