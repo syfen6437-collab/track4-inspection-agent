@@ -1,0 +1,48 @@
+{"id":"训练集/东溪河特大桥/10号墩支座.JPG","status":"needs_review","reviewedLabel":"钢盖梁锈迹","note":"钢盖梁局部锈迹不明显，可能受光照影响，建议结合邻近视角确认。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/12墩支座.JPG","status":"confirmed","reviewedLabel":"","note":"接缝处可见黄色锈迹，与钢盖梁接缝位置一致。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/13墩支座.JPG","status":"confirmed","reviewedLabel":"","note":"支座及邻近构件可见粉红色变色和黄色痕迹，原始组合描述与画面一致。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/15号墩支座_2.JPG","status":"confirmed","reviewedLabel":"","note":"支座区域可见粉红色与深色变色，原始标签可由图像观察到。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/15墩支座.JPG","status":"confirmed","reviewedLabel":"","note":"构造接缝与梁底水痕同时可见，支持预制构造接缝+梁底渗水。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/16号墩支座_2.JPG","status":"needs_review","reviewedLabel":"钢盖梁少量锈渍","note":"钢盖梁仅见少量浅色锈渍，病害范围和严重程度证据不足。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/17号墩支座_2.JPG","status":"confirmed","reviewedLabel":"","note":"远景支座区域可见少量黄色水痕，符合原始标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/18号墩支座_2.JPG","status":"confirmed","reviewedLabel":"","note":"盖梁/支座附近可见黄色锈水流痕并伴水迹，支持锈水流痕+渗水。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/21号墩支座.JPG","status":"confirmed","reviewedLabel":"","note":"支座周边为轻度表面污染，未见更强病害证据。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/3夸支座.JPG","status":"confirmed","reviewedLabel":"","note":"支座上方可见黄色锈水痕迹，支持锈水痕。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/8跨支座.JPG","status":"confirmed","reviewedLabel":"","note":"支座区域可见粉红色色斑和点状污渍，原始组合标签有对应视觉证据。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/9号墩支座.JPG","status":"needs_review","reviewedLabel":"钢盖梁锈蚀","note":"钢盖梁锈蚀较轻，雨天或阴影可能造成颜色误判，建议结合近景确认。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/9墩支座.JPG","status":"needs_review","reviewedLabel":"轻度锈迹+渗水","note":"雨天支座区域有水痕和轻微锈迹，渗水与锈水边界不清。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/9墩支座_2.JPG","status":"confirmed","reviewedLabel":"","note":"支座侧面可见少量轻微锈迹，符合原始标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/S00121.JPG","status":"confirmed","reviewedLabel":"","note":"画面为桥梁与隧道连接处的过渡段，未见更明确的独立病害标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/右幅_跨中梁底.JPG","status":"needs_review","reviewedLabel":"粉红色+深色渗水条纹","note":"梁底有粉红色变色和深色条带，但条带可能受阴影影响，建议结合相邻帧复核。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/跨中梁底 (1)_10.JPG","status":"confirmed","reviewedLabel":"","note":"梁底可见粉红色与绿色变色，原始标签有清晰色斑证据。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/跨中梁底 (1)_5.JPG","status":"confirmed","reviewedLabel":"","note":"梁底可见粉红色变色并伴轻度表面变色。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/跨中梁底 (1)_6.JPG","status":"confirmed","reviewedLabel":"","note":"梁底粉红色色斑明显，横隔板区域同时存在深色变色。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/跨中梁底 (2)_10.JPG","status":"needs_review","reviewedLabel":"粉红色+轻度水痕","note":"粉红色变色可见，但轻度水痕不明显，建议结合相邻视角复核。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/跨中梁底 (2)_15.JPG","status":"needs_review","reviewedLabel":"深色渗水+粉红","note":"深色条带可能是渗水，也可能是阴影或表面色差，当前证据不足以直接确认。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/跨中梁底 (2)_3.JPG","status":"confirmed","reviewedLabel":"","note":"梁底可见典型粉红色色斑，符合原始标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/11号墩支座.JPG","status":"needs_review","reviewedLabel":"锈蚀+渗水+裂缝","note":"可见锈蚀或水迹，但裂缝和三项组合的完整证据不够清晰，建议复核。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/东溪河特大桥/11号墩支座_2.JPG","status":"confirmed","reviewedLabel":"","note":"支座钢构件涂装整体完整，未见明确锈蚀扩展。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/后溪河大桥/右幅_第4跨-5号墩支座.JPG","status":"confirmed","reviewedLabel":"","note":"支座附近可见苔藓或植被附着，符合原始标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/后溪河大桥/左幅_第2跨-跨中梁底 (4).JPG","status":"confirmed","reviewedLabel":"","note":"梁底可见蜂窝、麻面或气泡类施工外观瑕疵，未见更强病害证据。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/柏杨河大桥/DJI_20260422154233_0038_V.JPG","status":"confirmed","reviewedLabel":"","note":"航拍铺装表面可见浅色划痕或轮迹，未见明显结构破损。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/柏杨河大桥/右幅_第4跨-跨中梁底 (1).JPG","status":"confirmed","reviewedLabel":"","note":"梁底可见规则块状修补痕，支持原始修补痕标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/柏杨河大桥/左幅_第2跨-跨中梁底 (2).JPG","status":"confirmed","reviewedLabel":"","note":"梁底可见模板或脚手架施工痕迹，原始脚手架痕标签可确认。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/柏杨河大桥/第6跨-6墩支座.JPG","status":"confirmed","reviewedLabel":"","note":"支座/盖梁侧面有清晰细长裂缝，支持原始裂缝标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/白鹤路跨线桥/左幅_第2跨-跨中梁底.JPG","status":"confirmed","reviewedLabel":"","note":"梁底可见规则修补痕迹，支持原始修补痕迹标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/范家坪1号大桥/左幅_第4跨-跨中梁底 (1).JPG","status":"confirmed","reviewedLabel":"","note":"梁底接缝处可见连续水渍/泛碱痕迹，支持渗水/泛碱。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/西溪河特大桥/DJI_20260421171104_0098_D.JPG","status":"confirmed","reviewedLabel":"","note":"航拍画面主要表现为其他过渡或铺装状态，未见更具体的结构病害。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/青树湾1号大桥/右幅_第14跨-跨中梁底 (2).JPG","status":"confirmed","reviewedLabel":"","note":"梁底为规则修补区域，原始已处治病害（修补）标签有对应证据。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/01c417a1-873a-47a8-b5e4-bf877e661d2f.png","status":"confirmed","reviewedLabel":"","note":"支座附近混凝土破损并露筋，钢筋和支座构件均有锈蚀，支持原始组合标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/093891e5-4395-4c93-98eb-51a7fd8d1bb7.jpg","status":"needs_review","reviewedLabel":"钢结构锈蚀、裂缝(混凝土裂缝)","note":"钢构件锈蚀迹象和细裂缝均较弱，当前画面不足以确认组合标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/1798d195-9f1c-4513-9f14-e0d4cf5c38f8.png","status":"confirmed","reviewedLabel":"","note":"构件局部有明确破损，支持原始破损标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/1b697d73-052b-4db8-9c2b-e94543a782da.png","status":"confirmed","reviewedLabel":"","note":"混凝土明显剥落露石，支承钢构件有锈色，支持破损+支座锈蚀。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/41094428-c47a-47ae-ba76-b62c418cd2ba.jpg","status":"confirmed","reviewedLabel":"","note":"可见混凝土破损、露筋锈蚀及水迹，支持钢筋锈蚀+破损+渗水泛碱。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/47f95203-4b1e-454c-8b87-bb766135146f.jpg","status":"confirmed","reviewedLabel":"","note":"接缝周边有表面破损，底部有明显黑色水渍/泛碱痕，支持破损+渗水泛碱。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/479a1a70-1408-42db-bf85-a1d7958d0179.png","status":"needs_review","reviewedLabel":"裂缝(混凝土裂缝)、破损、支座锈蚀","note":"破损和锈蚀可见，但裂缝与支座锈蚀的对应位置不够清晰，建议复核组合标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/52d88047-8f69-48e1-a06a-911e76501f2e.png","status":"confirmed","reviewedLabel":"","note":"钢构件表面可见连续锈蚀斑和锈水痕迹，支持钢结构锈蚀。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/58bf5d02-4615-4e6e-997d-d70a9367a4c9.jpg","status":"confirmed","reviewedLabel":"","note":"可见贯通状细裂缝，边缘及局部表层同时有剥落/缺损，支持裂缝+破损。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/c2cd10e1-1e55-44f2-94ea-af63d4ef524d.png","status":"confirmed","reviewedLabel":"","note":"红线标出的混凝土细裂缝清晰可见，支持原始裂缝标签。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/e0dc59a6-7ed3-41a0-afda-44124e381033.jpg","status":"confirmed","reviewedLabel":"","note":"混凝土剥落并露出明显锈蚀钢筋，周围有黑色水迹，支持钢筋锈蚀+渗水泛碱。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/e4decc6e-9ae4-4b44-9ef0-563faf5165fb.png","status":"confirmed","reviewedLabel":"","note":"可见露筋锈蚀并伴混凝土破损；画面边缘的钢构件锈蚀与原始组合标签相符。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/e573b2e7-c95c-401d-ab3c-028f2abca1de.JPG","status":"confirmed","reviewedLabel":"","note":"混凝土表面可见明显白色结晶/泛白，支持渗水泛碱。","reviewedAt":"2026-10-07T03:11:20"}
+{"id":"训练集/轨道/ed5995a1-d0eb-4884-8b83-d5174c3065ce.jpg","status":"confirmed","reviewedLabel":"","note":"露筋、锈蚀、裂缝和混凝土破损均可见，支持原始三项组合标签。","reviewedAt":"2026-10-07T03:11:20"}
