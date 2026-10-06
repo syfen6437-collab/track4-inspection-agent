@@ -1,6 +1,6 @@
 # 赛道四：城市路桥隧边坡结构病害智能巡检
 
-本仓库保存赛道四本地多模态智能体工程：使用开源 Qwen3-VL 模型，对桥梁和轨道图片生成赛事要求的七字段 `result.json`，并提供训练标签审核、校准和可恢复推理工具。
+本仓库保存赛道四本地多模态智能体工程：默认使用开源 `Qwen3-VL-4B-Instruct`，对桥梁和轨道图片生成赛事要求的七字段 `result.json`，并提供训练标签审核、校准和可恢复推理工具。
 
 ## 快速开始
 
@@ -36,6 +36,6 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 
 ## 优化实验状态
 
-当前代码已加入基于文件名场景的桥梁提示路由（航拍、桥面、墩/支座、梁底）和训练集场景标签统计，并支持桥梁近景多裁剪、候选清单复核及两阶段初筛配置。默认配置保持可直接运行；实验配置位于 `code/config/qwen3-vl-4b-*.json`。
+当前代码已加入基于文件名场景的桥梁提示路由（航拍、桥面、墩/支座、梁底）和训练集场景标签统计，并支持桥梁近景多裁剪、候选清单复核及两阶段初筛配置。默认配置为 `code/config/qwen3-vl-4b-review.json`；训练难例审核记录只生成聚合证据提示，不按文件名写入测试答案。
 
 `logs/qwen3_vl_4b_calibration.json`、`logs/calibration_metrics.json` 和 `logs/embedding_probe.json` 记录了本地留出实验。实验结果尚未自动覆盖 `result/result.json`，只有通过本地校准和 `validate` 后才应重新打包提交。

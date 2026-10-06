@@ -21,7 +21,7 @@ from track4_agent.model import ModelClient, download_model
 from track4_agent.validation import build_submission_package, validate_result
 
 
-DEFAULT_CONFIG = CODE_DIR / "config" / "baseline.json"
+DEFAULT_CONFIG = CODE_DIR / "config" / "qwen3-vl-4b-review.json"
 
 
 def load_config(path: Path) -> dict[str, Any]:

@@ -2,9 +2,9 @@
   "requested": 1274,
   "offset": 0,
   "completed": 1274,
-  "processed_this_run": 1270,
-  "elapsed_seconds": 6152.681,
-  "images_per_second": 0.20641,
+  "processed_this_run": 1274,
+  "elapsed_seconds": 5279.076,
+  "images_per_second": 0.24133,
   "fast_mode": false,
   "result_path": "E:\\赛题四_智能体\\result\\result.json"
 }

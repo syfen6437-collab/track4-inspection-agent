@@ -1,6 +1,6 @@
 # 赛道四本地智能巡检首版
 
-本工程使用开源多模态模型 `Qwen/Qwen3-VL-2B-Instruct`，在本地完成桥梁与轨道病害识别、病害描述和评定标度生成。推理不调用外部 API，最终输出严格遵循赛事七字段 JSON 结构。
+本工程默认使用开源多模态模型 `Qwen/Qwen3-VL-4B-Instruct`，在本地完成桥梁与轨道病害识别、病害描述和评定标度生成。推理不调用外部 API，最终输出严格遵循赛事七字段 JSON 结构。
 
 ## 快速运行
 
@@ -26,7 +26,7 @@
 .\code\run.ps1 all --archive .\赛题四.zip --calibration-sample-size 120
 ```
 
-当前首版配置为桥梁整图最长边384像素；轨道输入由448像素整图和一张包含四个重叠象限的2×2细节拼图组成。输出上限为72个新token，桥梁二次复核在六小时配置中关闭，轨道低置信度结果仍可自动复核。
+当前最终配置为4B桥梁双阶段初筛、桥梁整图加四象限细节拼图，轨道使用整图加四象限细节拼图。输出上限为96个新token；轨道低置信度结果仍可自动复核。默认入口配置为 `code/config/qwen3-vl-4b-review.json`。
 
 ## 训练图片浏览与人工审核
 
@@ -54,6 +54,8 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 该命令会写入当前 `result/` 和 `logs/`，建议先复制首版结果或使用单独工作目录；它不上传官网。
 
 `package` 命令固定生成根目录的 `track4_submission.tar.gz`，重复运行会覆盖同一个文件，不会继续产生带时间戳的提交包。旧的时间戳包属于历史产物，已被 Git 忽略。
+
+最终提交包同时携带 `code/review_annotations.jsonl`，其中只记录训练难例审核状态和证据摘要；它不会改写训练清单，也不会覆盖测试结果。
 
 ## 目录
 

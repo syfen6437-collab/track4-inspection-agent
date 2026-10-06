@@ -95,17 +95,41 @@ def candidate_labels(lexicon: dict[str, Any], category: str, scene: str, limit: 
         scene_counts = category_data.get("label_specs", {})
         scene_counts = {label: spec.get("count", 0) for label, spec in scene_counts.items()}
     labels = [label for label, _ in sorted(scene_counts.items(), key=lambda pair: pair[1], reverse=True)]
+    reviewed_counts = lexicon.get("review_guidance", {}).get("confirmed_label_counts", {})
+    for label in reviewed_counts:
+        if label in category_data["allowed_labels"] and label not in labels:
+            labels.append(label)
     # Always retain the base defect classes for a new bridge/test scene whose
     # filename has no exact training counterpart.
     base = ("完好", "渗水/泛碱", "已处治病害（修补）", "锈蚀/碳化", "混凝土外观瑕疵")
     for label in base:
         if label in category_data["allowed_labels"] and label not in labels:
             labels.append(label)
+    if category == "轨道":
+        # The track taxonomy has only a few dozen legal combinations. Keeping
+        # all of them prevents a rare but valid multi-defect label from being
+        # excluded before the model sees the image.
+        return [label for label in category_data["allowed_labels"] if label in labels or label in reviewed_counts]
     return labels[:limit]
 
 
 def lexicon_prompt(lexicon: dict[str, Any], category: str, scene: str = "generic") -> str:
     return "、".join(candidate_labels(lexicon, category, scene))
+
+
+def review_guidance_prompt(lexicon: dict[str, Any]) -> str:
+    """Summarize reviewed evidence without binding any image to a test answer."""
+    guidance = lexicon.get("review_guidance", {})
+    evidence = guidance.get("confirmed_evidence", {})
+    if not evidence:
+        return ""
+    lines = []
+    for label, notes in list(evidence.items())[:8]:
+        lines.append(f"- {label}: {'；'.join(notes[:2])}")
+    return (
+        "\n训练集人工审核证据摘要（仅用于观察重点，不是测试答案，也不能替代当前图像判断）：\n"
+        + "\n".join(lines)
+    )
 
 
 def build_prompt(
@@ -136,6 +160,7 @@ def build_prompt(
         "track": "这是轨道结构近景图，先判断裂缝、破损、锈蚀、渗水泛碱或完好，再选择组合标签。",
         "generic": "先判断照片中的结构部位，再选择最符合可见证据的病害。",
     }[scene]
+    reviewed_guidance = review_guidance_prompt(lexicon)
     return f"""你是城市桥梁与轨道结构病害巡检专家。{scene_instruction} {review_instruction}
 
 输入元数据：
@@ -145,6 +170,7 @@ def build_prompt(
 
 只能从以下训练集合法病害类型中选择 defectType，必须保持文字完全一致：
 {label_text}
+{reviewed_guidance}
 
 要求：
 1. 先在内部判断 visible_defect：只有看到裂缝、剥落、锈蚀、渗水/泛碱、明显修补或明确异常色斑时才选病害；正常纹理、阴影、施工接缝和远景不可辨细节应选“完好”。
@@ -177,7 +203,8 @@ def build_presence_prompt(item: dict[str, Any], *, review: bool = False) -> str:
 
 def build_checklist_prompt(item: dict[str, Any], lexicon: dict[str, Any], *, review: bool = False) -> str:
     scene = scene_key(item)
-    labels = candidate_labels(lexicon, item["questionCategory"], scene, limit=14)
+    limit = len(lexicon["categories"][item["questionCategory"]]["allowed_labels"])
+    labels = candidate_labels(lexicon, item["questionCategory"], scene, limit=limit if item["questionCategory"] == "轨道" else 18)
     examples = []
     specs = lexicon["categories"][item["questionCategory"]]["label_specs"]
     for label in labels:

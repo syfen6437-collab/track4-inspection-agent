@@ -43,6 +43,45 @@ def read_jsonl(path: Path) -> list[dict[str, Any]]:
     return rows
 
 
+def _load_review_guidance(
+    workspace: Path, train_rows: list[dict[str, Any]] | None = None
+) -> dict[str, Any]:
+    """Load human QA as aggregate training guidance, never as test answers."""
+    candidates = [
+        workspace / "qa" / "review_annotations.jsonl",
+        workspace / "code" / "review_annotations.jsonl",
+    ]
+    path = next((candidate for candidate in candidates if candidate.exists()), None)
+    if path is None:
+        return {}
+    rows = read_jsonl(path)
+    train_labels = {
+        str(row.get("image")): str(row.get("defectType", ""))
+        for row in (train_rows or [])
+    }
+    confirmed = [row for row in rows if row.get("status") == "confirmed"]
+    confirmed_labels = {
+        str(row.get("id")): str(row.get("reviewedLabel") or "") or train_labels.get(str(row.get("id")), "")
+        for row in confirmed
+    }
+    label_counts = Counter(confirmed_labels.values())
+    label_counts.pop("", None)
+    notes_by_label: dict[str, list[str]] = defaultdict(list)
+    for row in confirmed:
+        label = confirmed_labels.get(str(row.get("id")), "")
+        note = str(row.get("note") or "").strip()
+        if label and note and note not in notes_by_label[label]:
+            notes_by_label[label].append(note[:100])
+    return {
+        "confirmed_count": len(confirmed),
+        "needs_review_count": sum(row.get("status") == "needs_review" for row in rows),
+        "confirmed_label_counts": dict(label_counts.most_common()),
+        "confirmed_evidence": {
+            label: notes[:3] for label, notes in notes_by_label.items()
+        },
+    }
+
+
 def write_jsonl(path: Path, rows: Iterable[dict[str, Any]]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("w", encoding="utf-8", newline="\n") as handle:
@@ -284,6 +323,9 @@ def load_assets(workspace: Path) -> tuple[list[dict[str, Any]], list[dict[str, A
     train = read_jsonl(processed / "train_manifest.jsonl")
     test = read_jsonl(processed / "test_manifest.jsonl")
     lexicon = read_json(processed / "label_lexicon.json")
+    review_guidance = _load_review_guidance(workspace, train)
+    if review_guidance:
+        lexicon["review_guidance"] = review_guidance
     return train, test, lexicon
 
 
@@ -292,3 +334,6 @@ def copy_submission_code(workspace: Path, destination: Path) -> None:
     if destination.exists():
         shutil.rmtree(destination)
     shutil.copytree(source, destination, ignore=shutil.ignore_patterns("__pycache__", "*.pyc"))
+    review_file = workspace / "qa" / "review_annotations.jsonl"
+    if review_file.exists():
+        shutil.copy2(review_file, destination / "review_annotations.jsonl")

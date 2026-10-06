@@ -136,6 +136,11 @@ def build_design_document(workspace: Path, team_name: str = "") -> Path:
     calibration = _read_optional(workspace / "logs" / "calibration_metrics.json")
     inference = _read_optional(workspace / "logs" / "inference_summary.json")
     validation = _read_optional(workspace / "logs" / "validation_report.json")
+    review_rows = []
+    review_file = workspace / "qa" / "review_annotations.jsonl"
+    if review_file.exists():
+        with review_file.open("r", encoding="utf-8") as handle:
+            review_rows = [json.loads(line) for line in handle if line.strip()]
 
     document = Document(template)
 
@@ -182,7 +187,7 @@ def build_design_document(workspace: Path, team_name: str = "") -> Path:
     anchor = _find_paragraph(document, "二、智能体总体架构设计")
     p = _insert_paragraph_after(
         anchor,
-        "智能体由数据准备、场景路由、视觉推理、低置信度复核、结构化校验和提交打包六个模块组成。基座模型为Qwen3-VL-2B-Instruct，采用BF16在本地GPU运行；推理阶段不访问网络。",
+        "智能体由数据准备、场景路由、视觉推理、低置信度复核、结构化校验和提交打包六个模块组成。基座模型为Qwen3-VL-4B-Instruct，采用BF16在本地GPU运行；推理阶段不访问网络。",
     )
     _style_paragraph(p)
     architecture_rows = [
@@ -198,9 +203,9 @@ def build_design_document(workspace: Path, team_name: str = "") -> Path:
     anchor = _find_paragraph(document, "三、核心模块详细设计")
     module_texts = [
         "数据预处理模块：安全解压20GB公开数据，读取汇总标注，删除一条完全重复记录，并通过桥梁名称、左右幅和文件夹解决重复照片编号映射。生成训练清单、测试清单和标签词典，所有中间文件均可复核。",
-        "分域视觉模块：六小时首版将桥梁整图最长边缩放到384像素；轨道整图保持448像素，并把四个重叠象限缩略图拼成一张2×2细节图。模型仍观察四个局部区域，但只编码两张图，兼顾细裂缝识别与吞吐。",
+        "分域视觉模块：最终配置将桥梁整图和四象限细节图送入4B模型，并在桥梁场景增加一次粗类别初筛；轨道使用整图和四象限细节图，兼顾细裂缝识别与吞吐。",
         "结构化推理模块：提示词只允许模型从训练集中出现的合法病害类型中选择。模型同时生成可见证据、病害描述和评定标度，温度设为0并固定随机种子，降低输出波动。",
-        "自动复核模块：当轨道结果置信度低于0.65或完好标签与病害描述冲突时触发第二轮推理。六小时首版关闭桥梁二次复核，非法标签由训练集词典自动规范化，避免重复推理拖延完整提交。",
+        "自动复核模块：模型先生成桥梁粗类别，再由结构化病害提示词完成最终分类；轨道结果在低置信度或描述矛盾时触发复核。非法标签由训练集词典自动规范化，审核记录只作为聚合证据提示，不覆盖测试结果。",
         "工程可靠性模块：每25张图片持久化一次断点，推理中断后可继续运行；原始模型响应保存在日志中。最终校验测试图片数量、文件名多重集合、字段顺序、合法标签和标度范围。",
     ]
     for text in module_texts:
@@ -223,6 +228,7 @@ def build_design_document(workspace: Path, team_name: str = "") -> Path:
         ["训练图片", str(dataset.get("train_images", "待生成")), "公开数据完整性检查"],
         ["测试图片", str(dataset.get("test_images", "待生成")), "最终结果应逐图覆盖"],
         ["校准样本", str(calibration.get("sample_size", 0)), "覆盖低频标签的压力抽样"],
+        ["训练难例审核", str(len(review_rows)), f"已确认{sum(row.get('status') == 'confirmed' for row in review_rows)}，需复核{sum(row.get('status') == 'needs_review' for row in review_rows)}"],
         ["病害类型精确率", f"{calibration.get('defect_type_exact_accuracy', 0):.4f}", "仅用于本地版本比较"],
         ["原子病害Macro-F1", f"{calibration.get('atomic_macro_f1', 0):.4f}", "组合病害拆分后计算"],
         ["评定标度准确率", f"{calibration.get('rating_accuracy', 0):.4f}", "含空标度"],
