@@ -87,3 +87,8 @@ The candidate audit showed 98 automatic bridge label changes on the current
 1,274-image result. These are model outputs from two local open-source visual
 models plus deterministic schema/rating normalization; no test labels are
 read or written.
+
+An additional five-bridge run on the same day produced bridge exact scores
+between 16.67% and 64.29%. This spread is why the candidate policy is kept
+isolated and conservative; the frozen head is not treated as a universal
+replacement for Qwen.
