@@ -66,16 +66,21 @@ rare and unseen labels. The frozen head reached bridge exact accuracy of
 atomic multilabel head reached Macro-F1 of 0.642 and 0.478 respectively, but
 full legal-combination exact accuracy remained 22.22% and 16.67%.
 
-The only candidate policy currently supported is bridge-only: when Qwen's
-first pass says `完好`, a non-healthy SigLIP2 label may trigger an isolated
-candidate review. The policy was selected because it reached 55.95% bridge
-exact accuracy on the 84-image 范家坪1号大桥 holdout, versus 39.29% for the
-Qwen prompt and 42.86% for SigLIP2 alone. It is not enabled for track labels,
-and it does not overwrite the official result. Reproduce the candidate with:
+The only candidate policy currently supported is a conservative bridge
+support/bottom review: when Qwen's first pass says `完好`, a non-healthy
+SigLIP2 label with confidence at least 0.55 triggers a fresh local-Qwen
+review. The earlier direct-label ablation reached 55.95% bridge exact
+accuracy on the 84-image 范家坪1号大桥 holdout, versus 39.29% for the Qwen
+prompt and 42.86% for SigLIP2 alone. That number is not a score for this
+two-stage review policy. It is not enabled for track labels, deck or aerial
+images, and it does not overwrite the official result. Reproduce it with:
 
 ```powershell
 .\.venv\Scripts\python.exe code\predict_vision_test.py --device cpu
+.\.venv\Scripts\python.exe code\describe_vision_candidates.py `
+  --output runs\vision_hybrid\logs\qwen_reviews.json
 .\.venv\Scripts\python.exe code\apply_vision_hybrid.py `
+  --reviews runs\vision_hybrid\logs\qwen_reviews.json `
   --output runs\vision_hybrid\result\result.json `
   --audit runs\vision_hybrid\logs\vision_hybrid_audit.json
 .\.venv\Scripts\python.exe code\run_pipeline.py validate `
@@ -83,10 +88,10 @@ and it does not overwrite the official result. Reproduce the candidate with:
   --report runs\vision_hybrid\logs\validation_report.json
 ```
 
-The candidate audit showed 98 automatic bridge label changes on the current
-1,274-image result. These are model outputs from two local open-source visual
-models plus deterministic schema/rating normalization; no test labels are
-read or written.
+The current test result has 39 support/bottom bridge images flagged for
+possible review. They are not submission changes by themselves: each must receive a valid local
+Qwen review before `apply_vision_hybrid.py` accepts it. No fixed description
+or rating template is used, and no test labels are read or written.
 
 An additional five-bridge run on the same day produced bridge exact scores
 between 16.67% and 64.29%. This spread is why the candidate policy is kept

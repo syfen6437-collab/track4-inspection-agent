@@ -47,9 +47,9 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 
 `code/evaluate_vision_heads.py` 可在整桥留出集上评估冻结的
 `google/siglip2-base-patch16-224` 特征头，`code/predict_vision_test.py` 生成
-测试图候选标签，`code/apply_vision_hybrid.py` 只把 Qwen 首判为“完好”且视觉头
-判为病害的桥梁样本写入 `runs/vision_hybrid/`。候选目录与正式 `result/` 隔离，
-每次改写都有审计日志。完整指标、限制和复现命令见
+测试图候选标签，`code/describe_vision_candidates.py` 只对支座/梁底候选图让本地
+Qwen 重新生成七字段内部结果，最后由 `code/apply_vision_hybrid.py` 写入独立候选目录。
+候选目录与正式 `result/` 隔离，每次改写都有审计日志。完整指标、限制和复现命令见
 [`SIGLIP2_EXPERIMENT.md`](SIGLIP2_EXPERIMENT.md)。
 
 ## 4B 冒烟测试

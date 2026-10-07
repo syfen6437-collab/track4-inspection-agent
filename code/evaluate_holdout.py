@@ -168,6 +168,16 @@ def _variants(names: list[str], base: dict[str, Any]) -> dict[str, dict[str, Any
             "bridge_review_enabled": True,
             "calibration_review": True,
         },
+        "support_review": {
+            "bridge_review_enabled": True,
+            "bridge_review_scenes": ["support"],
+            "calibration_review": True,
+        },
+        "bottom_review": {
+            "bridge_review_enabled": True,
+            "bridge_review_scenes": ["bottom"],
+            "calibration_review": True,
+        },
     }
     return {name: {**base, **variants[name]} for name in names}
 
