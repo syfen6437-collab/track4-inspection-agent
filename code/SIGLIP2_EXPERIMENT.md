@@ -106,6 +106,21 @@ all intermediate raw responses under `runs/`:
   --resume
 ```
 
+The optional bridge kNN candidate head can be compared with the linear head:
+
+```powershell
+.\.venv\Scripts\python.exe -u -X utf8 code\evaluate_vision_review.py `
+  --bridge-method knn --knn-k 5 `
+  --groups 范家坪1号大桥,青树湾1号大桥 `
+  --output runs\review_validation_v3\paired_review_knn.json `
+  --resume
+```
+
+On the seven cached bridge holdouts, kNN improved the auxiliary bridge exact
+mean from approximately 47.5% to 51.6%; this is still a candidate-label
+metric, not an official score. It must pass the paired Qwen-review evaluation
+before its test candidates are used.
+
 The baseline and review scores must be compared on the same images. A visual
 head score or a direct-label substitution is not evidence that the Qwen review
 policy improves the competition output.

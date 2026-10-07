@@ -140,6 +140,45 @@ def fit_head(features: np.ndarray, labels: list[str], *, multilabel: bool = Fals
             "weight": head.weight.detach().numpy(), "bias": head.bias.detach().numpy()}
 
 
+def fit_knn(features: np.ndarray, labels: list[str], *, k: int = 5) -> dict[str, Any]:
+    """Store a deterministic cosine k-nearest-neighbor image-label head.
+
+    This is used only as an auxiliary bridge candidate generator. It has no
+    access to query labels and keeps the nearest training vectors for audit.
+    """
+    if k < 1 or not labels or len(features) != len(labels):
+        raise ValueError("Invalid kNN training data")
+    vectors = np.asarray(features, dtype=np.float32)
+    norms = np.linalg.norm(vectors, axis=1, keepdims=True).clip(min=1e-8)
+    return {"features": vectors / norms, "labels": list(labels),
+            "vocabulary": sorted(set(labels)), "k": min(int(k), len(labels))}
+
+
+def predict_knn(head: dict[str, Any], features: np.ndarray) -> tuple[list[str], np.ndarray]:
+    """Return majority-vote labels and per-label vote fractions."""
+    query = np.asarray(features, dtype=np.float32)
+    query /= np.linalg.norm(query, axis=1, keepdims=True).clip(min=1e-8)
+    training = head["features"]
+    labels = head["labels"]
+    vocabulary = head["vocabulary"]
+    k = int(head["k"])
+    scores = query @ training.T
+    vote_scores = np.zeros((len(query), len(vocabulary)), dtype=np.float32)
+    label_index = {label: index for index, label in enumerate(vocabulary)}
+    predicted = []
+    for row, similarities in zip(scores, vote_scores):
+        nearest = np.argpartition(row, -k)[-k:]
+        for index in nearest:
+            similarities[label_index[labels[index]]] += 1.0 / k
+        ranked = sorted(range(len(vocabulary)),
+                        key=lambda index: (similarities[index],
+                                           sum(row[i] for i in nearest
+                                               if labels[i] == vocabulary[index])),
+                        reverse=True)
+        predicted.append(vocabulary[ranked[0]])
+    return predicted, vote_scores
+
+
 def predict_head(head: dict[str, Any], features: np.ndarray, allowed: list[str]) -> tuple[list[str], np.ndarray]:
     x = (np.asarray(features) - head["mean"]) / head["scale"]
     logits = x @ head["weight"].T + head["bias"]

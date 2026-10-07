@@ -52,6 +52,10 @@ Qwen 重新生成七字段内部结果，最后由 `code/apply_vision_hybrid.py`
 候选目录与正式 `result/` 隔离，每次改写都有审计日志。完整指标、限制和复现命令见
 [`SIGLIP2_EXPERIMENT.md`](SIGLIP2_EXPERIMENT.md)。
 
+桥梁候选头可用 `predict_vision_test.py --bridge-method knn --knn-k 5` 做隔离
+对照；轨道仍使用原子多标签头。只有配对 Qwen 复核在留出图上确认收益后，才应使用
+该候选文件生成新的测试结果。
+
 正式使用前先运行 `code/evaluate_vision_review.py --prepare-only` 检查两个整桥留出折叠，
 再在有空闲 GPU 时运行完整配对评估。只有留出集上复核策略稳定优于基线，才考虑把候选
 结果升级为新的提交结果；当前正式 `result/result.json` 仍受保护。

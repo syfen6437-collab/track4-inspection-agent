@@ -12,7 +12,9 @@ sys.path.insert(0, str(CODE))
 
 from evaluate_holdout import _make_holdout, _metrics
 from track4_agent.data import load_assets, write_json
-from track4_agent.vision_classifier import feature_bank, fit_head, predict_head, model_identity
+from track4_agent.vision_classifier import (
+    feature_bank, fit_head, fit_knn, predict_head, predict_knn, model_identity,
+)
 from track4_agent.vision_review import digest_json, sha256_file
 
 
@@ -25,6 +27,8 @@ def main() -> None:
     parser.add_argument("--groups", default="范家坪1号大桥,青树湾1号大桥")
     parser.add_argument("--min-class-count", type=int, default=1,
                         help="默认保留所有训练标签，与测试候选头一致；4仅用于复现旧实验")
+    parser.add_argument("--bridge-method", choices=("linear", "knn"), default="linear")
+    parser.add_argument("--knn-k", type=int, default=5)
     parser.add_argument("--cache-only", action="store_true")
     parser.add_argument("--limit", type=int, default=None, help="仅用于特征抽取冒烟，不允许生成指标")
     parser.add_argument("--output", type=Path, default=ROOT / "logs" / "vision_heads_holdout.json")
@@ -49,6 +53,7 @@ def main() -> None:
         "model_id": "google/siglip2-base-patch16-224", "license": "Apache-2.0",
         "device": args.device, "seed": 20261005,
         "min_class_count": args.min_class_count,
+        "bridge_method": args.bridge_method, "knn_k": args.knn_k,
         "training_manifest_sha256": digest_json(train),
         "feature_cache_sha256": sha256_file(ROOT / "models" / f"siglip2_train_features_{args.device}.npz"),
         "model_identity": model_identity(ROOT / "models" / "SigLIP2-base-patch16-224"),
@@ -69,8 +74,12 @@ def main() -> None:
             for method in methods:
                 fit_rows = fitting if method == "atomic_multilabel" else supported
                 x = features[[positions[row["image"]] for row in fit_rows]]
-                head = fit_head(x, [row["defectType"] for row in fit_rows], multilabel=method == "atomic_multilabel")
-                predicted, probabilities = predict_head(head, x_query, lexicon["categories"][category]["allowed_labels"])
+                if category == "桥梁" and method == "multiclass" and args.bridge_method == "knn":
+                    head = fit_knn(x, [row["defectType"] for row in fit_rows], k=args.knn_k)
+                    predicted, probabilities = predict_knn(head, x_query)
+                else:
+                    head = fit_head(x, [row["defectType"] for row in fit_rows], multilabel=method == "atomic_multilabel")
+                    predicted, probabilities = predict_head(head, x_query, lexicon["categories"][category]["allowed_labels"])
                 records = []
                 for row, label, probability in zip(queries, predicted, probabilities):
                     records.append({

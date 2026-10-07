@@ -18,7 +18,9 @@ from run_pipeline import load_client, load_config
 from track4_agent.data import OUTPUT_KEYS, load_assets, write_json
 from track4_agent.inference import infer_item
 from track4_agent.model import sanitize_prediction, scene_key
-from track4_agent.vision_classifier import feature_bank, fit_head, model_identity, predict_head
+from track4_agent.vision_classifier import (
+    feature_bank, fit_head, fit_knn, model_identity, predict_head, predict_knn,
+)
 from track4_agent.vision_review import (
     DEFAULT_SCENES, candidate_path, digest_json, index_unique, merge_reviews,
     probability, review_context, review_image, select_candidates, sha256_file,
@@ -47,15 +49,20 @@ def validate_baseline(record: dict[str, Any], truth: dict[str, Any], lexicon: di
     final_confidence(record)
 
 
-def fold_predictions(sample, training, lexicon, features, positions):
+def fold_predictions(sample, training, lexicon, features, positions, *, bridge_method="linear", knn_k=5):
     records = []
     for category in ("桥梁", "轨道"):
         fitting = [row for row in training if row["questionCategory"] == category]
         queries = [row for row in sample if row["questionCategory"] == category]
-        head = fit_head(features[[positions[row["image"]] for row in fitting]],
-                        [row["defectType"] for row in fitting], multilabel=category == "轨道")
-        labels, scores = predict_head(head, features[[positions[row["image"]] for row in queries]],
-                                      lexicon["categories"][category]["allowed_labels"])
+        x_fit = features[[positions[row["image"]] for row in fitting]]
+        x_query = features[[positions[row["image"]] for row in queries]]
+        if category == "桥梁" and bridge_method == "knn":
+            head = fit_knn(x_fit, [row["defectType"] for row in fitting], k=knn_k)
+            labels, scores = predict_knn(head, x_query)
+        else:
+            head = fit_head(x_fit, [row["defectType"] for row in fitting], multilabel=category == "轨道")
+            labels, scores = predict_head(head, x_query,
+                                          lexicon["categories"][category]["allowed_labels"])
         for row, label, values in zip(queries, labels, scores):
             records.append({"id": row["image"], "questionCategory": category,
                             "filename": row["filename"], "defectType": label,
@@ -109,6 +116,8 @@ def main() -> None:
     parser.add_argument("--output", type=Path, default=ROOT / "runs" / "review_validation_v3" / "paired_review.json")
     parser.add_argument("--min-confidence", type=float, default=0.55)
     parser.add_argument("--review-min-confidence", type=float, default=0.55)
+    parser.add_argument("--bridge-method", choices=("linear", "knn"), default="linear")
+    parser.add_argument("--knn-k", type=int, default=5)
     parser.add_argument("--prepare-only", action="store_true", help="Prepare CPU folds without loading Qwen")
     parser.add_argument("--resume", action="store_true")
     args = parser.parse_args()
@@ -130,7 +139,8 @@ def main() -> None:
     for group in groups:
         sample, training, split = _make_holdout(train, args.sample_size, int(config["seed"]), group)
         lexicon = _holdout_lexicon(training, full_lexicon)
-        vision = fold_predictions(sample, training, lexicon, features, positions)
+        vision = fold_predictions(sample, training, lexicon, features, positions,
+                                  bridge_method=args.bridge_method, knn_k=args.knn_k)
         folds[group] = {"sample": sample, "lexicon": lexicon, "split": split, "vision": vision,
                         "training_sha256": digest_json(training)}
 
@@ -140,7 +150,9 @@ def main() -> None:
         min_confidence=args.min_confidence, scenes=DEFAULT_SCENES)
     context.update({
         "kind": "paired whole-bridge holdout", "groups": groups, "sample_size": args.sample_size,
-        "review_min_confidence": args.review_min_confidence, "training_manifest_sha256": digest_json(train),
+        "review_min_confidence": args.review_min_confidence,
+        "bridge_method": args.bridge_method, "knn_k": args.knn_k,
+        "training_manifest_sha256": digest_json(train),
         "feature_cache_sha256": sha256_file(features_path),
         "vision_model_identity": model_identity(ROOT / "models" / "SigLIP2-base-patch16-224"),
         "head_implementation_sha256": sha256_file(CODE / "track4_agent" / "vision_classifier.py"),

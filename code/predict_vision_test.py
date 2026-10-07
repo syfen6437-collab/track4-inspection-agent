@@ -18,7 +18,9 @@ ROOT = CODE.parent
 sys.path.insert(0, str(CODE))
 
 from track4_agent.data import load_assets, write_json
-from track4_agent.vision_classifier import feature_bank, fit_head, predict_head, model_identity
+from track4_agent.vision_classifier import (
+    feature_bank, fit_head, fit_knn, model_identity, predict_head, predict_knn,
+)
 from track4_agent.vision_review import digest_json, sha256_file
 
 
@@ -28,6 +30,8 @@ def main() -> None:
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--output", type=Path, default=ROOT / "logs" / "vision_test_predictions.json")
+    parser.add_argument("--bridge-method", choices=("linear", "knn"), default="linear")
+    parser.add_argument("--knn-k", type=int, default=5)
     args = parser.parse_args()
 
     train, test, lexicon = load_assets(ROOT)
@@ -51,10 +55,14 @@ def main() -> None:
         query_positions = {row["image"]: index for index, row in enumerate(test)}
         x_query = test_features[[query_positions[row["image"]] for row in query_rows]]
         multilabel = category == "轨道"
-        head = fit_head(x_fit, [row["defectType"] for row in fit_rows], multilabel=multilabel)
-        labels, probabilities = predict_head(
-            head, x_query, lexicon["categories"][category]["allowed_labels"]
-        )
+        if category == "桥梁" and args.bridge_method == "knn":
+            head = fit_knn(x_fit, [row["defectType"] for row in fit_rows], k=args.knn_k)
+            labels, probabilities = predict_knn(head, x_query)
+        else:
+            head = fit_head(x_fit, [row["defectType"] for row in fit_rows], multilabel=multilabel)
+            labels, probabilities = predict_head(
+                head, x_query, lexicon["categories"][category]["allowed_labels"]
+            )
         for row, label, probability in zip(query_rows, labels, probabilities):
             scores = dict(zip(head["labels"], map(float, probability)))
             records.append({
@@ -70,6 +78,7 @@ def main() -> None:
         "model_id": "google/siglip2-base-patch16-224",
         "fit_scope": "all prepared training labels; no test labels",
         "seed": 20261005, "min_class_count": 1,
+        "bridge_method": args.bridge_method, "knn_k": args.knn_k,
         "training_manifest_sha256": digest_json(train),
         "test_manifest_sha256": digest_json(test),
         "model_identity": model_identity(model_dir),
