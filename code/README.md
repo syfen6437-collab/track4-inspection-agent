@@ -43,6 +43,17 @@
   --audit runs\visual_candidate_v5\logs\rating_audit.json
 ```
 
+已有候选的原始Qwen响应可在不重新调用模型的情况下重新执行证据矛盾校验；
+例如把“候选为粉红色色斑、描述却为无粉红色色斑”的记录自动回退到原结果：
+
+```powershell
+& .\.venv\Scripts\python.exe -X utf8 code\revalidate_visual_candidate.py `
+  --input runs\visual_candidate_v5\result\result_calibrated.json `
+  --audit runs\visual_candidate_v5\logs\audit.json `
+  --output runs\visual_candidate_v6\result\result.json `
+  --output-audit runs\visual_candidate_v6\logs\revalidation.json
+```
+
 候选输出、Qwen原始响应和审计记录始终位于 `runs/`，不会被该命令写入正式结果。
 
 ## 训练图片浏览与人工审核

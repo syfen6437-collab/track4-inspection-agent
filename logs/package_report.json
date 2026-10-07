@@ -1,7 +1,7 @@
 {
   "package": "E:\\赛题四_智能体\\track4_submission.tar.gz",
-  "size_bytes": 140878,
-  "file_count": 49,
+  "size_bytes": 143689,
+  "file_count": 50,
   "roots": [
     "code",
     "design",
@@ -14,7 +14,7 @@
     },
     {
       "name": "result/result.json",
-      "size": 348649
+      "size": 348463
     },
     {
       "name": "code/logs/qwen3_vl_4b_calibration.json",
@@ -38,11 +38,11 @@
     },
     {
       "name": "design/AI智能体设计方案.docx",
-      "size": 17657
+      "size": 17689
     },
     {
       "name": "code/track4_agent/document.py",
-      "size": 14813
+      "size": 15326
     },
     {
       "name": "code/evaluate_vision_review.py",

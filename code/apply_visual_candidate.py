@@ -42,6 +42,59 @@ def _candidate_prompt(item: dict[str, Any], label: str, original: dict[str, Any]
 "ratingScale":"","confidence":0.0,"evidence":"不超过15个汉字的依据"}}"""
 
 
+def _candidate_is_contradicted(label: str, prediction: dict[str, Any]) -> bool:
+    """Reject a visual candidate when the same model evidence explicitly denies it.
+
+    The candidate label is produced by a separate frozen visual head.  Qwen is
+    only a consistency check, so a response such as ``无钢结构`` must never be
+    accepted as confirmation of ``钢结构锈蚀``.
+    """
+    text = " ".join(str(prediction.get(key, "")) for key in ("defectDescription", "evidence"))
+    if not text:
+        return True
+    if label == "完好":
+        return False
+    negatives = ("无", "未见", "没有", "不存在", "不明显", "未发现", "无明显")
+    atoms: set[str] = set()
+    if label == "已处治病害（修补）":
+        atoms = {"修补", "处治", "修复", "补丁"}
+    elif label == "粉红色色斑":
+        atoms = {"粉红", "红色", "色斑"}
+    elif label == "渗水/泛碱":
+        atoms = {"渗水", "泛碱", "水痕", "水渍", "泛白", "盐霜"}
+    elif label == "锈蚀/碳化":
+        atoms = {"锈", "碳化"}
+    else:
+        if "裂缝(" in label:
+            atoms.add("裂缝")
+        if "破损" in label:
+            atoms.add("破损")
+        if "渗水泛碱" in label:
+            atoms.update(("渗水", "泛碱"))
+        if "钢结构锈蚀" in label:
+            atoms.update(("钢结构", "锈蚀"))
+        if "钢筋锈蚀" in label:
+            atoms.update(("钢筋", "锈蚀"))
+        if "支座锈蚀" in label:
+            atoms.update(("支座", "锈蚀"))
+    for atom in atoms:
+        # A short negation window catches the wording used by the model while
+        # avoiding a global ``无`` check for multi-defect descriptions.
+        for match in re.finditer(re.escape(atom), text):
+            before = text[max(0, match.start() - 8):match.start()]
+            if any(negative in before for negative in negatives):
+                return True
+        if atom == "钢结构锈蚀" and any(phrase in text for phrase in ("无钢结构", "无钢构件")):
+            return True
+        if atom == "钢筋锈蚀" and "无钢筋" in text:
+            return True
+    if label == "已处治病害（修补）" and not any(
+        keyword in text for keyword in ("修补", "处治", "修复", "补丁")
+    ):
+        return True
+    return False
+
+
 def _strict_review(raw: str, allowed: set[str], fallback: str) -> dict[str, Any] | None:
     parsed = _extract_json(raw)
     if not isinstance(parsed, dict):
@@ -61,13 +114,16 @@ def _strict_review(raw: str, allowed: set[str], fallback: str) -> dict[str, Any]
         confidence = max(0.0, min(1.0, float(parsed.get("confidence", 0.0))))
     except (TypeError, ValueError):
         confidence = 0.0
-    return {
+    result = {
         "defectType": label or fallback,
         "defectDescription": description[:300],
         "ratingScale": rating,
         "confidence": confidence,
         "evidence": str(parsed.get("evidence", ""))[:300],
     }
+    if _candidate_is_contradicted(result["defectType"], result):
+        return None
+    return result
 
 
 def _scene(item: dict[str, Any]) -> str:
@@ -86,6 +142,10 @@ def main() -> None:
     parser.add_argument("--track", action="store_true", help="将轨道视觉原子多标签候选纳入")
     parser.add_argument("--min-confidence", type=float, default=0.0)
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument(
+        "--revalidate-only", action="store_true",
+        help="只用已保存的Qwen原始响应重新执行矛盾证据校验，不重新调用模型",
+    )
     args = parser.parse_args()
 
     for name in ("TRANSFORMERS_OFFLINE", "HF_HUB_OFFLINE", "MODELSCOPE_OFFLINE"):
@@ -131,6 +191,14 @@ def main() -> None:
     for index, change in enumerate(changes, start=1):
         key_text = "|".join(change["key"])
         if key_text in saved:
+            if args.revalidate_only:
+                existing = saved[key_text]
+                fallback = str(existing.get("visual", {}).get("defectType", change["label"]))
+                parsed = _strict_review(
+                    str(existing.get("raw", "")), allowed[item["questionCategory"]], fallback
+                )
+                existing["prediction"] = parsed
+                existing["valid"] = parsed is not None
             continue
         if client is None:
             client = load_client(config)

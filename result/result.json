@@ -1003,9 +1003,9 @@
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_第1跨-跨中梁底.JPG",
-    "defectType": "已处治病害（修补）",
-    "defectDescription": "梁底无明显修补痕迹",
-    "ratingScale(1-5)": "2"
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
+    "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
@@ -1084,9 +1084,9 @@
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_第4跨-跨中梁底 (1).JPG",
-    "defectType": "已处治病害（修补）",
-    "defectDescription": "梁底无明显破损或裂缝",
-    "ratingScale(1-5)": "2"
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
+    "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
@@ -1147,9 +1147,9 @@
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第1跨-跨中梁底.JPG",
-    "defectType": "粉红色色斑",
-    "defectDescription": "无粉红色色斑",
-    "ratingScale(1-5)": "2"
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
+    "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
@@ -1291,9 +1291,9 @@
     "bridgeName": "巫溪互通大桥",
     "defectLocation": "",
     "filename": "第2跨-跨中梁底 (1).JPG",
-    "defectType": "已处治病害（修补）",
-    "defectDescription": "梁底无裂缝、无剥落",
-    "ratingScale(1-5)": "2"
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
+    "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
@@ -1552,9 +1552,9 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩3前.JPG",
-    "defectType": "已处治病害（修补）",
-    "defectDescription": "混凝土表面无明显破损",
-    "ratingScale(1-5)": "2"
+    "defectType": "完好",
+    "defectDescription": "无锈蚀、渗水、剥落",
+    "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
@@ -5107,9 +5107,9 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩7顶 (3).JPG",
-    "defectType": "粉红色色斑",
-    "defectDescription": "无粉红色色斑",
-    "ratingScale(1-5)": "2"
+    "defectType": "完好",
+    "defectDescription": "无明显病害迹象",
+    "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
@@ -9049,8 +9049,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "167b75b4-d76a-41fa-b913-17385ac26dec.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "无钢结构，不适用",
+    "defectType": "破损",
+    "defectDescription": "混凝土底座破损，有碎裂痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9652,8 +9652,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "4dee62da-4f57-48ac-8b49-5d8f47bf5b76.jpg",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "无钢结构锈蚀可见",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面可见多条细裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10138,8 +10138,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "786a3e0d-62a8-42a5-a2c5-485bb4e53df4.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "无钢结构锈蚀迹象",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土接缝处可见细小裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -10147,8 +10147,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "78f22b27-3abd-4c50-88a1-decd206196f8.png",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "无钢筋锈蚀可见证据",
+    "defectType": "破损",
+    "defectDescription": "混凝土剥落，结构破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10165,8 +10165,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "7bbd99a1-aab9-41a8-b48c-7da0a79b73cd.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "无明显裂缝",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -10219,8 +10219,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "87623df0-61af-4c7e-bfb6-04e194ebd280.png",
-    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
-    "defectDescription": "无可见裂缝或锈蚀",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -11029,8 +11029,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cd8866ef-dca6-40f8-9281-9b39055be3e1.jpg",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "无明显锈蚀迹象",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土轨枕间有明显裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -11173,8 +11173,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d6b8bbf3-88ed-4815-9c60-549c644715a8.jpg",
-    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
-    "defectDescription": "无可见裂缝或渗水",
+    "defectType": "完好",
+    "defectDescription": "无可见病害",
     "ratingScale(1-5)": ""
   },
   {

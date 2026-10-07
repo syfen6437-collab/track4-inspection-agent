@@ -6,6 +6,7 @@ import sys
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 from track4_agent.vision_review import candidate_path, merge_reviews, select_candidates, strict_prediction
+from apply_visual_candidate import _candidate_is_contradicted
 
 
 LEXICON = {
@@ -23,6 +24,19 @@ LEXICON = {
 
 
 class VisionReviewTests(unittest.TestCase):
+    def test_visual_candidate_rejects_negated_evidence(self) -> None:
+        self.assertTrue(_candidate_is_contradicted(
+            "粉红色色斑", {"defectDescription": "无粉红色色斑", "evidence": "无粉红色色斑"}))
+        self.assertTrue(_candidate_is_contradicted(
+            "钢结构锈蚀", {"defectDescription": "无钢结构，不适用", "evidence": "无钢结构"}))
+        self.assertTrue(_candidate_is_contradicted(
+            "裂缝(混凝土裂缝)、渗水泛碱",
+            {"defectDescription": "无可见裂缝或渗水", "evidence": "无裂缝或渗水迹象"}))
+        self.assertTrue(_candidate_is_contradicted(
+            "已处治病害（修补）", {"defectDescription": "梁底无明显修补痕迹", "evidence": "无修补痕迹"}))
+        self.assertFalse(_candidate_is_contradicted(
+            "渗水/泛碱", {"defectDescription": "混凝土表面有泛碱痕迹", "evidence": "泛白水痕"}))
+
     def test_selection_is_limited_to_support_and_bottom_and_checks_ids(self) -> None:
         manifest = [
             {"id": "桥/支座.JPG", "image": "初赛测试集/桥/支座.JPG", "filename": "支座.JPG",
