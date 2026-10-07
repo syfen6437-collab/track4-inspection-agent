@@ -57,3 +57,33 @@ The prompt ablation also showed that removing the coarse presence hint alone low
 - The current 56.11-point `result/result.json` and the already submitted package remain unchanged. Do not switch the competition output based on this single small holdout. Validate another held-out bridge and a complete generated candidate before packaging or uploading a new model.
 
 Raw metrics: [`../logs/holdout_evaluation.json`](../logs/holdout_evaluation.json) and [`../logs/siglip2_holdout_probe.json`](../logs/siglip2_holdout_probe.json).
+
+## Full-label candidate policy
+
+On 2026-10-08, a second evaluation counted every selected label, including
+rare and unseen labels. The frozen head reached bridge exact accuracy of
+42.86% on 范家坪1号大桥 and 52.38% on 青树湾1号大桥. For track images, the
+atomic multilabel head reached Macro-F1 of 0.642 and 0.478 respectively, but
+full legal-combination exact accuracy remained 22.22% and 16.67%.
+
+The only candidate policy currently supported is bridge-only: when Qwen's
+first pass says `完好`, a non-healthy SigLIP2 label may trigger an isolated
+candidate review. The policy was selected because it reached 55.95% bridge
+exact accuracy on the 84-image 范家坪1号大桥 holdout, versus 39.29% for the
+Qwen prompt and 42.86% for SigLIP2 alone. It is not enabled for track labels,
+and it does not overwrite the official result. Reproduce the candidate with:
+
+```powershell
+.\.venv\Scripts\python.exe code\predict_vision_test.py --device cpu
+.\.venv\Scripts\python.exe code\apply_vision_hybrid.py `
+  --output runs\vision_hybrid\result\result.json `
+  --audit runs\vision_hybrid\logs\vision_hybrid_audit.json
+.\.venv\Scripts\python.exe code\run_pipeline.py validate `
+  --result runs\vision_hybrid\result\result.json `
+  --report runs\vision_hybrid\logs\validation_report.json
+```
+
+The candidate audit showed 98 automatic bridge label changes on the current
+1,274-image result. These are model outputs from two local open-source visual
+models plus deterministic schema/rating normalization; no test labels are
+read or written.

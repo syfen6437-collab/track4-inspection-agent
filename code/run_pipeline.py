@@ -75,12 +75,14 @@ def cmd_infer(args, config):
         resume=args.resume,
         limit=args.limit,
         offset=args.offset,
+        artifact_dir=args.artifact_dir,
     )
 
 
 def cmd_validate(args, config):
     _, test, lexicon = load_assets(WORKSPACE)
-    return validate_result(WORKSPACE, test, lexicon)
+    return validate_result(WORKSPACE, test, lexicon, result_path=args.result,
+                           report_path=args.report)
 
 
 def cmd_document(args, config):
@@ -122,8 +124,11 @@ def make_parser() -> argparse.ArgumentParser:
     infer.add_argument("--resume", action="store_true")
     infer.add_argument("--limit", type=int, default=None, help="仅用于GPU冒烟测试")
     infer.add_argument("--offset", type=int, default=0, help="冒烟测试起始序号")
+    infer.add_argument("--artifact-dir", type=Path, default=None, help="实验结果及日志的独立目录")
 
-    subparsers.add_parser("validate", help="严格校验result.json")
+    validate = subparsers.add_parser("validate", help="严格校验result.json")
+    validate.add_argument("--result", type=Path, default=None)
+    validate.add_argument("--report", type=Path, default=None)
 
     document = subparsers.add_parser("document", help="生成智能体设计方案")
     document.add_argument("--team-name", default="")

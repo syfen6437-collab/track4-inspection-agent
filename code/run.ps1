@@ -5,5 +5,7 @@ param(
 
 $ErrorActionPreference = "Stop"
 $bundledPython = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
-$python = if ($env:TRACK4_PYTHON) { $env:TRACK4_PYTHON } elseif (Test-Path $bundledPython) { $bundledPython } else { "python" }
+$projectPython = Join-Path (Split-Path $PSScriptRoot -Parent) '.venv\Scripts\python.exe'
+$python = if ($env:TRACK4_PYTHON) { $env:TRACK4_PYTHON } elseif (Test-Path $projectPython) { $projectPython } elseif (Test-Path $bundledPython) { $bundledPython } else { "python" }
 & $python "$PSScriptRoot\run_pipeline.py" @PipelineArgs
+exit $LASTEXITCODE

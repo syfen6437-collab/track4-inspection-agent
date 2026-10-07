@@ -16,6 +16,7 @@ def validate_result(
     manifest: list[dict[str, Any]],
     lexicon: dict[str, Any],
     result_path: Path | None = None,
+    report_path: Path | None = None,
 ) -> dict[str, Any]:
     result_path = result_path or workspace / "result" / "result.json"
     results = read_json(result_path)
@@ -60,7 +61,7 @@ def validate_result(
         "expected_count": len(manifest),
         "errors": errors[:100],
     }
-    write_json(workspace / "logs" / "validation_report.json", report)
+    write_json(report_path or workspace / "logs" / "validation_report.json", report)
     if errors:
         raise ValueError("Result validation failed:\n" + "\n".join(errors[:20]))
     print(json.dumps(report, ensure_ascii=False, indent=2))

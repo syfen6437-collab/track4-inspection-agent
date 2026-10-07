@@ -14,7 +14,7 @@ if str(CODE_DIR) not in sys.path:
     sys.path.insert(0, str(CODE_DIR))
 
 from track4_agent.model import build_checklist_prompt, candidate_labels, checklist_prediction, crop_montage, sanitize_prediction
-from track4_agent.inference import infer_item
+from track4_agent.inference import infer_item, run_inference
 from evaluate_holdout import _make_holdout
 from track4_agent.validation import validate_result
 
@@ -186,6 +186,31 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(len(records), 3)
         self.assertNotIn("初筛模型观察到的粗类别", client.prompts[1])
         self.assertEqual(client.image_counts[-1], 5)
+
+    def test_candidate_resume_rejects_configuration_changes_and_preserves_submission(self) -> None:
+        response = '{"defectType":"完好","defectDescription":"未见明显病害","ratingScale":"","confidence":0.9}'
+        config = {"global_max_side": 64, "bridge_use_crops": False, "confidence_threshold": 0.5,
+                  "checkpoint_every": 1, "deadline_hours": 6.0, "bridge_review_enabled": False}
+        manifest = [{"id": "bridge/a.jpg", "image": "初赛测试集/bridge/a.jpg", "filename": "a.jpg",
+                     "questionCategory": "桥梁", "bridgeName": "bridge", "defectLocation": ""}]
+        with tempfile.TemporaryDirectory() as directory:
+            workspace = Path(directory)
+            image_path = workspace / "data" / "raw" / manifest[0]["image"]
+            image_path.parent.mkdir(parents=True)
+            Image.new("RGB", (64, 64)).save(image_path)
+            submitted_path = workspace / "result" / "result.json"
+            submitted_path.parent.mkdir()
+            submitted_path.write_bytes(b"preserve submitted result")
+            artifact_dir = workspace / "runs" / "candidate"
+            run_inference(workspace, self.FakeClient([response]), config, manifest, LEXICON,
+                          artifact_dir=artifact_dir)
+            summary = run_inference(workspace, self.FakeClient([]), config, manifest, LEXICON,
+                                    artifact_dir=artifact_dir, resume=True)
+            self.assertEqual(summary["processed_this_run"], 0)
+            with self.assertRaisesRegex(ValueError, "Checkpoint"):
+                run_inference(workspace, self.FakeClient([]), {**config, "global_max_side": 128},
+                              manifest, LEXICON, artifact_dir=artifact_dir, resume=True)
+            self.assertEqual(submitted_path.read_bytes(), b"preserve submitted result")
 
     def test_validate_result_accepts_exact_schema(self) -> None:
         manifest = [

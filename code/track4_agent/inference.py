@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import hashlib
 import json
 import random
 import re
@@ -143,7 +144,10 @@ def infer_item(
     should_review = allow_review and (
         needs_review(first_prediction, float(config["confidence_threshold"]))
         or (
-            config.get("bridge_review_all", False)
+            (
+                config.get("bridge_review_all", False)
+                or scene_key(item) in set(config.get("bridge_review_scenes", []))
+            )
             and item["questionCategory"] == "桥梁"
             and scene_key(item) != "aerial"
         )
@@ -221,21 +225,49 @@ def run_inference(
     resume: bool = False,
     limit: int | None = None,
     offset: int = 0,
+    artifact_dir: Path | None = None,
 ) -> dict[str, Any]:
     raw_dir = workspace / "data" / "raw"
-    result_dir = workspace / "result"
-    logs_dir = workspace / "logs"
+    artifact_root = artifact_dir.resolve() if artifact_dir is not None else workspace
+    result_dir = artifact_root / "result"
+    logs_dir = artifact_root / "logs"
     checkpoint_path = result_dir / "checkpoint.jsonl"
     raw_log_path = logs_dir / "raw_responses.jsonl"
     results_path = result_dir / "result.json"
     result_dir.mkdir(parents=True, exist_ok=True)
     logs_dir.mkdir(parents=True, exist_ok=True)
 
-    checkpoint = _load_checkpoint(checkpoint_path) if resume else {}
-    raw_mode = "a" if resume and raw_log_path.exists() else "w"
     neighbors = _neighbor_index(manifest)
     sliced = manifest[offset:]
     target = sliced[:limit] if limit else sliced
+    checkpoint = _load_checkpoint(checkpoint_path) if resume else {}
+    # Candidate artifacts are isolated from the submitted result and cannot
+    # silently resume predictions produced by a different prompt or input list.
+    context_path = result_dir / "checkpoint_context.json"
+    if artifact_dir is not None:
+        context = {
+            "config": config,
+            "manifest_sha256": hashlib.sha256(json.dumps(target, sort_keys=True, ensure_ascii=False).encode()).hexdigest(),
+            "lexicon_sha256": hashlib.sha256(json.dumps(lexicon, sort_keys=True, ensure_ascii=False).encode()).hexdigest(),
+            "implementation_sha256": hashlib.sha256(
+                Path(__file__).read_bytes() + Path(__file__).with_name("model.py").read_bytes()
+            ).hexdigest(),
+            "images": [
+                {"id": row["id"], "size": (raw_dir / row["image"]).stat().st_size,
+                 "mtime_ns": (raw_dir / row["image"]).stat().st_mtime_ns}
+                for row in target
+            ],
+            "weights": [
+                {"name": weight.name, "size": weight.stat().st_size, "mtime_ns": weight.stat().st_mtime_ns}
+                for weight in sorted(Path(config.get("model_dir", workspace / "models")).glob("*.safetensors"))
+            ],
+        }
+        if checkpoint:
+            saved = json.loads(context_path.read_text(encoding="utf-8")) if context_path.exists() else None
+            if saved != context:
+                raise ValueError("Checkpoint configuration/input/implementation differs; use a new --artifact-dir")
+        write_json(context_path, context)
+    raw_mode = "a" if resume and raw_log_path.exists() else "w"
     started = time.time()
     processed_this_run = 0
     fast_mode = False

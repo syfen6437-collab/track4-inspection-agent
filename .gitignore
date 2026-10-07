@@ -5,6 +5,7 @@ models/
 
 # Generated submission copies and archives.
 submission_staging/
+runs/
 *.tar.gz
 
 # Runtime/cache files.
@@ -19,3 +20,5 @@ qa/review_annotations.jsonl
 
 # Temporary local logs produced by experiments.
 logs/*.tmp
+logs/vision_heads_holdout.json
+logs/vision_test_predictions.json

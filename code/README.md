@@ -43,6 +43,15 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 
 开源复用和许可证说明见 [`OPEN_SOURCE.md`](OPEN_SOURCE.md)。当前优先推荐研究 [Label Studio](https://github.com/HumanSignal/label-studio) 和 [FiftyOne](https://github.com/voxel51/fiftyone)；只有新增病害框/掩膜标注时才考虑 [CVAT](https://github.com/cvat-ai/cvat) 或 YOLO。
 
+## SigLIP2 候选复核
+
+`code/evaluate_vision_heads.py` 可在整桥留出集上评估冻结的
+`google/siglip2-base-patch16-224` 特征头，`code/predict_vision_test.py` 生成
+测试图候选标签，`code/apply_vision_hybrid.py` 只把 Qwen 首判为“完好”且视觉头
+判为病害的桥梁样本写入 `runs/vision_hybrid/`。候选目录与正式 `result/` 隔离，
+每次改写都有审计日志。完整指标、限制和复现命令见
+[`SIGLIP2_EXPERIMENT.md`](SIGLIP2_EXPERIMENT.md)。
+
 ## 4B 冒烟测试
 
 4B 模型配置位于 `code/config/qwen3-vl-4b.json`。下载完成后可用同一套入口做小样本测试：
@@ -69,7 +78,8 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 ## 合规说明
 
 - 测试集结果由本地模型和智能体自动生成，代码不包含测试答案。
-- 后处理仅执行 JSON 修复、训练标签词典规范化和输入元数据填充。
+- 常规后处理执行 JSON 修复、训练标签词典规范化和输入元数据填充；可选的
+  SigLIP2 候选复核是独立的本地模型推理步骤，并保留逐条审计记录。
 - 基座模型权重不打入提交包，提交代码记录公开模型 ID 和运行依赖。
 - 推理可在模型下载后启用离线模式运行。
 - `calibrate` 和 `infer` 会在代码内部强制启用 Transformers、Hugging Face Hub 和 ModelScope 离线开关。
