@@ -60,6 +60,9 @@ Qwen 重新生成七字段内部结果，最后由 `code/apply_vision_hybrid.py`
 再在有空闲 GPU 时运行完整配对评估。只有留出集上复核策略稳定优于基线，才考虑把候选
 结果升级为新的提交结果；当前正式 `result/result.json` 仍受保护。
 
+桥梁病害评分缺失时，可先用 `code/calibrate_ratings.py` 在 `runs/` 下生成隔离候选；
+它只依据训练标签的评分分布补齐默认值，并写出逐项审计，不会覆盖正式结果。
+
 ## 4B 冒烟测试
 
 4B 模型配置位于 `code/config/qwen3-vl-4b.json`。下载完成后可用同一套入口做小样本测试：

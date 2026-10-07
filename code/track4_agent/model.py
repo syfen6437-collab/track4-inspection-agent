@@ -334,6 +334,9 @@ def sanitize_prediction(
 
     rating = str(parsed.get("ratingScale", parsed.get("ratingScale(1-5)", ""))).strip()
     observed_ratings = category_data["label_specs"][label].get("rating_distribution", {})
+    # An empty rating is valid for healthy/track labels, but the bridge
+    # training labels assign a rating to every observed non-healthy class.
+    # Use the training-derived mode when the model omits that required value.
     if rating not in {"", "1", "2", "3", "4", "5"} or (observed_ratings and rating not in observed_ratings):
         rating = str(category_data["label_specs"][label].get("default_rating", ""))
 

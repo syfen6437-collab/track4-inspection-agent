@@ -95,6 +95,16 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(prediction["defectType"], "裂缝")
         self.assertEqual(prediction["ratingScale"], "2")
 
+    def test_sanitize_prediction_fills_missing_nonhealthy_rating(self) -> None:
+        prediction, valid = sanitize_prediction(
+            '{"defectType":"裂缝","defectDescription":"梁底可见细裂缝",'
+            '"ratingScale":"","confidence":0.8,"evidence":"细裂缝"}',
+            LEXICON,
+            "桥梁",
+        )
+        self.assertTrue(valid)
+        self.assertEqual(prediction["ratingScale"], "2")
+
     def test_checklist_prediction_maps_selected_atomic_labels(self) -> None:
         lexicon = {
             "categories": {

@@ -125,6 +125,17 @@ The baseline and review scores must be compared on the same images. A visual
 head score or a direct-label substitution is not evidence that the Qwen review
 policy improves the competition output.
 
+The rating field has a separate deterministic calibration candidate. On the
+saved bridge holdout, filling an omitted rating from the training-label mode
+raised rating accuracy from about 35.7% to 55.0%; this does not change labels,
+descriptions, or healthy/track empty ratings. Generate it in isolation with:
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 code\calibrate_ratings.py `
+  --output runs\review_validation_v3\rating_calibrated.json `
+  --audit runs\review_validation_v3\rating_calibrated_audit.json
+```
+
 An additional five-bridge run on the same day produced bridge exact scores
 between 16.67% and 64.29%. This spread is why the candidate policy is kept
 isolated and conservative; the frozen head is not treated as a universal
