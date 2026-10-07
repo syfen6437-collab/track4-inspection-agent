@@ -40,7 +40,7 @@ class VisionReviewTests(unittest.TestCase):
              "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {}}
             for row in manifest
         ]
-        selected = select_candidates(manifest, results, vision)
+        selected = select_candidates(manifest, results, vision, LEXICON)
         self.assertEqual([row[0]["id"] for row in selected], ["桥/支座.JPG"])
 
     def test_strict_prediction_rejects_missing_evidence_and_accepts_full_json(self) -> None:

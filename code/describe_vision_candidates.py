@@ -41,7 +41,7 @@ def main() -> None:
     _, manifest, lexicon = load_assets(ROOT)
     results = json.loads(args.input.read_text(encoding="utf-8"))
     vision_records = json.loads(args.vision.read_text(encoding="utf-8"))["records"]
-    candidates = select_candidates(manifest, results, vision_records,
+    candidates = select_candidates(manifest, results, vision_records, lexicon,
                                    min_confidence=args.min_confidence)
     if args.limit is not None:
         candidates = candidates[:args.limit]

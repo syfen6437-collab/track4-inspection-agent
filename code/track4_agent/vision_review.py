@@ -50,7 +50,7 @@ def index_unique(rows: list[dict[str, Any]], key: str) -> dict[str, dict[str, An
 
 def select_candidates(
     manifest: list[dict[str, Any]], results: list[dict[str, Any]],
-    vision_records: list[dict[str, Any]], *, min_confidence: float = 0.55,
+    vision_records: list[dict[str, Any]], lexicon: dict[str, Any], *, min_confidence: float = 0.55,
     scenes: tuple[str, ...] = DEFAULT_SCENES,
 ) -> list[tuple[dict[str, Any], dict[str, Any], dict[str, Any]]]:
     probability(min_confidence)
@@ -70,6 +70,9 @@ def select_candidates(
         for key in ("questionCategory", "filename"):
             if vision.get(key) != item.get(key):
                 raise ValueError(f"Vision metadata mismatch for {item['id']}: {key}")
+        allowed = lexicon["categories"][item["questionCategory"]]["allowed_labels"]
+        if vision.get("defectType") not in allowed:
+            raise ValueError(f"Illegal vision label for {item['id']}: {vision.get('defectType')!r}")
         confidence = probability(vision.get("confidence"))
         if (item["questionCategory"] == "桥梁" and scene_key(item) in scenes
                 and base["defectType"] == "完好" and vision["defectType"] != "完好"
@@ -150,7 +153,7 @@ def merge_reviews(manifest, results, vision_records, records, lexicon,
                   *, min_confidence=0.55, review_min_confidence=0.55,
                   scenes=DEFAULT_SCENES):
     probability(review_min_confidence)
-    candidates = select_candidates(manifest, results, vision_records,
+    candidates = select_candidates(manifest, results, vision_records, lexicon,
                                    min_confidence=min_confidence, scenes=scenes)
     review_by_id = index_unique(records, "id")
     expected = {item["id"] for item, _, _ in candidates}
