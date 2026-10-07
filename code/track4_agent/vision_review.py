@@ -137,7 +137,8 @@ def review_context(workspace, config, manifest, results, vision_records, lexicon
     if not model_dir.is_absolute():
         model_dir = workspace / model_dir
     sources = [Path(__file__), Path(__file__).with_name("model.py"),
-               Path(__file__).with_name("inference.py")]
+               Path(__file__).with_name("inference.py"),
+               Path(__file__).with_name("vision_classifier.py")]
     weights = sorted(model_dir.glob("*.safetensors"))
     if not weights:
         raise ValueError(f"No model weights in {model_dir}")
