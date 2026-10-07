@@ -136,6 +136,9 @@ def build_design_document(workspace: Path, team_name: str = "") -> Path:
     calibration = _read_optional(workspace / "logs" / "calibration_metrics.json")
     inference = _read_optional(workspace / "logs" / "inference_summary.json")
     validation = _read_optional(workspace / "logs" / "validation_report.json")
+    candidate_audit = _read_optional(workspace / "runs" / "visual_candidate_v5" / "logs" / "audit.json")
+    candidate_context = candidate_audit.get("context", {})
+    candidate_records = candidate_audit.get("records", [])
     review_rows = []
     review_file = workspace / "qa" / "review_annotations.jsonl"
     if review_file.exists():
@@ -194,7 +197,7 @@ def build_design_document(workspace: Path, team_name: str = "") -> Path:
         ["数据准备", "公开压缩包、训练JSON", "安全解压、完全重复去重、图片与标注映射"],
         ["场景路由", "文件夹与照片编号", "区分桥梁、轨道、左右幅和连续航拍序列"],
         ["视觉推理", "桥梁整图或轨道整图加细节拼图", "输出病害类型、描述、标度、置信度和证据"],
-        ["复核模块", "轨道低置信度结果", "使用整图和四象限细节拼图再次推理"],
+        ["复核模块", "局部复核与视觉候选", "Qwen复核视觉头候选并保留原始响应"],
         ["结果校验", "模型原始JSON", "合法标签规范化、字段检查、断点保存"],
         ["提交打包", "代码、设计书、结果", "生成符合赛事目录结构的tar.gz"],
     ]
@@ -205,7 +208,7 @@ def build_design_document(workspace: Path, team_name: str = "") -> Path:
         "数据预处理模块：安全解压20GB公开数据，读取汇总标注，删除一条完全重复记录，并通过桥梁名称、左右幅和文件夹解决重复照片编号映射。生成训练清单、测试清单和标签词典，所有中间文件均可复核。",
         "分域视觉模块：最终配置将桥梁整图和四象限细节图送入4B模型，并在桥梁场景增加一次粗类别初筛；轨道使用整图和四象限细节图，兼顾细裂缝识别与吞吐。",
         "结构化推理模块：提示词只允许模型从训练集中出现的合法病害类型中选择。模型同时生成可见证据、病害描述和评定标度，温度设为0并固定随机种子，降低输出波动。",
-        "自动复核模块：模型先生成桥梁粗类别，再由结构化病害提示词完成最终分类；轨道结果在低置信度或描述矛盾时触发复核。非法标签由训练集词典自动规范化，审核记录只作为聚合证据提示，不覆盖测试结果。",
+        "自动复核模块：模型先生成桥梁粗类别，再由结构化病害提示词完成最终分类；支座、梁底和轨道的视觉候选逐项交给本地Qwen重新生成描述，只有合法标签与视觉候选一致时才接受。非法标签由训练集词典自动规范化，审核记录只作为聚合证据提示，不覆盖测试结果。",
         "工程可靠性模块：每25张图片持久化一次断点，推理中断后可继续运行；原始模型响应保存在日志中。最终校验测试图片数量、文件名多重集合、字段顺序、合法标签和标度范围。",
     ]
     for text in module_texts:
@@ -217,6 +220,7 @@ def build_design_document(workspace: Path, team_name: str = "") -> Path:
         "基于数据域的自适应视觉输入：桥梁采用轻量整图，轨道采用整图加四象限拼图，同一模型按场景切换视觉预算。",
         "训练集驱动的标签约束：标签、典型描述和评定标度分布全部从公开训练数据自动提取，既抑制大模型幻觉，又不包含任何测试答案。",
         "证据一致性复核：模型不仅给出类别，还给出可见依据；系统检测类别与描述冲突并自动复核，提高结构化结果可信度。",
+        "双模型候选确认：冻结视觉头负责跨场景标签候选，Qwen负责同图证据描述；每个改变项保留候选分数、原始响应和接受状态。",
         "全流程可追溯：保存模型版本、固定种子、每张图片原始响应、断点和校验报告，便于赛事复核和决赛演示。",
     ]
     for index, text in enumerate(innovations, start=1):
@@ -233,6 +237,7 @@ def build_design_document(workspace: Path, team_name: str = "") -> Path:
         ["原子病害Macro-F1", f"{calibration.get('atomic_macro_f1', 0):.4f}", "组合病害拆分后计算"],
         ["评定标度准确率", f"{calibration.get('rating_accuracy', 0):.4f}", "含空标度"],
         ["结果文件校验", "通过" if validation.get("valid") else "待校验", "七字段、数量及标签合法性"],
+        ["视觉候选复核", str(candidate_context.get("accepted_count", 0)), f"候选{candidate_context.get('candidate_count', len(candidate_records))}项，逐项保存Qwen响应"],
     ]
     _insert_table_after(evaluation_heading, ["指标", "结果", "说明"], metrics_rows)
 

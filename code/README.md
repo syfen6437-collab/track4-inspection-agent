@@ -28,6 +28,23 @@
 
 当前最终配置为4B桥梁双阶段初筛、桥梁整图加四象限细节拼图，轨道使用整图加四象限细节拼图。输出上限为96个新token；轨道低置信度结果仍可自动复核。默认入口配置为 `code/config/qwen3-vl-4b-review.json`。
 
+完整推理后可用冻结的本地视觉头生成隔离候选。桥梁只对支座/梁底场景、轨道使用原子组合头；每个标签变化样本再次由本地Qwen生成描述和评分，只有合法且与视觉候选一致时才接受：
+
+```powershell
+.\.venv\Scripts\python.exe -X utf8 code\apply_visual_candidate.py `
+  --vision runs\review_validation_v4\vision_test_knn.json `
+  --output runs\visual_candidate_v5\result\result.json `
+  --audit runs\visual_candidate_v5\logs\audit.json `
+  --descriptions runs\visual_candidate_v5\logs\descriptions.json `
+  --track --resume
+.\.venv\Scripts\python.exe -X utf8 code\calibrate_ratings.py `
+  --input runs\visual_candidate_v5\result\result.json `
+  --output runs\visual_candidate_v5\result\result_calibrated.json `
+  --audit runs\visual_candidate_v5\logs\rating_audit.json
+```
+
+候选输出、Qwen原始响应和审计记录始终位于 `runs/`，不会被该命令写入正式结果。
+
 ## 训练图片浏览与人工审核
 
 启动一个只读图片浏览器，并把人工意见单独保存到 `qa/review_annotations.jsonl`：
@@ -53,12 +70,12 @@ Qwen 重新生成七字段内部结果，最后由 `code/apply_vision_hybrid.py`
 [`SIGLIP2_EXPERIMENT.md`](SIGLIP2_EXPERIMENT.md)。
 
 桥梁候选头可用 `predict_vision_test.py --bridge-method knn --knn-k 5` 做隔离
-对照；轨道仍使用原子多标签头。只有配对 Qwen 复核在留出图上确认收益后，才应使用
-该候选文件生成新的测试结果。
+对照；轨道仍使用原子多标签头。候选升级前应保留完整留出评估、Qwen原始响应、评分
+校准审计和结果校验报告。
 
 正式使用前先运行 `code/evaluate_vision_review.py --prepare-only` 检查两个整桥留出折叠，
 再在有空闲 GPU 时运行完整配对评估。只有留出集上复核策略稳定优于基线，才考虑把候选
-结果升级为新的提交结果；当前正式 `result/result.json` 仍受保护。
+结果升级为新的提交结果；正式结果升级前仍需运行 `validate` 和 `package`。
 
 桥梁病害评分缺失时，可先用 `code/calibrate_ratings.py` 在 `runs/` 下生成隔离候选；
 它只依据训练标签的评分分布补齐默认值，并写出逐项审计，不会覆盖正式结果。

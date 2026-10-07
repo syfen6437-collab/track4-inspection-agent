@@ -1003,44 +1003,44 @@
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_第1跨-跨中梁底.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "梁底无明显修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_第2跨-2号墩支座.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_第2跨-3号墩支座.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "支座混凝土有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_第3跨-3号墩支座.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_第3跨-4号墩支座.JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "支座旁有锈迹与水痕",
+    "defectType": "渗水/泛碱",
+    "defectDescription": "支座处有水渍痕迹",
     "ratingScale(1-5)": "2"
   },
   {
@@ -1048,42 +1048,33 @@
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_第3跨-跨中梁底 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
-  },
-  {
-    "questionCategory": "桥梁",
-    "bridgeName": "巫溪互通大桥（右幅）",
-    "defectLocation": "",
-    "filename": "右幅_第3跨-跨中梁底 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
-  },
-  {
-    "questionCategory": "桥梁",
-    "bridgeName": "巫溪互通大桥（右幅）",
-    "defectLocation": "",
-    "filename": "右幅_第4跨-4号墩支座.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
-  },
-  {
-    "questionCategory": "桥梁",
-    "bridgeName": "巫溪互通大桥（右幅）",
-    "defectLocation": "",
-    "filename": "右幅_第4跨-5号墩支座.JPG",
-    "defectType": "渗水/泛碱",
-    "defectDescription": "盖梁有水痕泛碱",
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "梁底可见修补痕迹",
     "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
-    "filename": "右幅_第4跨-跨中梁底 (1).JPG",
+    "filename": "右幅_第3跨-跨中梁底 (2).JPG",
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "梁底有修补痕迹",
+    "ratingScale(1-5)": "2"
+  },
+  {
+    "questionCategory": "桥梁",
+    "bridgeName": "巫溪互通大桥（右幅）",
+    "defectLocation": "",
+    "filename": "右幅_第4跨-4号墩支座.JPG",
+    "defectType": "渗水/泛碱",
+    "defectDescription": "支座处有轻微泛碱痕迹",
+    "ratingScale(1-5)": "2"
+  },
+  {
+    "questionCategory": "桥梁",
+    "bridgeName": "巫溪互通大桥（右幅）",
+    "defectLocation": "",
+    "filename": "右幅_第4跨-5号墩支座.JPG",
     "defectType": "完好",
     "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
@@ -1092,10 +1083,19 @@
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
+    "filename": "右幅_第4跨-跨中梁底 (1).JPG",
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "梁底无明显破损或裂缝",
+    "ratingScale(1-5)": "2"
+  },
+  {
+    "questionCategory": "桥梁",
+    "bridgeName": "巫溪互通大桥（右幅）",
+    "defectLocation": "",
     "filename": "右幅_第4跨-跨中梁底 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "梁底修补痕迹明显",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1120,9 +1120,9 @@
     "bridgeName": "巫溪互通大桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_第5跨-跨中梁底 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "梁底有轻微泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1138,18 +1138,18 @@
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第1跨-1号墩支座.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "支座区域修补痕迹明显",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第1跨-跨中梁底.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "粉红色色斑",
+    "defectDescription": "无粉红色色斑",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1174,17 +1174,17 @@
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第3跨-3号墩支座.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "支座处有轻微泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第3跨-4号墩支座.JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "支座及梁底见锈迹",
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有水渍痕迹",
     "ratingScale(1-5)": "2"
   },
   {
@@ -1192,18 +1192,18 @@
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第3跨-跨中梁底 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "梁底有轻微泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第3跨-跨中梁底 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "梁底有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1228,17 +1228,17 @@
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第4跨-跨中梁底 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "梁底有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第4跨-跨中梁底 (2).JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "梁底混凝土有锈斑",
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛白痕迹",
     "ratingScale(1-5)": "2"
   },
   {
@@ -1246,9 +1246,9 @@
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第5跨-5号墩支座.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "支座处有轻微泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1264,26 +1264,26 @@
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第5跨-跨中梁底 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "梁底有轻微水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_第5跨-跨中梁底 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "巫溪互通大桥",
     "defectLocation": "",
     "filename": "第1跨-2号墩支座.JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "支座及盖梁有锈迹",
+    "defectType": "渗水/泛碱",
+    "defectDescription": "支座有锈迹",
     "ratingScale(1-5)": "2"
   },
   {
@@ -1291,9 +1291,9 @@
     "bridgeName": "巫溪互通大桥",
     "defectLocation": "",
     "filename": "第2跨-跨中梁底 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "梁底无裂缝、无剥落",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1345,9 +1345,9 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩10顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1363,18 +1363,18 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩11前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有竖向水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩11顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落等病害",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1390,27 +1390,27 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩12后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有明显水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩12顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩12顶 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1426,9 +1426,9 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩13顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1444,27 +1444,27 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩14前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩14后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩14顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1498,8 +1498,8 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩1前.JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "支座接缝处有黄色锈迹",
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
     "ratingScale(1-5)": "2"
   },
   {
@@ -1507,54 +1507,54 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩1后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "可见修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩1顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩1顶 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "墩身有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩2前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有竖向水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩2后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "墩身有竖向水渍痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩3前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面无明显破损",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1570,9 +1570,9 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩3顶.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1651,9 +1651,9 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩6前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1696,9 +1696,9 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩7后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有纵向水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -1750,27 +1750,27 @@
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩8顶 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩9顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（右幅）",
     "defectLocation": "",
     "filename": "右幅_墩9顶 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -4810,42 +4810,60 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛黄痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩10顶 (3).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩10顶 (4).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩10顶 (5).JPG",
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
+  },
+  {
+    "questionCategory": "桥梁",
+    "bridgeName": "白沙溪2号桥",
+    "defectLocation": "",
+    "filename": "墩10顶 (6).JPG",
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛白痕迹",
+    "ratingScale(1-5)": "2"
+  },
+  {
+    "questionCategory": "桥梁",
+    "bridgeName": "白沙溪2号桥",
+    "defectLocation": "",
+    "filename": "墩10顶 (7).JPG",
     "defectType": "完好",
     "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
@@ -4854,46 +4872,28 @@
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
-    "filename": "墩10顶 (6).JPG",
+    "filename": "墩11后 (1).JPG",
     "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
+    "defectDescription": "混凝土表面无明显病害",
     "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
-    "filename": "墩10顶 (7).JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "支座及盖梁见黄色锈迹",
-    "ratingScale(1-5)": "2"
-  },
-  {
-    "questionCategory": "桥梁",
-    "bridgeName": "白沙溪2号桥",
-    "defectLocation": "",
-    "filename": "墩11后 (1).JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "支座及梁底见黄色锈迹",
-    "ratingScale(1-5)": "2"
-  },
-  {
-    "questionCategory": "桥梁",
-    "bridgeName": "白沙溪2号桥",
-    "defectLocation": "",
     "filename": "墩11后 (2).JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "盖梁有锈迹，未见剥落",
-    "ratingScale(1-5)": "2"
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
+    "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩11后 (3).JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "支座及梁底见黄色锈迹",
-    "ratingScale(1-5)": "2"
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
+    "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
@@ -4918,9 +4918,9 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩12前 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛白痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -4936,9 +4936,9 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩12前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛白痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -4954,9 +4954,9 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩13后 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛白痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -4972,45 +4972,45 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩14顶 (3).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩15前 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛白痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩15前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛白痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩15后 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛黄",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩15后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有竖向水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5026,9 +5026,9 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩15顶 (4).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5062,27 +5062,27 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩2后 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩2顶.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩3顶 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5107,18 +5107,18 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩7顶 (3).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "粉红色色斑",
+    "defectDescription": "无粉红色色斑",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩8顶 (3).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5143,36 +5143,36 @@
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩9前.JPG",
-    "defectType": "渗水/泛碱",
-    "defectDescription": "盖梁有泛碱水痕",
-    "ratingScale(1-5)": "2"
+    "defectType": "完好",
+    "defectDescription": "混凝土表面无明显病害",
+    "ratingScale(1-5)": ""
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩9后 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "桥墩侧面有明显水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩9后 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有纵向水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥",
     "defectLocation": "",
     "filename": "墩9后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "桥墩侧面有明显水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5197,9 +5197,9 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩10顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5215,18 +5215,18 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩11前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有竖向水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩11顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5242,27 +5242,27 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩12后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有明显水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩12顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩12顶 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5278,9 +5278,9 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩13顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5296,27 +5296,27 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩14前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩14后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩14顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5350,8 +5350,8 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩1前.JPG",
-    "defectType": "锈蚀/碳化",
-    "defectDescription": "支座接缝处有黄色锈迹",
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有泛黄痕迹",
     "ratingScale(1-5)": "2"
   },
   {
@@ -5359,54 +5359,54 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩1后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "可见修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩1顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩1顶 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "墩身有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩2前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有竖向水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩2后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "墩身有竖向水渍痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩3前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5422,9 +5422,9 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩3顶.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面修补痕迹明显",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5503,9 +5503,9 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩6前.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5548,9 +5548,9 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩7后.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有纵向水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -5602,27 +5602,27 @@
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩8顶 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无锈蚀、渗水、剥落",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有轻微泛白",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩9顶 (1).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "渗水/泛碱",
+    "defectDescription": "混凝土表面有纵向水渍",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
     "bridgeName": "白沙溪2号桥（左幅）",
     "defectLocation": "",
     "filename": "左幅_墩9顶 (2).JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害迹象",
-    "ratingScale(1-5)": ""
+    "defectType": "已处治病害（修补）",
+    "defectDescription": "混凝土表面有修补痕迹",
+    "ratingScale(1-5)": "2"
   },
   {
     "questionCategory": "桥梁",
@@ -8770,8 +8770,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "002640ae-7af2-401f-a8a2-3acb34ecd2b0.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -8779,8 +8779,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "00ddec0b-239f-4124-9ee0-16d0407242ab.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -8788,8 +8788,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "020932a5-592a-4af8-b0e1-2cf2b5e78601.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面有破损痕迹",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有裂缝和破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -8797,8 +8797,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "0380db55-e127-4ff3-ab29-2e5476446b4b.png",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "台阶底部锈蚀明显",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "台阶底部锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -8806,8 +8806,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "03e0deb3-1ec6-44ac-92ef-689a3528d5de.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处细小裂缝",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土表面可见锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -8833,8 +8833,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "046b9dcc-f191-4803-af2c-bc049179d72c.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处横向裂缝",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面多处裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -8851,8 +8851,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "058c0986-e3b2-4049-962c-2d5b82e2dfb5.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -8860,8 +8860,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "0620d901-8b1d-4994-ae5d-0d0f8dec4ff4.jpg",
-    "defectType": "破损",
-    "defectDescription": "黄色支座表面剥落",
+    "defectType": "支座锈蚀",
+    "defectDescription": "黄色支座表面锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -8887,8 +8887,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "07914638-dbee-48db-b5ad-cc17ecce4ddf.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土开裂，局部剥落",
+    "defectType": "破损",
+    "defectDescription": "混凝土破损，局部剥落",
     "ratingScale(1-5)": ""
   },
   {
@@ -8896,8 +8896,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "07ffb594-3271-480a-8df4-c95809e1210f.png",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "混凝土内钢筋锈蚀痕迹",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有锈迹和裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -8914,8 +8914,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "094d3377-063a-4bd0-84ee-6a08d4df0916.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "轨道钢轨锈蚀明显",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -8923,8 +8923,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "09c0c10a-f4b7-4e28-9d16-e2c825af34b3.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见纵向细裂纹",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有纵向裂纹与泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -8968,8 +8968,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "0ef337e1-2293-444b-8971-2b48cd0b30ff.jpg",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢构件锈蚀严重，呈块状脱落",
+    "defectType": "钢筋锈蚀、破损、渗水泛碱",
+    "defectDescription": "锈蚀块状脱落，漆面开裂",
     "ratingScale(1-5)": ""
   },
   {
@@ -8977,8 +8977,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "0f1d8384-9e8a-4b97-bd74-7ad15300305f.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面有破损痕迹",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面可见裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -8986,8 +8986,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "0f9cbc4e-58a2-4227-adf7-8d1f72b3dd00.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "表面有细小裂纹和污渍",
     "ratingScale(1-5)": ""
   },
   {
@@ -8995,8 +8995,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "0fcff1f0-fa93-41e9-9565-334e6a58a8ac.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "轨道钢轨明显锈蚀",
+    "defectType": "支座锈蚀",
+    "defectDescription": "轨道支座锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -9004,8 +9004,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "11b86c21-bbfe-4e5c-9f05-9bc58b158dd9.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "破损",
+    "defectDescription": "混凝土表面有破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9013,8 +9013,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "11c5d0a1-e165-4173-9ccd-793da96b4d91.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "破损",
+    "defectDescription": "混凝土表面有破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9022,8 +9022,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "131fa460-c1c6-4b5f-8e0a-910db7c6c069.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见明显裂缝",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土裂缝及局部破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9031,8 +9031,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "152c2db2-b0a5-4b23-9562-39ca002f2ed4.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有横向裂缝",
+    "defectType": "钢筋锈蚀、渗水泛碱",
+    "defectDescription": "混凝土表面有渗水痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9040,8 +9040,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "1560a6c0-04bc-4a41-87b5-a671eab35d19.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土剥落破损",
+    "defectType": "破损、渗水泛碱",
+    "defectDescription": "混凝土剥落、泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -9049,8 +9049,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "167b75b4-d76a-41fa-b913-17385ac26dec.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土底座破损，有碎裂痕迹",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "无钢结构，不适用",
     "ratingScale(1-5)": ""
   },
   {
@@ -9058,8 +9058,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "16f53e6a-96f1-48b6-bc40-e4813ba6686f.jpg",
-    "defectType": "破损",
-    "defectDescription": "轨道支座区域有明显破损",
+    "defectType": "完好",
+    "defectDescription": "轨道及支座无明显损伤",
     "ratingScale(1-5)": ""
   },
   {
@@ -9067,8 +9067,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "17887225-8ebc-4f29-a222-b6eac1726b43.png",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "支座处钢筋锈蚀明显",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座处锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9076,8 +9076,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "17d2325c-28e2-499c-80d7-7af6159268b0.JPG",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见细微裂缝",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有裂缝与泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9085,8 +9085,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "181c0995-5aea-41ba-bd4f-6097f8ee2252.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢梁表面锈蚀明显",
+    "defectType": "钢结构锈蚀、破损",
+    "defectDescription": "钢梁锈蚀严重，表面破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9112,8 +9112,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "18a769e1-bc44-4d68-9f01-422e9aaa8ce2.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "墙角金属板锈蚀",
+    "defectType": "钢结构锈蚀、破损",
+    "defectDescription": "金属板锈蚀、边缘破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9121,8 +9121,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "19b8d3a7-8142-45b0-97cc-5c696f6ee660.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见多条细小裂缝",
+    "defectType": "破损",
+    "defectDescription": "混凝土表面有明显破损痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9130,8 +9130,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "19f2384e-bb23-4250-b94b-6e3c4853ebf5.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有裂缝和标记",
     "ratingScale(1-5)": ""
   },
   {
@@ -9139,8 +9139,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "1bd9ea5a-e448-496c-be88-a24d7707e540.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "墙面可见细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9148,8 +9148,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "1c98d6b1-ce77-4277-9583-730159c6ac59.jpg",
-    "defectType": "支座锈蚀",
-    "defectDescription": "支座表面锈蚀明显",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "支座表面锈蚀、破损明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9166,8 +9166,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "1d149254-f900-4e74-821c-c366bdb1d16b.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落破损",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面可见细长裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -9175,8 +9175,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "1d2e45cb-985b-4d66-98b1-ce3c24bd3501.png",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "钢筋明显锈蚀，呈红褐色",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座表面锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9184,8 +9184,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "1e75ea78-4219-455e-8009-15416ef10ed0.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见多条细小裂缝",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土内钢筋锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9193,8 +9193,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "20a5ac46-b1c0-4dda-b60a-0e7b81e7ef37.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落",
+    "defectType": "破损、渗水泛碱",
+    "defectDescription": "混凝土剥落与泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -9202,8 +9202,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "20ac68a8-1ca4-4c67-8bbf-ba8460fbd2bd.jpg",
-    "defectType": "渗水泛碱",
-    "defectDescription": "混凝土表面有白色泛碱痕迹",
+    "defectType": "钢筋锈蚀、渗水泛碱",
+    "defectDescription": "混凝土表面有泛碱与锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9211,8 +9211,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "20db9dc9-df58-41a5-aaf8-028813c8ff87.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见纵向裂缝",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有裂缝及破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9220,8 +9220,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "21633f75-8907-439f-b35c-46c356f812f0.png",
-    "defectType": "破损",
-    "defectDescription": "墙皮剥落，局部露筋",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -9229,8 +9229,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "22463750-5242-4d3a-a449-bf712e70b780.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土结构破损，有植物侵入",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "混凝土破损，有锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9238,8 +9238,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "228cab66-8c61-42d6-9233-9ddd7b3725aa.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢构件表面锈蚀明显",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座表面锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -9247,8 +9247,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "24d72665-c7a3-422a-a6d1-44a67b3fe686.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落、破损",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "顶部有明显裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -9256,7 +9256,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "252e891f-12fd-465b-aba6-3364f8f3c95c.png",
-    "defectType": "渗水泛碱",
+    "defectType": "钢筋锈蚀、渗水泛碱",
     "defectDescription": "混凝土表面泛白盐霜",
     "ratingScale(1-5)": ""
   },
@@ -9265,8 +9265,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "26c3f08d-4b9b-4382-a6da-64cc25daae81.jpg",
-    "defectType": "渗水泛碱",
-    "defectDescription": "轨道板表面有泛碱痕迹",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "钢梁表面锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9274,8 +9274,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "2927b7b3-1fbe-4846-b8ea-9505f24f63ec.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢构件表面严重锈蚀",
+    "defectType": "钢结构锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "钢构件锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -9301,8 +9301,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "2bac62f7-f547-4019-a31b-e22e678c55ae.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有轻微锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9319,8 +9319,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "2c7296ea-3135-4ed8-b3e2-bb7057a95426.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处细小裂缝",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土内钢筋锈蚀破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9328,8 +9328,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "2cc5a2c6-10ad-42aa-b23b-48c79c4407c6.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见明显裂缝",
+    "defectType": "钢结构锈蚀、破损",
+    "defectDescription": "混凝土下部有锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9346,8 +9346,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "2eb39a6c-2b4d-46d6-9d67-c87a1abcc4ce.JPG",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9382,8 +9382,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "362a56d1-f5f0-493f-8edb-44a1acdd772e.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土底座破损，有碎石散落",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "混凝土破损，支座锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -9391,8 +9391,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "36ad9aab-22fb-429a-8a9f-04b8cef282ac.jpg",
-    "defectType": "破损",
-    "defectDescription": "支座周边有明显破损",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座金属部件锈蚀明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9400,8 +9400,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "36cb563e-1a5f-4409-9112-0f6259e80e0d.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "接缝处可见明显裂缝",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "接缝处有裂缝与锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9418,8 +9418,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "384f4ace-b946-442c-b534-113c7fd5a15c.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "轨道钢轨锈蚀明显",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土板表面有裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -9427,8 +9427,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "39601ce9-d097-46d6-9143-5fde08e7f5c4.JPG",
-    "defectType": "支座锈蚀",
-    "defectDescription": "支座表面锈蚀明显，有黄色锈迹",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "支座锈蚀明显，有黄色锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9445,8 +9445,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "3b860ce8-d191-44d4-bd13-918447ab6e4b.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见多条细裂缝",
+    "defectType": "钢筋锈蚀、渗水泛碱",
+    "defectDescription": "混凝土表面有锈迹和渗水痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9454,8 +9454,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "3bc2d889-fb91-4b9c-9343-8fed1e2e2f36.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见多条裂缝",
+    "defectType": "钢结构锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土裂缝明显，钢构件有锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9472,8 +9472,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "3ca7a3d5-d0f2-4245-a410-07b69ad85a3c.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土破损，表面剥落",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "钢轨表面锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9481,8 +9481,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "3d0e9e4b-22a6-488c-9bc1-796165f52b26.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处裂缝",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面泛白盐霜",
     "ratingScale(1-5)": ""
   },
   {
@@ -9490,7 +9490,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "3e29c488-8ee8-408f-937b-1b36f205cbda.png",
-    "defectType": "裂缝(混凝土裂缝)",
+    "defectType": "破损",
     "defectDescription": "混凝土柱面有细长裂缝",
     "ratingScale(1-5)": ""
   },
@@ -9499,8 +9499,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "3fa0175b-a902-4f55-8cfd-443103306820.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土结构破损，有碎裂痕迹",
+    "defectType": "完好",
+    "defectDescription": "无明显病害迹象",
     "ratingScale(1-5)": ""
   },
   {
@@ -9508,8 +9508,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "400b7743-ef87-43f2-8d33-d35dda3d092e.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见明显裂缝",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -9517,8 +9517,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "40a1cfc1-1f9e-46e4-9f82-5c25563f4846.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土梁体可见横向裂缝",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土内钢筋锈蚀破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9526,8 +9526,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "444cd316-1591-4441-bd85-f0b380befa23.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土底座可见横向裂缝",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -9544,8 +9544,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "460cc029-fd42-4bb2-b0b8-efe0857f95b0.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有轻微裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -9553,8 +9553,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "461f433a-9238-441b-a2ce-e70b06354f0e.jpg",
-    "defectType": "破损",
-    "defectDescription": "黄色构件有明显破损",
+    "defectType": "支座锈蚀",
+    "defectDescription": "黄色支座表面锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -9571,8 +9571,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "486b70d4-6581-4091-a8b7-51236b1edae2.png",
-    "defectType": "破损",
-    "defectDescription": "轨道底座破损，有明显裂纹",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "支座锈蚀，轨道底座破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9580,8 +9580,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "48972c51-8d20-48f2-a543-a2bf844b515b.jpg",
-    "defectType": "破损",
-    "defectDescription": "支座混凝土破损",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "支座混凝土破损、锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9589,7 +9589,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "48ce3c3c-7d5e-4d8b-928a-7a09bb6bd21a.jpg",
-    "defectType": "渗水泛碱",
+    "defectType": "钢筋锈蚀、渗水泛碱",
     "defectDescription": "混凝土表面泛碱痕迹",
     "ratingScale(1-5)": ""
   },
@@ -9598,8 +9598,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "49e5f5c4-edae-4fd4-b4cf-64ed0fb0ba14.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处裂缝",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土裂缝及钢筋锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -9607,8 +9607,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "4ba6cdc9-1f67-450e-ba93-4799c1e15016.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座处锈蚀明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9616,8 +9616,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "4c374b97-0248-4699-b22e-75aab3a47fcd.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土轨枕表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9625,8 +9625,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "4c4b57a4-bd6c-45d7-abe5-7e958f61cab7.jpg",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢构件表面严重锈蚀",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座钢构件锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -9634,8 +9634,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "4c6ff854-a627-4ab0-9c25-af19f2300c38.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "接缝处有黄色锈迹",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "接缝处有锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9643,8 +9643,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "4dd63503-1fad-48d2-a4a6-4544e6e1eb0a.jpg",
-    "defectType": "渗水泛碱",
-    "defectDescription": "地面有白色泛碱痕迹",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "地面有裂缝与泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -9652,8 +9652,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "4dee62da-4f57-48ac-8b49-5d8f47bf5b76.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见多条细裂纹",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "无钢结构锈蚀可见",
     "ratingScale(1-5)": ""
   },
   {
@@ -9661,8 +9661,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "4e976700-330c-4794-8f9a-f870db3583f8.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有细长裂缝",
+    "defectType": "钢筋锈蚀",
+    "defectDescription": "混凝土内钢筋锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9670,8 +9670,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "502b9483-433f-46f7-b9bf-baa4ce8856a0.jpg",
-    "defectType": "渗水泛碱",
-    "defectDescription": "地面有白色泛碱痕迹",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9679,8 +9679,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "5287261d-4f27-4547-b17d-9449cc315c5a.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见浅色划痕",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有浅色划痕与黄斑",
     "ratingScale(1-5)": ""
   },
   {
@@ -9688,8 +9688,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "545daf0c-7eab-4d01-8b61-6e9c264d54de.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处裂缝",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土内钢筋锈蚀外露",
     "ratingScale(1-5)": ""
   },
   {
@@ -9697,8 +9697,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "54ab8cdd-111d-46a3-b166-0a7240230dd6.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土底面可见横向裂缝",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座表面锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9706,8 +9706,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "55eea5d7-c1f9-41db-a654-8699f984e63f.jpg",
-    "defectType": "破损",
-    "defectDescription": "路面破损，有裂缝和碎屑",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "路面有裂缝与泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9715,8 +9715,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "5739e34f-80d5-46e0-b74e-c6e0f61e5448.jpg",
-    "defectType": "渗水泛碱",
-    "defectDescription": "混凝土表面有水渍和泛碱痕迹",
+    "defectType": "钢筋锈蚀、破损、渗水泛碱",
+    "defectDescription": "混凝土表面有渗水泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9724,8 +9724,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "57479b27-5683-4b69-b7fd-85da49bb1624.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9733,8 +9733,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "577ee8e1-31b5-4663-bf2f-e63be985234d.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9751,8 +9751,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "57c1051d-d889-4075-9730-d38a57011983.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土局部剥落破损",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土剥落露筋",
     "ratingScale(1-5)": ""
   },
   {
@@ -9760,8 +9760,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "5961ab4f-2be7-47eb-88eb-b0889db8a692.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土墙局部剥落",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土墙有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9769,8 +9769,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "596fe05b-1913-4171-a7b0-00c52cee4f2f.jpg",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "混凝土内钢筋严重锈蚀",
+    "defectType": "破损",
+    "defectDescription": "混凝土剥落、钢筋锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -9778,8 +9778,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "59f1d3de-614d-45f0-a383-43bca198df3a.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9787,8 +9787,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "5bdce540-c17d-45ce-ba45-f9dc8d1f051d.jpg",
-    "defectType": "破损",
-    "defectDescription": "排水篦子破损",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -9796,7 +9796,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "5cf9a20f-b641-4ba9-ad87-8d440b63c330.png",
-    "defectType": "钢筋锈蚀",
+    "defectType": "钢结构锈蚀",
     "defectDescription": "混凝土内钢筋锈蚀明显",
     "ratingScale(1-5)": ""
   },
@@ -9805,8 +9805,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "5df40e51-8211-4ae4-aea7-93a70d2abb27.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见明显裂缝",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有裂缝及泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -9814,8 +9814,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "5e975fa4-c75f-47b6-b3a1-a507d0c17c97.jpg",
-    "defectType": "破损",
-    "defectDescription": "轨道设施表面破损",
+    "defectType": "支座锈蚀",
+    "defectDescription": "黄色支座表面锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9823,8 +9823,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "5f3a9a8d-e2d4-4096-bbb6-e31fb4b2459e.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面破损，有明显裂纹",
+    "defectType": "完好",
+    "defectDescription": "无明显病害迹象",
     "ratingScale(1-5)": ""
   },
   {
@@ -9832,8 +9832,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "5f94d349-6716-4fe8-aa49-5e86a0d2d801.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见明显裂缝",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有裂缝和标记",
     "ratingScale(1-5)": ""
   },
   {
@@ -9841,8 +9841,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "61627c04-6a76-4114-9c33-177d7720339a.png",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "混凝土内钢筋锈蚀明显",
+    "defectType": "钢结构锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土裂缝与锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9850,15 +9850,6 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "6175ad5c-afcd-4440-83a9-5170b41b4387.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处裂缝",
-    "ratingScale(1-5)": ""
-  },
-  {
-    "questionCategory": "轨道",
-    "bridgeName": "",
-    "defectLocation": "",
-    "filename": "62026864-7b77-4312-a50b-1bfcda3ff168.jpg",
     "defectType": "完好",
     "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
@@ -9867,9 +9858,18 @@
     "questionCategory": "轨道",
     "bridgeName": "",
     "defectLocation": "",
+    "filename": "62026864-7b77-4312-a50b-1bfcda3ff168.jpg",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有划痕",
+    "ratingScale(1-5)": ""
+  },
+  {
+    "questionCategory": "轨道",
+    "bridgeName": "",
+    "defectLocation": "",
     "filename": "630abf15-0c82-4130-a852-890f90c11400.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土剥落、碎块堆积",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面泛白盐霜",
     "ratingScale(1-5)": ""
   },
   {
@@ -9877,8 +9877,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "634318d1-2049-49e9-8efd-a8b82ed0a619.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有横向裂纹",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -9904,8 +9904,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "64bebddc-7701-4c2e-b4b6-9e72559711ed.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土破损，有裂缝和碎块",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "路面混凝土裂缝明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -9913,8 +9913,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "6728a6d0-aa2d-4f19-a6cd-f617108c77fc.jpg",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢构件表面有明显锈蚀痕迹",
+    "defectType": "支座锈蚀",
+    "defectDescription": "黄色支座表面锈迹斑斑",
     "ratingScale(1-5)": ""
   },
   {
@@ -9940,8 +9940,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "6ad44b90-2294-40f7-a9ca-7fb61fdaa0e6.png",
-    "defectType": "破损",
-    "defectDescription": "支座混凝土剥落破损",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座金属部件锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -9949,8 +9949,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "6b348548-25b2-4cdf-921e-e6741a1a7538.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面可见细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -9967,8 +9967,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "6d2d9213-1696-400e-acfa-527cfdd8df85.JPG",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土接缝处有明显裂缝",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土裂缝与破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -9976,8 +9976,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "6e0570c0-4023-4a6c-9653-37cb34d38cee.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土支座表面剥落",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "支座表面剥落、锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -9994,8 +9994,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "70b121cb-4f42-4aa7-9569-c8ae464b0b48.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10003,8 +10003,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "72ddda81-cb9e-48f1-9204-c546a65735c4.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处裂缝",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面多处裂缝与破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10021,8 +10021,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "730adf10-9d3b-427f-a30a-4189ab2ce246.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落破损",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -10057,8 +10057,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "75bee9a9-424c-461e-8461-02607daa4ff4.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土剥落、结构破损",
+    "defectType": "钢筋锈蚀、破损、支座锈蚀",
+    "defectDescription": "钢筋外露、混凝土剥落",
     "ratingScale(1-5)": ""
   },
   {
@@ -10066,8 +10066,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "75d53db6-9f01-4727-8093-394f176798f2.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "天花板混凝土表面有横向裂缝",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土表面有锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10075,8 +10075,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "7628d0a9-a0de-4965-ad61-6f23bf90deb3.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见两条明显裂缝",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有两条裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -10093,8 +10093,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "76d6983b-bceb-481e-a245-a7af4ed0f5de.jpg",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "黄色钢构件锈蚀严重",
+    "defectType": "支座锈蚀",
+    "defectDescription": "黄色支座锈蚀明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -10120,8 +10120,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "780897d9-d963-4424-abcd-3f2492d064d8.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处纵向裂缝",
+    "defectType": "钢筋锈蚀",
+    "defectDescription": "混凝土内钢筋锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10138,8 +10138,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "786a3e0d-62a8-42a5-a2c5-485bb4e53df4.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土接缝处可见细小裂缝",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "无钢结构锈蚀迹象",
     "ratingScale(1-5)": ""
   },
   {
@@ -10147,8 +10147,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "78f22b27-3abd-4c50-88a1-decd206196f8.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土剥落，结构破损",
+    "defectType": "钢筋锈蚀",
+    "defectDescription": "无钢筋锈蚀可见证据",
     "ratingScale(1-5)": ""
   },
   {
@@ -10156,8 +10156,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "79d74c3a-8524-4a83-a9b7-03cce8734c6a.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座表面有锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10165,8 +10165,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "7bbd99a1-aab9-41a8-b48c-7da0a79b73cd.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "无明显裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -10183,8 +10183,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "8075aced-fad9-4c4f-96a4-bf0315c3015e.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有细小裂缝",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土表面有锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10201,8 +10201,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "82b2d72f-3d75-4f21-bfa4-6d05a6816319.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢梁接缝处有锈迹",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -10210,8 +10210,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "86ece03d-84f7-409d-bac6-59530bb1d0b1.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "钢筋锈蚀",
+    "defectDescription": "混凝土内钢筋锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10219,8 +10219,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "87623df0-61af-4c7e-bfb6-04e194ebd280.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "无可见裂缝或锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -10228,8 +10228,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "87bf6891-b883-40f8-95ed-2a040ed00c4c.jpg",
-    "defectType": "破损",
-    "defectDescription": "轨道板破损，有明显裂纹",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "钢轨连接处锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -10255,8 +10255,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "88f28a4b-cb9e-4647-bcf0-0d3bddda815f.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土剥落、碎块脱落",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土裂缝、剥落",
     "ratingScale(1-5)": ""
   },
   {
@@ -10264,8 +10264,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "895253ee-e282-4c18-b3ae-1d767077c0ee.jpg",
-    "defectType": "破损",
-    "defectDescription": "轨道板接缝处有明显破损",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "钢轨与支架锈蚀明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -10282,8 +10282,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "8ab848de-b04c-41e8-a7b7-5ead54a675d0.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土表面有锈迹和剥落",
     "ratingScale(1-5)": ""
   },
   {
@@ -10291,8 +10291,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "8b19ac5e-d942-45d9-be09-baf391d0d99f.jpg",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "混凝土内钢筋锈蚀明显",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -10300,8 +10300,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "8b63320e-2273-4a94-8690-57ce73cf8609.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "钢构件表面有锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10327,8 +10327,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "8d72bc16-58c7-45e0-85c3-f24ed45b3e92.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "钢筋锈蚀",
+    "defectDescription": "排水沟内钢筋锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -10363,8 +10363,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "90bb5109-d6a3-4277-a0ed-4c61c2c6c21a.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土局部碎裂剥落",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土局部破损剥落",
     "ratingScale(1-5)": ""
   },
   {
@@ -10372,8 +10372,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "90c0e01b-09c3-4296-be8a-b789c1ae6d2e.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有纵向裂缝",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面有红色渗水痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10381,8 +10381,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "90e045fd-fa48-42b0-9171-867c7310e800.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面局部破损",
+    "defectType": "钢筋锈蚀、破损、渗水泛碱",
+    "defectDescription": "混凝土表面有锈迹和破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10390,8 +10390,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "92cf3134-f542-454f-b0c7-022e248787e8.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "钢筋锈蚀",
+    "defectDescription": "混凝土内钢筋锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10408,8 +10408,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "92ed1ca2-2d16-4d09-9af7-784e8ddd5d67.jpg",
-    "defectType": "破损",
-    "defectDescription": "轨道板破损，有明显裂纹",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "钢轨及连接件锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -10417,8 +10417,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "94e2dc17-d912-40e7-8ac5-a3767ed2a09b.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "钢结构锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有裂缝标记",
     "ratingScale(1-5)": ""
   },
   {
@@ -10426,8 +10426,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "956d3b37-d811-42b2-bbc5-be3032fbede3.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面有轻微破损",
+    "defectType": "破损、渗水泛碱",
+    "defectDescription": "混凝土表面有渗水泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10444,8 +10444,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "974760b2-af21-427a-8fb2-362179b5e26a.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "支座处混凝土出现明显裂缝",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "支座表面锈蚀明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -10453,8 +10453,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "980b49a1-ee18-49cf-b9bf-dbaee8fde274.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落、风化",
+    "defectType": "裂缝(混凝土裂缝)、破损、渗水泛碱",
+    "defectDescription": "混凝土表面有裂缝和剥落",
     "ratingScale(1-5)": ""
   },
   {
@@ -10462,8 +10462,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "99085525-3efa-4374-8d9f-be55f673ba77.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土接缝处有明显裂缝",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有裂缝与破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10471,8 +10471,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "99cb097f-25c2-437b-900a-6bd96dc160a4.JPG",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落破损",
+    "defectType": "钢筋锈蚀",
+    "defectDescription": "混凝土内钢筋锈蚀导致剥落",
     "ratingScale(1-5)": ""
   },
   {
@@ -10489,8 +10489,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "9d608458-e53a-427a-8128-622ff45d8b10.png",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "支座处钢筋锈蚀明显",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "支座混凝土破损，钢筋锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -10498,8 +10498,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "9dbdddbf-9961-4481-8ae5-c3cc4a12a47a.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有竖向裂缝",
+    "defectType": "裂缝(混凝土裂缝)、破损、渗水泛碱",
+    "defectDescription": "混凝土表面有竖向裂缝和破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10507,8 +10507,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "9fd4bf9d-4a52-44cc-ac8c-d837fe2cc5b7.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢构件表面锈蚀明显",
+    "defectType": "钢结构锈蚀、破损",
+    "defectDescription": "焊缝锈蚀破损明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -10516,8 +10516,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "a0c272bd-e9dd-41bb-a759-d216d115e92a.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "轨道板中部可见细微裂缝",
+    "defectType": "钢结构锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "轨道板有裂缝，夹板锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -10534,8 +10534,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "a18bd88f-9f3c-4743-bbec-84b506c3b946.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见纵向裂缝",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有纵向裂缝及泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -10543,8 +10543,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "a1b6f7ab-a0ee-4428-8f32-6cf411ea3a37.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落、有破损",
+    "defectType": "完好",
+    "defectDescription": "混凝土表面无明显破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10552,8 +10552,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "a1e84d7e-021c-4f25-9ba9-1974284f880f.JPG",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多条横向裂缝",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面多条裂缝及破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10561,8 +10561,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "a3999800-70bf-4588-b43c-f906069f3722.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见多处细小裂缝",
+    "defectType": "破损",
+    "defectDescription": "混凝土表面有破损痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10579,8 +10579,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "a7797721-7d30-486b-a640-100d2b410d52.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土梁体可见明显裂缝",
+    "defectType": "钢结构锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土梁体有裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -10624,8 +10624,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "ad2f8232-da63-4615-b40a-fad330a0a43d.png",
-    "defectType": "渗水泛碱",
-    "defectDescription": "混凝土表面有黄色水痕和泛碱",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有水痕和泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -10633,8 +10633,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "addcb3d3-067f-4870-bb18-e4812ca824f4.png",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢构件锈蚀明显，有锈水痕迹",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10642,8 +10642,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b1c762bc-1e6a-467c-b996-559ab080f2d1.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土接缝处有明显裂缝",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土裂缝处有渗水痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10651,7 +10651,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b30b44a3-802f-465f-b2bb-49b32b046498.png",
-    "defectType": "钢筋锈蚀",
+    "defectType": "钢筋锈蚀、破损、渗水泛碱",
     "defectDescription": "混凝土内钢筋锈蚀发黑",
     "ratingScale(1-5)": ""
   },
@@ -10660,8 +10660,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b32a0afd-4dd0-4848-b45e-c72cc676d447.JPG",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "破损、渗水泛碱",
+    "defectDescription": "混凝土表面有裂缝和标记",
     "ratingScale(1-5)": ""
   },
   {
@@ -10669,8 +10669,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b3477004-52a1-4a8b-ac5f-cd5e1bcb3848.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有裂缝和破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10678,8 +10678,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b387fd60-6f40-4766-8468-59cfcd37cc56.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落破损",
+    "defectType": "完好",
+    "defectDescription": "混凝土表面无明显破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10687,8 +10687,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b5273bad-103c-4012-8d1f-17a37d5a0585.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10705,7 +10705,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b5c1bc30-982c-4fce-9966-a5c80703d02a.JPG",
-    "defectType": "裂缝(混凝土裂缝)",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
     "defectDescription": "混凝土表面可见纵向裂缝",
     "ratingScale(1-5)": ""
   },
@@ -10723,8 +10723,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b67015eb-2b8c-4128-a2ec-ba0c86c68f61.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多条纵向裂缝",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面多条裂缝与泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -10750,8 +10750,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b81fef6c-2877-4c80-afa5-d6111356ac6c.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落、破损",
+    "defectType": "完好",
+    "defectDescription": "混凝土表面无明显破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10759,8 +10759,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "b9b94408-e4c4-44e8-9950-030b610785e2.png",
-    "defectType": "破损",
-    "defectDescription": "支座混凝土破损",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座表面锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -10786,8 +10786,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "bd5f513f-d1fc-4f46-854a-19567f55226b.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土接缝处明显开裂",
+    "defectType": "破损、渗水泛碱",
+    "defectDescription": "混凝土裂缝伴泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -10795,8 +10795,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "bf85d180-3893-43d7-a23a-4371feb2710a.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "钢筋外露锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -10804,8 +10804,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c18b9036-b6c9-4350-ab24-b8639affeb1d.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土破损，露出内部结构",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座处锈蚀明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -10813,8 +10813,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c2b40f47-8544-4847-b980-f61d74cf21f0.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见多条裂缝",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有锈蚀痕迹和裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -10822,8 +10822,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c34336d1-865f-4e7b-ac34-8585785e23a6.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见横向裂缝",
+    "defectType": "支座锈蚀",
+    "defectDescription": "锈蚀的金属支座部件",
     "ratingScale(1-5)": ""
   },
   {
@@ -10840,8 +10840,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c65b506f-961f-4df6-a87a-028f339d24e1.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "接缝处有明显裂缝",
+    "defectType": "破损",
+    "defectDescription": "混凝土接缝处有裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -10849,8 +10849,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c66320f3-bd40-4446-8884-4fa59d46ea61.JPG",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见明显裂缝",
+    "defectType": "裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有裂缝和破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10858,8 +10858,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c67cc096-d04d-4a9b-9646-d92d3643b4b3.JPG",
-    "defectType": "破损",
-    "defectDescription": "混凝土开裂，管道外露",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土墙体开裂，管道外露",
     "ratingScale(1-5)": ""
   },
   {
@@ -10867,8 +10867,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c692f6e6-6221-4549-930b-711ab7950f8b.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落、开裂",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有裂缝与泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -10894,8 +10894,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c7e95f1f-97a6-4586-b7db-fa6e02039f28.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有裂缝与泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -10903,8 +10903,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c8212d82-2301-42e3-9a31-b6f502dec6cd.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落破损",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "混凝土破损，支座锈蚀",
     "ratingScale(1-5)": ""
   },
   {
@@ -10912,8 +10912,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c86469ad-c4a0-4118-bad9-dfcf58f15ab8.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "破损",
+    "defectDescription": "混凝土表面有破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -10921,8 +10921,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c8bbab06-9695-4fb7-9b58-6984103619c5.png",
-    "defectType": "破损",
-    "defectDescription": "橡胶部件表面有裂纹",
+    "defectType": "完好",
+    "defectDescription": "无明显损伤",
     "ratingScale(1-5)": ""
   },
   {
@@ -10948,8 +10948,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "c9ed1e90-36b2-46b4-aa84-50d137bceed8.JPG",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10966,8 +10966,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cb2095bc-a3ed-41f2-84d2-33d2fa4532af.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处裂缝",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10975,8 +10975,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cb3bf180-3165-4bba-a245-64df8f79fa10.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面有白色泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -10993,8 +10993,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cc93cac5-d698-4a85-9277-6082e7ce739e.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "钢梁表面有锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11002,8 +11002,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cd2eec71-d2ee-413a-be65-c0ccf89d297d.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见细长裂缝",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)、破损",
+    "defectDescription": "混凝土表面有竖向裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -11011,8 +11011,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cd3aabde-7aa5-41a2-b1fc-f576b6bb715a.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "破损、渗水泛碱",
+    "defectDescription": "混凝土墙根部有破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -11020,8 +11020,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cd4e0ffc-3321-40a9-ba15-99d0bbf511d7.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "钢筋锈蚀、渗水泛碱",
+    "defectDescription": "混凝土表面有泛碱与锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11029,8 +11029,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cd8866ef-dca6-40f8-9281-9b39055be3e1.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土轨枕间有明显裂缝",
+    "defectType": "钢结构锈蚀",
+    "defectDescription": "无明显锈蚀迹象",
     "ratingScale(1-5)": ""
   },
   {
@@ -11038,8 +11038,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cda02780-59c9-4d32-952e-b4cfefaaee73.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11047,8 +11047,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cda4f1de-6405-44ea-8ccc-d93918ef55e5.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见细小裂缝",
+    "defectType": "破损、渗水泛碱",
+    "defectDescription": "混凝土表面有破损与泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -11056,8 +11056,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "ce1bb4db-c675-4be7-846b-0029dc76c812.jpg",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢构件锈蚀明显",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座金属部件锈蚀严重",
     "ratingScale(1-5)": ""
   },
   {
@@ -11065,8 +11065,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "ce49e3c4-cc26-4aef-955b-d6b228302bdb.jpg",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢梁锈蚀明显，有剥落",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11074,8 +11074,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "cfcce219-2696-42ff-a95e-86415bea7b2d.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有明显裂缝",
+    "defectType": "破损",
+    "defectDescription": "混凝土碎块脱落",
     "ratingScale(1-5)": ""
   },
   {
@@ -11083,8 +11083,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d016d779-596a-4134-8cfb-b6639078e759.JPG",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "支座处锈蚀明显",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座锈蚀明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -11092,8 +11092,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d0845ec3-8caa-42ee-8b9e-9314e6cfafd2.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面多处裂缝",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土内钢筋锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11101,7 +11101,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d0a90f06-0c78-49f2-bb97-8253678f5de7.png",
-    "defectType": "破损",
+    "defectType": "钢筋锈蚀、破损",
     "defectDescription": "混凝土剥落碎块散落",
     "ratingScale(1-5)": ""
   },
@@ -11110,7 +11110,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d107f6c9-41f5-440d-94d5-5f1736e0c6a9.png",
-    "defectType": "破损",
+    "defectType": "破损、渗水泛碱",
     "defectDescription": "混凝土底缘剥落",
     "ratingScale(1-5)": ""
   },
@@ -11119,8 +11119,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d224740e-8b2c-410d-855d-14eb839958e7.JPG",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "可见细长裂缝，贯穿表面",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "表面有细长裂缝及斑点",
     "ratingScale(1-5)": ""
   },
   {
@@ -11137,7 +11137,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d4395130-ab2e-4917-875d-0c47f7f71e09.jpg",
-    "defectType": "渗水泛碱",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
     "defectDescription": "混凝土表面泛白盐渍",
     "ratingScale(1-5)": ""
   },
@@ -11146,8 +11146,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d4adf072-cd31-44d2-a36d-1154df057155.jpg",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "接缝处锈迹明显",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有竖向裂纹与渗水痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11155,8 +11155,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d4c3dfc0-342a-4fbf-89f3-a6e9aca8b347.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土块脱落，表面剥落",
+    "defectType": "破损、渗水泛碱",
+    "defectDescription": "混凝土剥落，有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11164,8 +11164,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d53ebdd6-99e7-434e-85da-bcd2fc260c34.JPG",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有纵向裂缝",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有纵向裂缝及泛碱",
     "ratingScale(1-5)": ""
   },
   {
@@ -11173,8 +11173,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d6b8bbf3-88ed-4815-9c60-549c644715a8.jpg",
-    "defectType": "完好",
-    "defectDescription": "无可见病害",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "无可见裂缝或渗水",
     "ratingScale(1-5)": ""
   },
   {
@@ -11182,7 +11182,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d7f89f3e-db87-4fa8-bdac-65916a753058.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
     "defectDescription": "混凝土表面可见细长裂缝",
     "ratingScale(1-5)": ""
   },
@@ -11200,7 +11200,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d8a4afd2-d65e-4466-9618-24320cf0000f.jpg",
-    "defectType": "渗水泛碱",
+    "defectType": "破损、渗水泛碱",
     "defectDescription": "混凝土表面泛碱水痕",
     "ratingScale(1-5)": ""
   },
@@ -11209,8 +11209,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d90ccc27-86f1-4ee5-a1db-7affe861c853.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落",
+    "defectType": "裂缝(混凝土裂缝)、渗水泛碱",
+    "defectDescription": "混凝土表面有裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -11218,8 +11218,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d931057e-4a8d-4d7e-bdab-da4145147635.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见纵向裂缝",
+    "defectType": "完好",
+    "defectDescription": "无明显病害",
     "ratingScale(1-5)": ""
   },
   {
@@ -11236,8 +11236,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "d9d6da4d-8187-48b6-afdd-72f3c0edbdf2.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土剥落破损",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "支座表面锈蚀，混凝土剥落",
     "ratingScale(1-5)": ""
   },
   {
@@ -11245,8 +11245,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "daf0c0c9-38a8-4472-9f05-a51b78038c08.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面纵向裂缝明显",
+    "defectType": "钢筋锈蚀",
+    "defectDescription": "混凝土内钢筋锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11254,8 +11254,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "dc350932-1691-4824-ad28-4c602fe7026d.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见明显裂缝",
+    "defectType": "钢筋锈蚀、裂缝(混凝土裂缝)",
+    "defectDescription": "混凝土表面有裂缝和锈迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11272,8 +11272,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "dfa0d3b8-7fd5-4818-a7b1-543c6009da15.png",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面有横向裂纹",
+    "defectType": "钢筋锈蚀、破损",
+    "defectDescription": "混凝土内钢筋锈蚀痕迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -11281,8 +11281,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "e32ad0fc-0883-42e0-804d-3e6570b2cea7.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见裂缝",
+    "defectType": "破损",
+    "defectDescription": "混凝土墙体有明显破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -11299,8 +11299,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "e4faa7f2-7063-4738-8436-edff647d5a59.png",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "钢筋锈蚀",
+    "defectDescription": "混凝土内钢筋锈蚀痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11308,8 +11308,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "e501bef9-9f80-4d31-9727-35b58506ec44.png",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见横向裂缝",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座表面锈迹明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -11326,8 +11326,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "e7988b0d-4e2d-4219-b1b4-8e4ceb09ac68.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "渗水泛碱",
+    "defectDescription": "墙面有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11335,8 +11335,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "e9072e37-3f63-445d-908e-6d81e94236c0.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面可见纵向裂缝",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "混凝土表面有裂缝",
     "ratingScale(1-5)": ""
   },
   {
@@ -11344,8 +11344,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "e9928be5-d4f9-4188-82fa-4c7eb0c70639.jpg",
-    "defectType": "裂缝(混凝土裂缝)",
-    "defectDescription": "混凝土表面有纵向裂缝",
+    "defectType": "渗水泛碱",
+    "defectDescription": "混凝土表面有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11353,8 +11353,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "ee083109-1a77-4e35-83f9-481b34d594fa.jpg",
-    "defectType": "破损",
-    "defectDescription": "排水口周边混凝土破损",
+    "defectType": "破损、渗水泛碱",
+    "defectDescription": "排水口周边混凝土破损渗水",
     "ratingScale(1-5)": ""
   },
   {
@@ -11362,7 +11362,7 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "ee4b56b5-bb2b-438e-8713-f7e9a6c87af2.JPG",
-    "defectType": "破损",
+    "defectType": "破损、渗水泛碱",
     "defectDescription": "混凝土表面剥落、污渍",
     "ratingScale(1-5)": ""
   },
@@ -11371,8 +11371,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "ee4d518f-52ed-4c37-ac50-148a2d19668b.jpg",
-    "defectType": "破损",
-    "defectDescription": "盖板有明显破损",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "表面有细微裂纹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11389,8 +11389,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "f078a6bc-62f6-4132-b779-14b8f64300a4.jpg",
-    "defectType": "支座锈蚀",
-    "defectDescription": "支座处可见锈蚀痕迹",
+    "defectType": "破损、支座锈蚀",
+    "defectDescription": "支座锈蚀，混凝土破损",
     "ratingScale(1-5)": ""
   },
   {
@@ -11398,8 +11398,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "f276ba4a-e3e9-401d-8004-0c0a0d678613.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "破损",
+    "defectDescription": "地面有裂缝和杂物",
     "ratingScale(1-5)": ""
   },
   {
@@ -11407,8 +11407,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "f6167740-62e7-49b1-9e3d-3d3ea3e30e00.JPG",
-    "defectType": "支座锈蚀",
-    "defectDescription": "支座顶部锈蚀明显，有白色锈迹",
+    "defectType": "渗水泛碱",
+    "defectDescription": "支座周边有白色泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11416,8 +11416,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "f75aa2d7-f4c0-4101-847b-10c3b5029892.jpg",
-    "defectType": "破损",
-    "defectDescription": "混凝土表面剥落、有划痕",
+    "defectType": "裂缝(混凝土裂缝)",
+    "defectDescription": "表面有白色划痕",
     "ratingScale(1-5)": ""
   },
   {
@@ -11425,8 +11425,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "f85fda40-64f5-41ca-9f77-5f5d43115fca.JPG",
-    "defectType": "支座锈蚀",
-    "defectDescription": "支座锈蚀明显，呈橙黄色",
+    "defectType": "渗水泛碱",
+    "defectDescription": "支座锈蚀，有渗水痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11434,8 +11434,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "fa2c7079-6aae-4297-a44b-805a938224b4.jpg",
-    "defectType": "完好",
-    "defectDescription": "无明显病害",
+    "defectType": "渗水泛碱",
+    "defectDescription": "墙角有泛碱痕迹",
     "ratingScale(1-5)": ""
   },
   {
@@ -11443,8 +11443,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "fa696e69-3776-4871-9756-59ab03361fb6.JPG",
-    "defectType": "钢结构锈蚀",
-    "defectDescription": "钢构件表面锈蚀严重",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座金属部件锈蚀明显",
     "ratingScale(1-5)": ""
   },
   {
@@ -11461,8 +11461,8 @@
     "bridgeName": "",
     "defectLocation": "",
     "filename": "fffd28cb-5dbb-4347-b8d7-b69e63f1ef2b.jpg",
-    "defectType": "钢筋锈蚀",
-    "defectDescription": "支座处钢筋锈蚀明显",
+    "defectType": "支座锈蚀",
+    "defectDescription": "支座钢筋锈蚀明显",
     "ratingScale(1-5)": ""
   }
 ]
