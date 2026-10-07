@@ -88,14 +88,14 @@ images, and it does not overwrite the official result. Reproduce it with:
   --report runs\review_validation_v4\logs\validation_report.json
 ```
 
-The current test result has 39 support/bottom bridge images flagged for
-possible review. They are not submission changes by themselves: each must receive a valid local
+The current kNN test candidate has 69 support/bottom bridge images flagged for
+possible review (61 supports and 8 bottoms). They are not submission changes by themselves: each must receive a valid local
 Qwen review before `apply_vision_hybrid.py` accepts it. No fixed description
 or rating template is used, and no test labels are read or written.
 
 Before spending GPU time on the test set, the same policy can be evaluated on
 two complete bridge-group holdouts. This fits the visual head inside each fold,
-runs the ordinary 4B Qwen baseline, applies the exact 39-image-style trigger,
+runs the ordinary 4B Qwen baseline, applies the exact support/bottom trigger,
 and then measures the accepted Qwen review. The command is resumable and keeps
 all intermediate raw responses under `runs/`:
 
