@@ -1,7 +1,7 @@
 {
   "package": "E:\\赛题四_智能体\\track4_submission.tar.gz",
-  "size_bytes": 107132,
-  "file_count": 33,
+  "size_bytes": 126380,
+  "file_count": 42,
   "roots": [
     "code",
     "design",
@@ -29,16 +29,16 @@
       "size": 20796
     },
     {
+      "name": "code/track4_agent/inference.py",
+      "size": 18759
+    },
+    {
       "name": "code/review_server.py",
       "size": 18597
     },
     {
       "name": "design/AI智能体设计方案.docx",
       "size": 17460
-    },
-    {
-      "name": "code/track4_agent/inference.py",
-      "size": 15927
     },
     {
       "name": "code/track4_agent/document.py",
