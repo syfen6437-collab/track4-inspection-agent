@@ -36,6 +36,7 @@ class AtomicPredictionTests(unittest.TestCase):
         self.assertEqual(labels, ["完好", "完好"])
         self.assertEqual(scores.shape, (2, 2))
         self.assertAlmostEqual(float(scores[0].max()), 2 / 3)
+        self.assertEqual(head["vocabulary"], ["完好", "渗水/泛碱"])
 
 
 if __name__ == "__main__":
