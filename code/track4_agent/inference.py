@@ -39,6 +39,12 @@ def _first_pass_images(path: Path, item: dict[str, Any], config: dict[str, Any])
     global_image = resize_global(image, max_side)
     if item["questionCategory"] == "轨道" and config.get("track_use_crops", True):
         return [global_image, crop_montage(image, int(config["crop_size"]))]
+    if (
+        item["questionCategory"] == "桥梁"
+        and scene_key(item) == "aerial"
+        and config.get("bridge_aerial_crops", False)
+    ):
+        return [global_image, *quadrant_crops(image, int(config.get("aerial_crop_size", 448)))]
     if item["questionCategory"] == "桥梁" and config.get("bridge_use_crops", True):
         # Close views (supports, piers, girder bottoms and bridge decks) lose
         # small defects when reduced to a single 384px full-frame image.
@@ -61,8 +67,14 @@ def _review_images(
         for neighbor_id in (previous_id, item["id"], next_id):
             if not neighbor_id:
                 continue
-            neighbor_path = raw_dir / "初赛测试集" / Path(neighbor_id)
-            images.append(resize_global(_open_image(neighbor_path), 768))
+            if neighbor_id == item["id"]:
+                neighbor_image = image
+            else:
+                neighbor_path = raw_dir / "初赛测试集" / Path(neighbor_id)
+                neighbor_image = _open_image(neighbor_path)
+            images.append(resize_global(neighbor_image, 768))
+        if config.get("bridge_aerial_review_crops", False):
+            images.extend(quadrant_crops(image, int(config.get("aerial_crop_size", 448))))
         return images
     if item["questionCategory"] == "桥梁" and config.get("bridge_review_crops_only", False):
         return [crop_montage(image, int(config["crop_size"]))]
@@ -103,14 +115,16 @@ def infer_item(
     first_images = _first_pass_images(image_path, item, config)
     use_checklist = bool(config.get("bridge_checklist", False) and item["questionCategory"] == "桥梁")
     first_prompt = build_checklist_prompt(item, lexicon) if use_checklist else build_prompt(item, lexicon)
-    coarse = ""
     if config.get("two_stage_bridge", False) and item["questionCategory"] == "桥梁":
         presence_raw = client.generate(first_images, build_presence_prompt(item))
         presence = _parse_presence(presence_raw)
-        coarse = str(presence.get("coarse_type", ""))
         raw_records.append({"round": 0, "raw": presence_raw, "presence": presence})
-        if coarse:
-            first_prompt += f"\n初筛模型观察到的粗类别（仅作辅助，必须重新核对图像）：{coarse}"
+        # Preserve the current submission behavior for older configs; ablations
+        # can explicitly set this to "none" and compare on a held-out bridge.
+        if config.get("presence_context_policy", "coarse_as_hint") == "coarse_as_hint":
+            coarse = str(presence.get("coarse_type", ""))
+            if coarse:
+                first_prompt += f"\n初筛模型观察到的粗类别（仅作辅助，必须重新核对图像）：{coarse}"
     first_raw = client.generate(first_images, first_prompt)
     if use_checklist:
         first_prediction, first_valid = checklist_prediction(
@@ -132,6 +146,12 @@ def infer_item(
             config.get("bridge_review_all", False)
             and item["questionCategory"] == "桥梁"
             and scene_key(item) != "aerial"
+        )
+        or (
+            config.get("review_aerial_healthy", False)
+            and item["questionCategory"] == "桥梁"
+            and scene_key(item) == "aerial"
+            and first_prediction["defectType"] == "完好"
         )
     )
     if should_review and raw_dir is not None:

@@ -8,6 +8,7 @@ submission_staging/
 *.tar.gz
 
 # Runtime/cache files.
+.venv/
 **/__pycache__/
 *.py[cod]
 .pytest_cache/

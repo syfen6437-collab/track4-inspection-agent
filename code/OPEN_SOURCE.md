@@ -6,6 +6,7 @@
 
 - [Label Studio](https://github.com/HumanSignal/label-studio)，Apache-2.0：适合整图分类、原始标签展示、人工审核和导出 JSON。它最符合当前训练数据已有“每张图一个标签”的形态。
 - [FiftyOne](https://github.com/voxel51/fiftyone)，Apache-2.0：适合按模型置信度、错例和相似图片浏览。后续如果要做图像嵌入检索，可以用它替换当前列表页。
+- [SigLIP 2](https://huggingface.co/google/siglip2-base-patch16-224)，Apache-2.0：通用图文预训练视觉模型。已在项目训练图片标签上测试冻结视觉特征加轻量分类头，跨桥留出表现优于当前 Qwen 提示基线；详见 [`SIGLIP2_EXPERIMENT.md`](SIGLIP2_EXPERIMENT.md)。
 
 ## 暂不优先
 
@@ -21,3 +22,5 @@
 ## YOLO 的适用边界
 
 当前标签是整图 `defectType`，没有目标框坐标，不能直接训练有意义的 YOLO 检测器。推荐顺序是：先用审核工具为少量难例补充病害区域框，再用 YOLO/RT-DETR 做定位，最后把裁剪区域交给 Qwen-VL 做病害类型和描述。若只需要整图分类，YOLO 不会解决当前细粒度标签混淆问题。
+
+已核对的领域项目包括 [U-Net bridge deck crack detection](https://github.com/j133808/unet-crack)（MIT，需要像素掩膜）、[GD-YOLOv8 rail surface defect detection](https://github.com/haichao67/GD-YOLOv8)（GPL-3.0，需要定位框）和 [YOLOv5 bridge crack detection](https://github.com/alicema-creator/Python-Yolov5-Detection-and-recognition-of-cracks-in-road-bridges-wall)（仓库未声明许可证）。这些项目不能直接套用当前没有框/掩膜的整图标签；复用前还需确认权重来源及其训练数据许可证。

@@ -39,3 +39,9 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 当前代码已加入基于文件名场景的桥梁提示路由（航拍、桥面、墩/支座、梁底）和训练集场景标签统计，并支持桥梁近景多裁剪、候选清单复核及两阶段初筛配置。默认配置为 `code/config/qwen3-vl-4b-review.json`；训练难例审核记录只生成聚合证据提示，不按文件名写入测试答案。
 
 `logs/qwen3_vl_4b_calibration.json`、`logs/calibration_metrics.json` 和 `logs/embedding_probe.json` 记录了本地留出实验。实验结果尚未自动覆盖 `result/result.json`，只有通过本地校准和 `validate` 后才应重新打包提交。
+
+### 2026-10-07 跨桥留出复核
+
+新增 120 张标签均衡留出评测：整座范家坪1号大桥从训练候选和词典中排除，评估其中 84 张桥梁图及 36 张轨道图。Qwen 提示消融显示，删除粗病害初筛提示和增加多视图清单都没有提升，因此正式配置保持不变。Apache-2.0 的 SigLIP2 冻结特征加平衡线性分类头，在 94 张标签训练样本充足的留出图片上精确率为 45.7%，高于 Qwen 同标签口径的 40.4%；另外 26 张罕见/未见标签样本不纳入该比较。目前只有一座桥的独立留出结果。
+
+复现脚本与逐类指标见 [`code/SIGLIP2_EXPERIMENT.md`](code/SIGLIP2_EXPERIMENT.md)。当前 56.11 分对应的 `result/result.json` 保持原样；在更多桥梁分组和完整类别输出验证前，不应将该探针分类头替换为正式模型。

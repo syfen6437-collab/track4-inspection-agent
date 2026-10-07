@@ -1,0 +1,259 @@
+{
+  "model": "google/siglip2-base-patch16-224",
+  "model_license": "Apache-2.0",
+  "training_method": "frozen image embeddings + class-balanced PyTorch linear classifier",
+  "split": {
+    "bridge_group_held_out": "范家坪1号大桥",
+    "bridge_group_image_count": 1169,
+    "sample_size": 120,
+    "sample_category_counts": {
+      "桥梁": 84,
+      "轨道": 36
+    },
+    "sample_label_counts": {
+      "桥梁|锈蚀/碳化": 19,
+      "桥梁|修补痕": 1,
+      "桥梁|完好": 19,
+      "桥梁|渗水/泛碱": 19,
+      "桥梁|伸缩缝病害": 5,
+      "桥梁|剥落": 3,
+      "桥梁|已处治病害（修补）": 18,
+      "轨道|钢结构锈蚀、裂缝(混凝土裂缝)": 2,
+      "轨道|钢筋锈蚀、破损、渗水泛碱": 1,
+      "轨道|钢筋锈蚀、渗水泛碱": 2,
+      "轨道|钢筋锈蚀": 2,
+      "轨道|裂缝(混凝土裂缝)、渗水泛碱": 2,
+      "轨道|渗水泛碱": 2,
+      "轨道|裂缝(混凝土裂缝)": 2,
+      "轨道|破损": 2,
+      "轨道|裂缝(混凝土裂缝)、破损、渗水泛碱": 1,
+      "轨道|钢筋锈蚀、破损、支座锈蚀": 2,
+      "轨道|钢筋锈蚀、破损": 2,
+      "轨道|裂缝(混凝土裂缝)、破损": 2,
+      "轨道|破损、支座锈蚀": 2,
+      "轨道|钢筋锈蚀、裂缝(混凝土裂缝)": 2,
+      "轨道|钢结构锈蚀": 2,
+      "轨道|支座锈蚀": 2,
+      "轨道|完好": 1,
+      "轨道|破损、渗水泛碱": 1,
+      "轨道|裂缝(混凝土裂缝)、破损、支座锈蚀": 1,
+      "轨道|钢结构锈蚀、钢筋锈蚀、破损": 1,
+      "轨道|钢结构锈蚀、破损": 1,
+      "轨道|钢筋锈蚀、裂缝(混凝土裂缝)、破损": 1
+    }
+  },
+  "minimum_training_examples_per_class": 4,
+  "results": {
+    "桥梁": {
+      "sample_size": 75,
+      "defect_type_exact_accuracy": 0.466667,
+      "atomic_macro_f1": 0.260832,
+      "rating_accuracy": 0.253333,
+      "nonhealthy_recall": 0.875,
+      "category_accuracy": {
+        "桥梁": 0.466667
+      },
+      "per_label": {
+        "锈蚀/碳化": {
+          "support": 19,
+          "exact_accuracy": 0.052632,
+          "predicted_labels": {
+            "渗水/泛碱": 15,
+            "混凝土外观瑕疵": 1,
+            "锈蚀/碳化": 1,
+            "完好": 2
+          }
+        },
+        "完好": {
+          "support": 19,
+          "exact_accuracy": 0.894737,
+          "predicted_labels": {
+            "锈蚀/碳化": 1,
+            "完好": 17,
+            "已处治病害（修补）": 1
+          }
+        },
+        "渗水/泛碱": {
+          "support": 19,
+          "exact_accuracy": 0.526316,
+          "predicted_labels": {
+            "完好": 4,
+            "渗水/泛碱": 10,
+            "锈蚀/碳化": 3,
+            "沥青摊铺接缝": 1,
+            "混凝土外观瑕疵": 1
+          }
+        },
+        "已处治病害（修补）": {
+          "support": 18,
+          "exact_accuracy": 0.388889,
+          "predicted_labels": {
+            "混凝土外观瑕疵": 4,
+            "已处治病害（修补）": 7,
+            "渗水/泛碱": 4,
+            "完好": 1,
+            "锈蚀/碳化": 1,
+            "锈水痕": 1
+          }
+        }
+      },
+      "predicted_label_counts": {
+        "渗水/泛碱": 29,
+        "锈蚀/碳化": 6,
+        "完好": 24,
+        "混凝土外观瑕疵": 6,
+        "已处治病害（修补）": 8,
+        "锈水痕": 1,
+        "沥青摊铺接缝": 1
+      },
+      "evaluated": 75,
+      "training_class_count": 12,
+      "training_label_counts": {
+        "其他": 4,
+        "完好": 987,
+        "已处治病害（修补）": 68,
+        "沥青摊铺接缝": 17,
+        "混凝土外观瑕疵": 32,
+        "渗水/泛碱": 156,
+        "粉红色色斑": 68,
+        "脚手架痕": 9,
+        "苔藓/植被": 7,
+        "锈水流痕": 4,
+        "锈水痕": 5,
+        "锈蚀/碳化": 30
+      },
+      "excluded_unseen_or_rare_labels": {
+        "修补痕": 1,
+        "伸缩缝病害": 5,
+        "剥落": 3
+      }
+    },
+    "轨道": {
+      "sample_size": 19,
+      "defect_type_exact_accuracy": 0.421053,
+      "atomic_macro_f1": 0.504308,
+      "rating_accuracy": 1.0,
+      "nonhealthy_recall": 0.944444,
+      "category_accuracy": {
+        "轨道": 0.421053
+      },
+      "per_label": {
+        "钢筋锈蚀": {
+          "support": 2,
+          "exact_accuracy": 0.5,
+          "predicted_labels": {
+            "钢筋锈蚀": 1,
+            "破损": 1
+          }
+        },
+        "裂缝(混凝土裂缝)、渗水泛碱": {
+          "support": 2,
+          "exact_accuracy": 0.0,
+          "predicted_labels": {
+            "完好": 1,
+            "裂缝(混凝土裂缝)": 1
+          }
+        },
+        "渗水泛碱": {
+          "support": 2,
+          "exact_accuracy": 1.0,
+          "predicted_labels": {
+            "渗水泛碱": 2
+          }
+        },
+        "裂缝(混凝土裂缝)": {
+          "support": 2,
+          "exact_accuracy": 0.5,
+          "predicted_labels": {
+            "渗水泛碱": 1,
+            "裂缝(混凝土裂缝)": 1
+          }
+        },
+        "破损": {
+          "support": 2,
+          "exact_accuracy": 0.0,
+          "predicted_labels": {
+            "支座锈蚀": 1,
+            "钢筋锈蚀": 1
+          }
+        },
+        "钢筋锈蚀、破损": {
+          "support": 2,
+          "exact_accuracy": 0.0,
+          "predicted_labels": {
+            "渗水泛碱": 1,
+            "支座锈蚀": 1
+          }
+        },
+        "裂缝(混凝土裂缝)、破损": {
+          "support": 2,
+          "exact_accuracy": 0.0,
+          "predicted_labels": {
+            "裂缝(混凝土裂缝)": 1,
+            "裂缝(混凝土裂缝)、渗水泛碱": 1
+          }
+        },
+        "钢结构锈蚀": {
+          "support": 2,
+          "exact_accuracy": 0.5,
+          "predicted_labels": {
+            "钢筋锈蚀": 1,
+            "钢结构锈蚀": 1
+          }
+        },
+        "支座锈蚀": {
+          "support": 2,
+          "exact_accuracy": 1.0,
+          "predicted_labels": {
+            "支座锈蚀": 2
+          }
+        },
+        "完好": {
+          "support": 1,
+          "exact_accuracy": 1.0,
+          "predicted_labels": {
+            "完好": 1
+          }
+        }
+      },
+      "predicted_label_counts": {
+        "钢筋锈蚀": 3,
+        "完好": 2,
+        "渗水泛碱": 4,
+        "支座锈蚀": 4,
+        "裂缝(混凝土裂缝)": 3,
+        "破损": 1,
+        "裂缝(混凝土裂缝)、渗水泛碱": 1,
+        "钢结构锈蚀": 1
+      },
+      "evaluated": 19,
+      "training_class_count": 10,
+      "training_label_counts": {
+        "完好": 102,
+        "支座锈蚀": 69,
+        "渗水泛碱": 52,
+        "破损": 118,
+        "裂缝(混凝土裂缝)": 289,
+        "裂缝(混凝土裂缝)、渗水泛碱": 9,
+        "裂缝(混凝土裂缝)、破损": 16,
+        "钢筋锈蚀": 54,
+        "钢筋锈蚀、破损": 12,
+        "钢结构锈蚀": 34
+      },
+      "excluded_unseen_or_rare_labels": {
+        "钢结构锈蚀、裂缝(混凝土裂缝)": 2,
+        "钢筋锈蚀、破损、渗水泛碱": 1,
+        "钢筋锈蚀、渗水泛碱": 2,
+        "裂缝(混凝土裂缝)、破损、渗水泛碱": 1,
+        "钢筋锈蚀、破损、支座锈蚀": 2,
+        "破损、支座锈蚀": 2,
+        "钢筋锈蚀、裂缝(混凝土裂缝)": 2,
+        "破损、渗水泛碱": 1,
+        "裂缝(混凝土裂缝)、破损、支座锈蚀": 1,
+        "钢结构锈蚀、钢筋锈蚀、破损": 1,
+        "钢结构锈蚀、破损": 1,
+        "钢筋锈蚀、裂缝(混凝土裂缝)、破损": 1
+      }
+    }
+  }
+}
