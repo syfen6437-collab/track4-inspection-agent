@@ -37,7 +37,7 @@ class VisionReviewTests(unittest.TestCase):
         ]
         vision = [
             {"id": row["id"], "questionCategory": "桥梁", "filename": row["filename"],
-             "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {}}
+             "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {"完好": 0.2, "渗水/泛碱": 0.8}}
             for row in manifest
         ]
         selected = select_candidates(manifest, results, vision, LEXICON)
@@ -49,7 +49,7 @@ class VisionReviewTests(unittest.TestCase):
         base = [{"questionCategory": "桥梁", "bridgeName": "桥", "defectLocation": "", "filename": "支座.JPG",
                  "defectType": "完好", "defectDescription": "无明显病害"}]
         vision = [{"id": "桥/支座.JPG", "questionCategory": "桥梁", "filename": "支座.JPG",
-                   "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {}}]
+                   "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {"完好": 0.2, "渗水/泛碱": 0.8}}]
         with self.assertRaises(ValueError):
             select_candidates(manifest, base, vision, LEXICON)
 
@@ -59,7 +59,7 @@ class VisionReviewTests(unittest.TestCase):
         base = [{"questionCategory": "桥梁", "bridgeName": "桥", "defectLocation": "", "filename": "支座.JPG",
                  "defectType": "完好", "defectDescription": "无明显病害", "ratingScale(1-5)": ""}]
         vision = [{"id": "桥/支座.JPG", "questionCategory": "桥梁", "filename": "支座.JPG",
-                   "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {}}]
+                   "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {"完好": 0.2, "渗水/泛碱": 0.8}}]
         raw = ('{"defectType":"渗水/泛碱","defectDescription":"盖梁可见水痕",'
                '"ratingScale":"2","confidence":0.8,"evidence":"水痕流挂"}')
         prediction = strict_prediction(raw, LEXICON, manifest[0])
@@ -86,7 +86,7 @@ class VisionReviewTests(unittest.TestCase):
         base = [{"questionCategory": "桥梁", "bridgeName": "桥", "defectLocation": "", "filename": "支座.JPG",
                  "defectType": "完好", "defectDescription": "无明显病害", "ratingScale(1-5)": ""}]
         vision = [{"id": "桥/支座.JPG", "questionCategory": "桥梁", "filename": "支座.JPG",
-                   "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {}}]
+                   "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {"完好": 0.2, "渗水/泛碱": 0.8}}]
         raw = ('{"defectType":"渗水/泛碱","defectDescription":"盖梁可见水痕",'
                '"ratingScale":"2","confidence":0.8,"evidence":"水痕流挂"}')
         prediction = strict_prediction(raw, LEXICON, manifest[0])

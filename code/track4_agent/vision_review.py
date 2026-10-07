@@ -78,6 +78,15 @@ def select_candidates(
         if vision.get("defectType") not in allowed:
             raise ValueError(f"Illegal vision label for {item['id']}: {vision.get('defectType')!r}")
         confidence = probability(vision.get("confidence"))
+        if item["questionCategory"] == "桥梁":
+            scores = vision.get("scores")
+            if not isinstance(scores, dict) or vision["defectType"] not in scores or not set(scores) <= set(allowed):
+                raise ValueError(f"Vision score labels differ from bridge ontology: {item['id']}")
+            values = [probability(value) for value in scores.values()]
+            if (not math.isclose(sum(values), 1.0, abs_tol=1e-5)
+                    or not math.isclose(confidence, scores[vision["defectType"]], abs_tol=1e-6)
+                    or not math.isclose(confidence, max(values), abs_tol=1e-6)):
+                raise ValueError(f"Vision scores and confidence disagree: {item['id']}")
         if (item["questionCategory"] == "桥梁" and scene_key(item) in scenes
                 and base["defectType"] == "完好" and vision["defectType"] != "完好"
                 and confidence >= min_confidence):

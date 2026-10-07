@@ -150,33 +150,33 @@ def fit_knn(features: np.ndarray, labels: list[str], *, k: int = 5) -> dict[str,
         raise ValueError("Invalid kNN training data")
     vectors = np.asarray(features, dtype=np.float32)
     norms = np.linalg.norm(vectors, axis=1, keepdims=True).clip(min=1e-8)
-    return {"features": vectors / norms, "labels": list(labels),
-            "vocabulary": sorted(set(labels)), "k": min(int(k), len(labels))}
+    return {"features": vectors / norms, "training_labels": list(labels),
+            "labels": sorted(set(labels)), "k": min(int(k), len(labels))}
 
 
 def predict_knn(head: dict[str, Any], features: np.ndarray) -> tuple[list[str], np.ndarray]:
     """Return majority-vote labels and per-label vote fractions."""
-    query = np.asarray(features, dtype=np.float32)
+    query = np.array(features, dtype=np.float32, copy=True)
     query /= np.linalg.norm(query, axis=1, keepdims=True).clip(min=1e-8)
     training = head["features"]
-    labels = head["labels"]
-    vocabulary = head["vocabulary"]
+    labels = head["training_labels"]
+    vocabulary = head["labels"]
     k = int(head["k"])
     scores = query @ training.T
-    vote_scores = np.zeros((len(query), len(vocabulary)), dtype=np.float32)
+    vote_scores = np.zeros((len(query), len(vocabulary)), dtype=np.int64)
     label_index = {label: index for index, label in enumerate(vocabulary)}
     predicted = []
     for row, similarities in zip(scores, vote_scores):
-        nearest = np.argpartition(row, -k)[-k:]
+        nearest = np.argsort(-row, kind="stable")[:k]
         for index in nearest:
-            similarities[label_index[labels[index]]] += 1.0 / k
+            similarities[label_index[labels[index]]] += 1
         ranked = sorted(range(len(vocabulary)),
                         key=lambda index: (similarities[index],
                                            sum(row[i] for i in nearest
                                                if labels[i] == vocabulary[index])),
                         reverse=True)
         predicted.append(vocabulary[ranked[0]])
-    return predicted, vote_scores
+    return predicted, vote_scores / k
 
 
 def predict_head(head: dict[str, Any], features: np.ndarray, allowed: list[str]) -> tuple[list[str], np.ndarray]:

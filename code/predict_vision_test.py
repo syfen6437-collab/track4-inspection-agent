@@ -64,8 +64,7 @@ def main() -> None:
                 head, x_query, lexicon["categories"][category]["allowed_labels"]
             )
         for row, label, probability in zip(query_rows, labels, probabilities):
-            score_labels = head.get("vocabulary", head["labels"])
-            scores = dict(zip(score_labels, map(float, probability)))
+            scores = dict(zip(head["labels"], map(float, probability), strict=True))
             records.append({
                 "id": row["id"],
                 "questionCategory": category,

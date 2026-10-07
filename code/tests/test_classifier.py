@@ -36,7 +36,18 @@ class AtomicPredictionTests(unittest.TestCase):
         self.assertEqual(labels, ["完好", "完好"])
         self.assertEqual(scores.shape, (2, 2))
         self.assertAlmostEqual(float(scores[0].max()), 2 / 3)
-        self.assertEqual(head["vocabulary"], ["完好", "渗水/泛碱"])
+        self.assertEqual(head["labels"], ["完好", "渗水/泛碱"])
+        self.assertEqual(head["training_labels"], ["完好", "完好", "渗水/泛碱"])
+
+    def test_knn_does_not_mutate_queries_and_resolves_equal_distances(self) -> None:
+        head = fit_knn(np.array([[1.0, 0.0], [1.0, 0.0]], dtype=np.float32),
+                       ["完好", "渗水/泛碱"], k=1)
+        query = np.array([[3.0, 0.0]], dtype=np.float32)
+        before = query.copy()
+        labels, scores = predict_knn(head, query)
+        np.testing.assert_array_equal(query, before)
+        self.assertEqual(labels, ["完好"])
+        np.testing.assert_array_equal(scores, [[1.0, 0.0]])
 
 
 if __name__ == "__main__":

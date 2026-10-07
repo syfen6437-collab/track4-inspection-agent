@@ -78,14 +78,14 @@ images, and it does not overwrite the official result. Reproduce it with:
 ```powershell
 .\.venv\Scripts\python.exe code\predict_vision_test.py --device cpu
 .\.venv\Scripts\python.exe code\describe_vision_candidates.py `
-  --output runs\vision_hybrid\logs\qwen_reviews.json
+  --output runs\review_validation_v4\logs\qwen_reviews_linear.json
 .\.venv\Scripts\python.exe code\apply_vision_hybrid.py `
-  --reviews runs\vision_hybrid\logs\qwen_reviews.json `
-  --output runs\vision_hybrid\result\result.json `
-  --audit runs\vision_hybrid\logs\vision_hybrid_audit.json
+  --reviews runs\review_validation_v4\logs\qwen_reviews_linear.json `
+  --output runs\review_validation_v4\result\result_linear.json `
+  --audit runs\review_validation_v4\logs\vision_hybrid_audit.json
 .\.venv\Scripts\python.exe code\run_pipeline.py validate `
-  --result runs\vision_hybrid\result\result.json `
-  --report runs\vision_hybrid\logs\validation_report.json
+  --result runs\review_validation_v4\result\result_linear.json `
+  --report runs\review_validation_v4\logs\validation_report.json
 ```
 
 The current test result has 39 support/bottom bridge images flagged for
@@ -102,7 +102,7 @@ all intermediate raw responses under `runs/`:
 ```powershell
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_vision_review.py `
   --groups 范家坪1号大桥,青树湾1号大桥 `
-  --output runs\review_validation_v3\paired_review.json `
+  --output runs\review_validation_v4\paired_review_linear.json `
   --resume
 ```
 
@@ -112,7 +112,7 @@ The optional bridge kNN candidate head can be compared with the linear head:
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_vision_review.py `
   --bridge-method knn --knn-k 5 `
   --groups 范家坪1号大桥,青树湾1号大桥 `
-  --output runs\review_validation_v3\paired_review_knn.json `
+  --output runs\review_validation_v4\paired_review_knn.json `
   --resume
 ```
 
@@ -125,15 +125,17 @@ The baseline and review scores must be compared on the same images. A visual
 head score or a direct-label substitution is not evidence that the Qwen review
 policy improves the competition output.
 
-The rating field has a separate deterministic calibration candidate. On the
-saved bridge holdout, filling an omitted rating from the training-label mode
-raised rating accuracy from about 35.7% to 55.0%; this does not change labels,
-descriptions, or healthy/track empty ratings. Generate it in isolation with:
+The rating field has a separate deterministic calibration audit. The saved
+holdout scores are 30/84 (35.7%) for bridges and 36/36 (100%) for rail;
+66/120 (55.0%) is their combined score, not an improvement over the bridge
+score. Missing-rating normalization already existed in the original pipeline.
+Auditing the official result changes zero records and does not improve its
+predictions. Run the audit in isolation with:
 
 ```powershell
 .\.venv\Scripts\python.exe -X utf8 code\calibrate_ratings.py `
-  --output runs\review_validation_v3\rating_calibrated.json `
-  --audit runs\review_validation_v3\rating_calibrated_audit.json
+  --output runs\review_validation_v4\rating_calibrated.json `
+  --audit runs\review_validation_v4\rating_calibrated_audit.json
 ```
 
 An additional five-bridge run on the same day produced bridge exact scores

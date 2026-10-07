@@ -67,7 +67,7 @@ def fold_predictions(sample, training, lexicon, features, positions, *, bridge_m
             records.append({"id": row["image"], "questionCategory": category,
                             "filename": row["filename"], "defectType": label,
                             "confidence": float(max(values)),
-                            "scores": dict(zip(head["labels"], map(float, values)))})
+                            "scores": dict(zip(head["labels"], map(float, values), strict=True))})
     return records
 
 
@@ -113,7 +113,7 @@ def main() -> None:
     parser.add_argument("--sample-size", type=int, default=120)
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--config", type=Path, default=CODE / "config" / "qwen3-vl-4b-review.json")
-    parser.add_argument("--output", type=Path, default=ROOT / "runs" / "review_validation_v3" / "paired_review.json")
+    parser.add_argument("--output", type=Path, default=ROOT / "runs" / "review_validation_v4" / "paired_review_linear.json")
     parser.add_argument("--min-confidence", type=float, default=0.55)
     parser.add_argument("--review-min-confidence", type=float, default=0.55)
     parser.add_argument("--bridge-method", choices=("linear", "knn"), default="linear")
