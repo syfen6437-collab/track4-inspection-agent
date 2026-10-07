@@ -43,6 +43,32 @@ class VisionReviewTests(unittest.TestCase):
         selected = select_candidates(manifest, results, vision, LEXICON)
         self.assertEqual([row[0]["id"] for row in selected], ["桥/支座.JPG"])
 
+    def test_selection_rejects_malformed_base_output(self) -> None:
+        manifest = [{"id": "桥/支座.JPG", "image": "初赛测试集/桥/支座.JPG", "filename": "支座.JPG",
+                     "questionCategory": "桥梁", "bridgeName": "桥", "defectLocation": ""}]
+        base = [{"questionCategory": "桥梁", "bridgeName": "桥", "defectLocation": "", "filename": "支座.JPG",
+                 "defectType": "完好", "defectDescription": "无明显病害"}]
+        vision = [{"id": "桥/支座.JPG", "questionCategory": "桥梁", "filename": "支座.JPG",
+                   "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {}}]
+        with self.assertRaises(ValueError):
+            select_candidates(manifest, base, vision, LEXICON)
+
+    def test_merge_rejects_confidence_or_attempt_tampering(self) -> None:
+        manifest = [{"id": "桥/支座.JPG", "image": "初赛测试集/桥/支座.JPG", "filename": "支座.JPG",
+                     "questionCategory": "桥梁", "bridgeName": "桥", "defectLocation": ""}]
+        base = [{"questionCategory": "桥梁", "bridgeName": "桥", "defectLocation": "", "filename": "支座.JPG",
+                 "defectType": "完好", "defectDescription": "无明显病害", "ratingScale(1-5)": ""}]
+        vision = [{"id": "桥/支座.JPG", "questionCategory": "桥梁", "filename": "支座.JPG",
+                   "defectType": "渗水/泛碱", "confidence": 0.8, "scores": {}}]
+        raw = ('{"defectType":"渗水/泛碱","defectDescription":"盖梁可见水痕",'
+               '"ratingScale":"2","confidence":0.8,"evidence":"水痕流挂"}')
+        prediction = strict_prediction(raw, LEXICON, manifest[0])
+        review = {"id": "桥/支座.JPG", "filename": "支座.JPG", "vision_candidate": "渗水/泛碱",
+                  "vision_confidence": 0.7, "valid": True, "prediction": prediction, "raw": raw,
+                  "attempts": [raw]}
+        with self.assertRaises(ValueError):
+            merge_reviews(manifest, base, vision, [review], LEXICON, scenes=("support",))
+
     def test_strict_prediction_rejects_missing_evidence_and_accepts_full_json(self) -> None:
         valid = ('{"defectType":"渗水/泛碱","defectDescription":"盖梁可见水痕",'
                  '"ratingScale":"2","confidence":0.8,"evidence":"水痕流挂"}')

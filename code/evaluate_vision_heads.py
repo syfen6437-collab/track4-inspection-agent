@@ -12,7 +12,8 @@ sys.path.insert(0, str(CODE))
 
 from evaluate_holdout import _make_holdout, _metrics
 from track4_agent.data import load_assets, write_json
-from track4_agent.vision_classifier import feature_bank, fit_head, predict_head
+from track4_agent.vision_classifier import feature_bank, fit_head, predict_head, model_identity
+from track4_agent.vision_review import digest_json, sha256_file
 
 
 def main() -> None:
@@ -22,10 +23,14 @@ def main() -> None:
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--sample-size", type=int, default=120)
     parser.add_argument("--groups", default="范家坪1号大桥,青树湾1号大桥")
+    parser.add_argument("--min-class-count", type=int, default=1,
+                        help="默认保留所有训练标签，与测试候选头一致；4仅用于复现旧实验")
     parser.add_argument("--cache-only", action="store_true")
     parser.add_argument("--limit", type=int, default=None, help="仅用于特征抽取冒烟，不允许生成指标")
     parser.add_argument("--output", type=Path, default=ROOT / "logs" / "vision_heads_holdout.json")
     args = parser.parse_args()
+    if args.min_class_count < 1:
+        parser.error("--min-class-count must be positive")
     if args.limit and not args.cache_only:
         parser.error("--limit requires --cache-only")
     train, _, lexicon = load_assets(ROOT)
@@ -43,20 +48,22 @@ def main() -> None:
     report = {
         "model_id": "google/siglip2-base-patch16-224", "license": "Apache-2.0",
         "device": args.device, "seed": 20261005,
+        "min_class_count": args.min_class_count,
+        "training_manifest_sha256": digest_json(train),
+        "feature_cache_sha256": sha256_file(ROOT / "models" / f"siglip2_train_features_{args.device}.npz"),
+        "model_identity": model_identity(ROOT / "models" / "SigLIP2-base-patch16-224"),
+        "head_implementation_sha256": sha256_file(CODE / "track4_agent" / "vision_classifier.py"),
         "evaluation_scope": "All selected holdout labels counted, including unseen and rare labels",
         "groups": {},
     }
-    for group in args.groups.split(","):
+    for group in (value.strip() for value in args.groups.split(",") if value.strip()):
         sample, training, split = _make_holdout(train, args.sample_size, 20261005, group)
         group_report = {"split": split, "results": {}}
         for category in ("桥梁", "轨道"):
             fitting = [row for row in training if row["questionCategory"] == category]
             queries = [row for row in sample if row["questionCategory"] == category]
             counts = Counter(row["defectType"] for row in fitting)
-            # Fixed minimum matches the previous supervised probe; omitted target
-            # classes still count as errors in this full-scope evaluation.
-            supported = [row for row in fitting if counts[row["defectType"]] >= 4]
-            x_train = features[[positions[row["image"]] for row in supported]]
+            supported = [row for row in fitting if counts[row["defectType"]] >= args.min_class_count]
             x_query = features[[positions[row["image"]] for row in queries]]
             methods = ["multiclass"] + (["atomic_multilabel"] if category == "轨道" else [])
             for method in methods:

@@ -27,7 +27,7 @@ def main() -> None:
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--audit", type=Path, required=True)
     parser.add_argument("--min-confidence", type=float, default=0.55)
-    parser.add_argument("--review-min-confidence", type=float, default=0.0)
+    parser.add_argument("--review-min-confidence", type=float, default=0.55)
     args = parser.parse_args()
 
     output_path = candidate_path(ROOT, args.output)

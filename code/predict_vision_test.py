@@ -18,7 +18,8 @@ ROOT = CODE.parent
 sys.path.insert(0, str(CODE))
 
 from track4_agent.data import load_assets, write_json
-from track4_agent.vision_classifier import feature_bank, fit_head, predict_head
+from track4_agent.vision_classifier import feature_bank, fit_head, predict_head, model_identity
+from track4_agent.vision_review import digest_json, sha256_file
 
 
 def main() -> None:
@@ -68,6 +69,15 @@ def main() -> None:
     payload = {
         "model_id": "google/siglip2-base-patch16-224",
         "fit_scope": "all prepared training labels; no test labels",
+        "seed": 20261005, "min_class_count": 1,
+        "training_manifest_sha256": digest_json(train),
+        "test_manifest_sha256": digest_json(test),
+        "model_identity": model_identity(model_dir),
+        "head_implementation_sha256": sha256_file(CODE / "track4_agent" / "vision_classifier.py"),
+        "feature_cache_sha256": {
+            split: sha256_file(ROOT / "models" / f"siglip2_{split}_features_{args.device}.npz")
+            for split in ("train", "test")
+        },
         "count": len(records),
         "category_counts": dict(Counter(row["questionCategory"] for row in records)),
         "label_counts": dict(Counter(row["defectType"] for row in records)),

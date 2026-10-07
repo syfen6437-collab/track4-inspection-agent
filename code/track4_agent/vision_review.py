@@ -64,6 +64,8 @@ def select_candidates(
     selected = []
     for item in manifest:
         base, vision = base_by_name[item["filename"]], vision_by_id[item["id"]]
+        if set(base) != set(OUTPUT_KEYS) or any(not isinstance(base[key], str) for key in OUTPUT_KEYS):
+            raise ValueError(f"Base result schema mismatch: {item['id']}")
         for key in ("questionCategory", "bridgeName", "defectLocation", "filename"):
             if base.get(key) != item.get(key, ""):
                 raise ValueError(f"Base metadata mismatch for {item['id']}: {key}")
@@ -71,6 +73,8 @@ def select_candidates(
             if vision.get(key) != item.get(key):
                 raise ValueError(f"Vision metadata mismatch for {item['id']}: {key}")
         allowed = lexicon["categories"][item["questionCategory"]]["allowed_labels"]
+        if base["defectType"] not in allowed or base["ratingScale(1-5)"] not in {"", "1", "2", "3", "4", "5"}:
+            raise ValueError(f"Illegal base label or rating: {item['id']}")
         if vision.get("defectType") not in allowed:
             raise ValueError(f"Illegal vision label for {item['id']}: {vision.get('defectType')!r}")
         confidence = probability(vision.get("confidence"))
@@ -164,6 +168,10 @@ def merge_reviews(manifest, results, vision_records, records, lexicon,
         review = review_by_id[item["id"]]
         if review["filename"] != item["filename"] or review["vision_candidate"] != vision["defectType"]:
             raise ValueError(f"Review metadata mismatch: {item['id']}")
+        if probability(review["vision_confidence"]) != probability(vision["confidence"]):
+            raise ValueError(f"Review vision confidence differs: {item['id']}")
+        if "attempts" in review and (not review["attempts"] or review["attempts"][-1] != review["raw"]):
+            raise ValueError(f"Review final attempt differs from raw text: {item['id']}")
         prediction = strict_prediction(review["raw"], lexicon, item)
         if review.get("valid") != (prediction is not None) or review.get("prediction") != prediction:
             raise ValueError(f"Review raw text and stored prediction disagree: {item['id']}")

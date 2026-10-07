@@ -93,6 +93,23 @@ possible review. They are not submission changes by themselves: each must receiv
 Qwen review before `apply_vision_hybrid.py` accepts it. No fixed description
 or rating template is used, and no test labels are read or written.
 
+Before spending GPU time on the test set, the same policy can be evaluated on
+two complete bridge-group holdouts. This fits the visual head inside each fold,
+runs the ordinary 4B Qwen baseline, applies the exact 39-image-style trigger,
+and then measures the accepted Qwen review. The command is resumable and keeps
+all intermediate raw responses under `runs/`:
+
+```powershell
+.\.venv\Scripts\python.exe -u -X utf8 code\evaluate_vision_review.py `
+  --groups 范家坪1号大桥,青树湾1号大桥 `
+  --output runs\review_validation_v3\paired_review.json `
+  --resume
+```
+
+The baseline and review scores must be compared on the same images. A visual
+head score or a direct-label substitution is not evidence that the Qwen review
+policy improves the competition output.
+
 An additional five-bridge run on the same day produced bridge exact scores
 between 16.67% and 64.29%. This spread is why the candidate policy is kept
 isolated and conservative; the frozen head is not treated as a universal

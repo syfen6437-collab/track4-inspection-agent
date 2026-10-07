@@ -18,7 +18,7 @@ sys.path.insert(0, str(CODE_DIR))
 
 from track4_agent.data import _build_lexicon, load_assets, write_json
 from track4_agent.inference import _macro_atomic_f1, infer_item
-from track4_agent.model import ModelClient
+from track4_agent.model import ModelClient, scene_key
 
 
 def _bridge_group(row: dict[str, Any]) -> str:
@@ -182,6 +182,15 @@ def _variants(names: list[str], base: dict[str, Any]) -> dict[str, dict[str, Any
     return {name: {**base, **variants[name]} for name in names}
 
 
+def _allow_review(item: dict[str, Any], config: dict[str, Any]) -> bool:
+    if item["questionCategory"] == "轨道":
+        return True
+    if not config.get("calibration_review", False):
+        return False
+    scenes = config.get("bridge_review_scenes")
+    return scene_key(item) in scenes if scenes is not None else True
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="按整桥留出的4B提示对照评测")
     parser.add_argument("--sample-size", type=int, default=120)
@@ -230,10 +239,7 @@ def main() -> None:
                 variant_config,
                 WORKSPACE / "data" / "raw" / row["image"],
                 raw_dir=WORKSPACE / "data" / "raw",
-                allow_review=(
-                    row["questionCategory"] == "轨道"
-                    or bool(variant_config.get("calibration_review", False))
-                ),
+                allow_review=_allow_review(item, variant_config),
             )
             records.append({"truth": row, "prediction": prediction, "raw": raw})
             if index % 10 == 0 or index == len(sample):

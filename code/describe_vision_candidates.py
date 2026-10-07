@@ -17,6 +17,7 @@ from track4_agent.data import load_assets, write_json
 from track4_agent.inference import _neighbor_index
 from track4_agent.vision_review import (
     candidate_path,
+    index_unique,
     review_context,
     review_image,
     select_candidates,
@@ -53,7 +54,10 @@ def main() -> None:
         saved = json.loads(output_path.read_text(encoding="utf-8"))
         if saved.get("context") != context:
             raise ValueError("Existing review file context differs; choose a new --output path")
-        saved_records = {row["id"]: row for row in saved.get("records", [])}
+        saved_records = index_unique(saved.get("records", []), "id")
+        expected_ids = {item["id"] for item, _, _ in candidates}
+        if not set(saved_records) <= expected_ids:
+            raise ValueError("Saved review file contains stale/unselected images")
     neighbors = _neighbor_index(manifest)
     client = load_client(config)
     raw_dir = ROOT / "data" / "raw"
