@@ -13,7 +13,10 @@ CODE_DIR = Path(__file__).resolve().parents[1]
 if str(CODE_DIR) not in sys.path:
     sys.path.insert(0, str(CODE_DIR))
 
-from track4_agent.model import build_checklist_prompt, candidate_labels, checklist_prediction, crop_montage, sanitize_prediction
+from track4_agent.model import (
+    build_checklist_prompt, candidate_labels, checklist_prediction, crop_montage,
+    needs_review, sanitize_prediction,
+)
 from track4_agent.inference import infer_item, run_inference
 from evaluate_holdout import _make_holdout
 from track4_agent.validation import validate_result
@@ -33,6 +36,10 @@ LEXICON = {
 
 
 class PipelineTests(unittest.TestCase):
+
+    def test_negated_healthy_evidence_does_not_trigger_review(self) -> None:
+        self.assertFalse(needs_review({"defectType": "完好", "defectDescription": "无裂缝、无渗水", "confidence": 1.0}, 0.5))
+        self.assertTrue(needs_review({"defectType": "完好", "defectDescription": "局部可见裂缝", "confidence": 1.0}, 0.5))
     class FakeClient:
         def __init__(self, responses: list[str]) -> None:
             self.responses = iter(responses)

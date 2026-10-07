@@ -363,8 +363,17 @@ def needs_review(prediction: dict[str, Any], threshold: float) -> bool:
     description = str(prediction.get("defectDescription", ""))
     label = str(prediction.get("defectType", ""))
     contradiction_terms = ("裂缝", "破损", "锈蚀", "渗水", "剥落", "露筋")
-    if label == "完好" and any(term in description for term in contradiction_terms):
-        return True
+    if label == "完好":
+        # Healthy evidence often explicitly says “无裂缝/未见锈蚀”.  Those
+        # negated terms are not contradictions and must not trigger a costly
+        # second visual pass.
+        positive = re.sub(
+            r"(?:无|未见|未发现|没有|未观察到|未检测到)[^，。；,;]{0,4}(?:裂缝|破损|锈蚀|渗水|剥落|露筋)",
+            "",
+            description,
+        )
+        if any(term in positive for term in contradiction_terms):
+            return True
     return False
 
 
