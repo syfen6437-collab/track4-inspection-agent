@@ -54,7 +54,7 @@ The prompt ablation also showed that removing the coarse presence hint alone low
 - This is one bridge-group holdout plus a label-balanced track sample, not the hidden competition test set or an official score estimate.
 - The supervised head cannot emit classes absent from its training subset. The evaluation omits 9 rare bridge and 17 rare track examples, so its 45.7% figure must not be presented as full-label accuracy.
 - It predicts labels only; it does not replace Qwen-generated descriptions or ratings.
-- The original 56.11-point result is preserved in Git history and under `runs/`. A later candidate was evaluated on additional bridge-group holdouts before being packaged; the candidate result, Qwen responses and rating audit remain separate artifacts.
+- The original 56.11-point result is preserved in Git at `d2f6bde` and restored as the registered submission baseline. A later visual-candidate package scored 53.06 points (bridge 5.74/10, track 0.39/1) and was withdrawn. That candidate was not supported by the paired holdout evidence below; its artifacts remain separate under `runs/` for audit only.
 
 Raw metrics: [`../logs/holdout_evaluation.json`](../logs/holdout_evaluation.json) and [`../logs/siglip2_holdout_probe.json`](../logs/siglip2_holdout_probe.json).
 
@@ -66,14 +66,15 @@ rare and unseen labels. The frozen head reached bridge exact accuracy of
 atomic multilabel head reached Macro-F1 of 0.642 and 0.478 respectively, but
 full legal-combination exact accuracy remained 22.22% and 16.67%.
 
-The supported candidate policy is a local visual-head/Qwen merge: bridge
-support/bottom and track labels are proposed by a frozen local visual head,
-and every changed image receives a fresh local-Qwen structured description.
-A changed label is accepted only when Qwen returns the same legal label. The
-earlier direct-label ablation reached 55.95% bridge exact
-accuracy on the 84-image 范家坪1号大桥 holdout, versus 39.29% for the Qwen
-prompt and 42.86% for SigLIP2 alone. That number is not an official score;
-all changed test labels remain backed by local Qwen responses and audit logs.
+The candidate policy is kept experimental. A local visual head may propose a
+bridge label, but Qwen must independently inspect the image without seeing
+that proposal or the original answer. A proposal is accepted only when the
+same policy passes a paired whole-bridge holdout; test output is never changed
+from the registered baseline on the basis of an auxiliary head score alone.
+The earlier direct-label ablation reached 55.95% bridge exact accuracy on the
+84-image 范家坪1号大桥 holdout, versus 39.29% for the Qwen prompt and 42.86%
+for SigLIP2 alone. That number is not an official score and did not justify
+the withdrawn test candidate.
 Reproduce the older direct-label experiment with:
 
 ```powershell
@@ -89,10 +90,10 @@ Reproduce the older direct-label experiment with:
   --report runs\review_validation_v4\logs\validation_report.json
 ```
 
-The current kNN candidate has 100 support/bottom bridge images and 231 track
-images whose labels differ from the Qwen baseline. Each receives a valid local
-Qwen review before acceptance. No fixed description or rating template is
-used, and no test labels are read or written.
+The withdrawn kNN candidate changed 100 support/bottom bridge images and 231
+track images. It is retained only as an audit artifact. No candidate is copied
+into the registered result until the paired evaluation accepts it; no fixed
+description or rating template is used, and no test labels are read or written.
 
 Before spending GPU time on the test set, the same policy can be evaluated on
 two complete bridge-group holdouts. This fits the visual head inside each fold,

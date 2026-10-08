@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import hashlib
 import math
 import shutil
 import tarfile
@@ -69,6 +70,13 @@ def validate_result(
 
 
 def build_submission_package(workspace: Path) -> Path:
+    provenance_path = workspace / "logs" / "submission_provenance.json"
+    if not provenance_path.exists():
+        raise ValueError("Missing submission provenance; register the result before packaging")
+    provenance = read_json(provenance_path)
+    result_hash = hashlib.sha256((workspace / "result" / "result.json").read_bytes()).hexdigest()
+    if provenance.get("result_sha256") != result_hash:
+        raise ValueError("Result differs from the registered submission provenance; package was not changed")
     staging = workspace / "submission_staging"
     if staging.exists():
         shutil.rmtree(staging)
@@ -87,6 +95,7 @@ def build_submission_package(workspace: Path) -> Path:
         "inference_summary.json",
         "raw_responses.jsonl",
         "validation_report.json",
+        "submission_provenance.json",
     ):
         source = workspace / "logs" / name
         if source.exists():
@@ -128,6 +137,9 @@ def build_submission_package(workspace: Path) -> Path:
 
     package_report = {
         "package": str(output),
+        "result_sha256": result_hash,
+        "source_commit": provenance.get("source_commit"),
+        "package_sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
         "size_bytes": output.stat().st_size,
         "file_count": len(members),
         "roots": sorted(roots),

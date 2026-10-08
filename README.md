@@ -40,10 +40,12 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 
 `logs/qwen3_vl_4b_calibration.json`、`logs/calibration_metrics.json` 和 `logs/embedding_probe.json` 记录了本地留出实验。实验结果尚未自动覆盖 `result/result.json`，只有通过本地校准和 `validate` 后才应重新打包提交。
 
-视觉候选升级后，`code/revalidate_visual_candidate.py` 会复核已保存的本地Qwen原始证据；若候选标签被同一响应明确否定，则自动回退到该图片的原模型结果，并保留逐项审计，不重新调用外部服务。
+Git 中的 `d2f6bde` 保存了官方56.11分版本。运行 `restore_scored_baseline.py` 会校验提交哈希后恢复完整结果，并写入提交来源；当前53.06分的视觉候选版本已撤回。候选复核只能写入 `runs/`，不能覆盖正式结果。
 
 ### 2026-10-07 跨桥留出复核
 
 新增 120 张标签均衡留出评测：整座范家坪1号大桥从训练候选和词典中排除，评估其中 84 张桥梁图及 36 张轨道图。Qwen 提示消融显示，删除粗病害初筛提示和增加多视图清单都没有提升，因此正式配置保持不变。Apache-2.0 的 SigLIP2 冻结特征加平衡线性分类头，在 94 张标签训练样本充足的留出图片上精确率为 45.7%，高于 Qwen 同标签口径的 40.4%；另外 26 张罕见/未见标签样本不纳入该比较。目前只有一座桥的独立留出结果。
 
-复现脚本与逐类指标见 [`code/SIGLIP2_EXPERIMENT.md`](code/SIGLIP2_EXPERIMENT.md)。赛事返回的基线反馈为43分（桥梁约4.31/10、轨道约0.43/1）；仓库没有官方评分器，因此本地留出指标只用于版本比较，不能宣称为赛事得分。当前 `result/result.json` 仍由模型和经过审计的视觉候选流程生成；在更多桥梁分组和完整类别输出验证前，不应把探针分类头直接替换为正式模型。
+复现脚本与逐类指标见 [`code/SIGLIP2_EXPERIMENT.md`](code/SIGLIP2_EXPERIMENT.md)。Git 中保留的最高官方反馈为56.11分（桥梁6.07/10、轨道0.41/1，2026-10-07）。当前 `result/result.json` 已恢复该版本的完整模型输出，并在 `logs/submission_provenance.json` 中登记来源提交和 SHA-256。2026-10-08 的视觉候选版本得到53.06分（桥梁5.74/10、轨道0.39/1），已撤回。仓库没有官方评分器，因此本地留出指标只用于版本比较，不能宣称为赛事得分。
+
+候选复核只能在 `runs/` 隔离目录运行：Qwen 看不到候选标签和原始答案，证据不足、零置信度、缓存不完整都会拒绝或中止。轨道候选在通过与最终提交完全相同的成对留出验证前不会启用。

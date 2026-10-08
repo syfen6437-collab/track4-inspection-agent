@@ -4,6 +4,7 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+import re
 from pathlib import Path
 from typing import Any
 
@@ -12,9 +13,60 @@ from .inference import _review_images
 from .model import _extract_json, build_prompt, sanitize_prediction, scene_key
 
 
-REVIEW_VERSION = 2
+REVIEW_VERSION = 3
 DEFAULT_SCENES = ("support", "bottom")
 INTERNAL_KEYS = ("defectType", "defectDescription", "ratingScale", "confidence", "evidence")
+
+
+def evidence_contradicts(label: str, prediction: dict[str, Any]) -> bool:
+    text = " ".join(str(prediction.get(key, "")) for key in ("defectDescription", "evidence"))
+    if not text.strip():
+        return True
+    if label == "完好":
+        return False
+    groups = []
+    if "修补" in label or "处治" in label:
+        groups.append(("修补", "处治", "修复", "补丁"))
+    if "粉红" in label:
+        groups.append(("粉红", "红色", "色斑"))
+    if "渗水" in label or "泛碱" in label:
+        groups.append(("渗水", "泛碱", "水痕", "水渍", "泛白", "盐霜"))
+    if "裂缝" in label:
+        groups.append(("裂缝",))
+    if "破损" in label or "剥落" in label:
+        groups.append(("破损", "剥落"))
+    if "钢结构" in label:
+        groups.append(("钢结构", "钢构件", "金属"))
+    if "钢筋" in label:
+        groups.append(("钢筋",))
+    if "支座" in label:
+        groups.append(("支座",))
+    if "锈" in label or "碳化" in label:
+        groups.append(("锈", "碳化"))
+    # Punctuation bounds the negation scope: "有裂缝，无渗水" does not deny cracks.
+    negative = r"(?:无明显|未发现|不存在|未见|没有|无)[^\s,，。;；:：、]{0,4}"
+    for words in groups:
+        if any(re.search(negative + re.escape(word), text) for word in words):
+            return True
+        if not any(word in text for word in words):
+            return True
+    return False
+
+
+def cached_reviews(selected, saved: list[dict[str, Any]], *, require_complete: bool = False):
+    indexed = index_unique(saved, "id")
+    expected = {item["id"] for item, _, _ in selected}
+    if not set(indexed) <= expected:
+        raise ValueError("Saved reviews contain stale or unselected images")
+    if require_complete and set(indexed) != expected:
+        raise ValueError("Revalidation cache is incomplete; no model calls are allowed")
+    for item, _, vision in selected:
+        record = indexed.get(item["id"])
+        if record is not None and (record.get("filename") != item["filename"]
+                or record.get("vision_candidate") != vision["defectType"]
+                or record.get("vision_confidence") != vision["confidence"]):
+            raise ValueError(f"Saved review metadata differs: {item['id']}")
+    return indexed
 
 
 def sha256_file(path: Path) -> str:
@@ -96,11 +148,11 @@ def select_candidates(
 
 def strict_prediction(raw: str, lexicon: dict[str, Any], item: dict[str, Any]) -> dict[str, Any] | None:
     parsed = _extract_json(raw)
-    if parsed is None or any(key not in parsed for key in INTERNAL_KEYS):
-        return None
-    if parsed["defectType"] not in lexicon["categories"][item["questionCategory"]]["allowed_labels"]:
+    if not isinstance(parsed, dict) or any(key not in parsed for key in INTERNAL_KEYS):
         return None
     if not all(isinstance(parsed[key], str) for key in INTERNAL_KEYS if key != "confidence"):
+        return None
+    if parsed["defectType"] not in lexicon["categories"][item["questionCategory"]]["allowed_labels"]:
         return None
     if not parsed["defectDescription"].strip() or not parsed["evidence"].strip():
         return None
@@ -109,6 +161,8 @@ def strict_prediction(raw: str, lexicon: dict[str, Any], item: dict[str, Any]) -
     try:
         probability(parsed["confidence"])
     except ValueError:
+        return None
+    if evidence_contradicts(parsed["defectType"], parsed):
         return None
     prediction, valid = sanitize_prediction(raw, lexicon, item["questionCategory"], scene_key(item))
     return {key: prediction[key] for key in INTERNAL_KEYS} if valid else None
@@ -121,8 +175,7 @@ def review_image(client, item, base, vision, lexicon, config, image_path, raw_di
     review_config = {**config, "bridge_review_crops_only": False}
     images = _review_images(image_path, item, review_config, neighbors or {}, raw_dir)
     prompt = build_prompt(item, lexicon, review=True)
-    prompt += (f"\n独立视觉分类器的待核对候选是“{vision['defectType']}”。"
-               "该候选可能有误，请独立判断，允许输出完好或其他合法标签。")
+    prompt += "\n请独立观察图片，先给出可见证据，再选择合法标签；没有可见病害时允许输出完好。"
     attempts = []
     prediction = None
     for attempt in range(retries + 1):
@@ -185,7 +238,8 @@ def merge_reviews(manifest, results, vision_records, records, lexicon,
         prediction = strict_prediction(review["raw"], lexicon, item)
         if review.get("valid") != (prediction is not None) or review.get("prediction") != prediction:
             raise ValueError(f"Review raw text and stored prediction disagree: {item['id']}")
-        accepted = bool(prediction and prediction["defectType"] != "完好"
+        accepted = bool(prediction and prediction["defectType"] not in ("完好", base["defectType"])
+                        and prediction["confidence"] > 0
                         and prediction["confidence"] >= review_min_confidence)
         final = dict(base)
         if accepted:

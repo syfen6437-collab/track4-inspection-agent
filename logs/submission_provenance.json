@@ -1,0 +1,32 @@
+{
+  "status": "restored_scored_baseline",
+  "source_commit": "d2f6bde0c2109130b95e42a32463d036baec33e1",
+  "result_sha256": "6fc15c1b03c63b0fe48c4f637731f2bafe1a9693aa1c778dc437513e2e0492a1",
+  "model_id": "Qwen/Qwen3-VL-4B-Instruct",
+  "official_feedback": {
+    "total": 56.11,
+    "bridge": 6.07,
+    "track": 0.41,
+    "submitted_at": "2026-10-07 05:18:33",
+    "source": "user-provided competition screenshot"
+  },
+  "result_count": 1274,
+  "category_counts": {
+    "桥梁": 974,
+    "轨道": 300
+  },
+  "withdrawn_candidate": {
+    "source_revision": "3bd9925",
+    "result_sha256": "9002fad4119b74ec81c4a2beb143bdb74b7c9c3d1343b16ea09b5daa01e9f296",
+    "official_feedback": {
+      "total": 53.06,
+      "bridge": 5.74,
+      "track": 0.39,
+      "submitted_at": "2026-10-08 12:35:57",
+      "source": "user-provided competition screenshot"
+    }
+  },
+  "candidate_changes_applied": 0,
+  "new_score_verified": false,
+  "policy": "Restore the entire historical model output, not selected test answers"
+}

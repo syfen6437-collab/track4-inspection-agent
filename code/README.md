@@ -28,7 +28,7 @@
 
 当前最终配置为4B桥梁双阶段初筛、桥梁整图加四象限细节拼图，轨道使用整图加四象限细节拼图。输出上限为96个新token；轨道低置信度结果仍可自动复核。默认入口配置为 `code/config/qwen3-vl-4b-review.json`。
 
-完整推理后可用冻结的本地视觉头生成隔离候选。桥梁只对支座/梁底场景、轨道使用原子组合头；每个标签变化样本再次由本地Qwen生成描述和评分，只有合法且与视觉候选一致时才接受：
+完整推理后可用冻结的本地视觉头生成隔离候选。候选结果只写入 `runs/`；轨道候选默认停用，桥梁候选必须使用与成对留出评估相同的独立复核流程：
 
 ```powershell
 .\.venv\Scripts\python.exe -X utf8 code\apply_visual_candidate.py `
@@ -36,7 +36,7 @@
   --output runs\visual_candidate_v5\result\result.json `
   --audit runs\visual_candidate_v5\logs\audit.json `
   --descriptions runs\visual_candidate_v5\logs\descriptions.json `
-  --track --resume
+  --resume
 .\.venv\Scripts\python.exe -X utf8 code\calibrate_ratings.py `
   --input runs\visual_candidate_v5\result\result.json `
   --output runs\visual_candidate_v5\result\result_calibrated.json `
@@ -54,7 +54,7 @@
   --output-audit runs\visual_candidate_v6\logs\revalidation.json
 ```
 
-候选输出、Qwen原始响应和审计记录始终位于 `runs/`，不会被该命令写入正式结果。
+候选输出、Qwen原始响应和审计记录始终位于 `runs/`，不会被该命令写入正式结果。Qwen 不会看到候选标签或原始答案；证据不足、零置信度或缓存不完整都会拒绝或中止。
 
 ## 训练图片浏览与人工审核
 
