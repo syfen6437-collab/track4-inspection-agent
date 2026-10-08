@@ -81,8 +81,16 @@ def scene_key(item: dict[str, Any]) -> str:
     return "generic"
 
 
-def candidate_labels(lexicon: dict[str, Any], category: str, scene: str, limit: int = 12) -> list[str]:
+def candidate_labels(
+    lexicon: dict[str, Any], category: str, scene: str, limit: int = 12,
+    *, include_all: bool = False,
+) -> list[str]:
     category_data = lexicon["categories"][category]
+    if include_all:
+        # A candidate scope is useful for fast prompts, but it must never be
+        # mistaken for the ontology. Rare labels such as 伸缩缝病害 and 剥落
+        # are valid training targets and must remain selectable in experiments.
+        return list(category_data["allowed_labels"])
     scene_counts = category_data.get("scene_label_counts", {}).get(scene, {})
     # Test filenames use “桥面” while the public training set mostly calls
     # equivalent views DJI/S*.  Reuse that visual domain instead of the tiny
@@ -113,8 +121,13 @@ def candidate_labels(lexicon: dict[str, Any], category: str, scene: str, limit: 
     return labels[:limit]
 
 
-def lexicon_prompt(lexicon: dict[str, Any], category: str, scene: str = "generic") -> str:
-    return "、".join(candidate_labels(lexicon, category, scene))
+def lexicon_prompt(
+    lexicon: dict[str, Any], category: str, scene: str = "generic", *,
+    label_scope: str = "scene",
+) -> str:
+    return "、".join(candidate_labels(
+        lexicon, category, scene, include_all=label_scope == "all"
+    ))
 
 
 def review_guidance_prompt(lexicon: dict[str, Any]) -> str:
@@ -138,10 +151,11 @@ def build_prompt(
     *,
     review: bool = False,
     prior_prediction: dict[str, Any] | None = None,
+    label_scope: str = "scene",
 ) -> str:
     category = item["questionCategory"]
     scene = scene_key(item)
-    label_text = lexicon_prompt(lexicon, category, scene)
+    label_text = lexicon_prompt(lexicon, category, scene, label_scope=label_scope)
     prior = ""
     if prior_prediction:
         prior = "\n上一轮候选结果如下，请基于新视角复核，不要无条件沿用：\n" + json.dumps(
@@ -201,10 +215,17 @@ def build_presence_prompt(item: dict[str, Any], *, review: bool = False) -> str:
 只输出 JSON：{{"has_defect":true,"coarse_type":"锈蚀","evidence":"不超过15个汉字","confidence":0.0}}"""
 
 
-def build_checklist_prompt(item: dict[str, Any], lexicon: dict[str, Any], *, review: bool = False) -> str:
+def build_checklist_prompt(
+    item: dict[str, Any], lexicon: dict[str, Any], *, review: bool = False,
+    label_scope: str = "scene",
+) -> str:
     scene = scene_key(item)
     limit = len(lexicon["categories"][item["questionCategory"]]["allowed_labels"])
-    labels = candidate_labels(lexicon, item["questionCategory"], scene, limit=limit if item["questionCategory"] == "轨道" else 18)
+    labels = candidate_labels(
+        lexicon, item["questionCategory"], scene,
+        limit=limit if item["questionCategory"] == "轨道" else 18,
+        include_all=label_scope == "all",
+    )
     examples = []
     specs = lexicon["categories"][item["questionCategory"]]["label_specs"]
     for label in labels:

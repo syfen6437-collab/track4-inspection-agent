@@ -178,6 +178,10 @@ def _variants(names: list[str], base: dict[str, Any]) -> dict[str, dict[str, Any
             "bridge_review_scenes": ["bottom"],
             "calibration_review": True,
         },
+        "full_label_scope": {
+            "label_scope": "all",
+            "review_selection": "strict",
+        },
     }
     return {name: {**base, **variants[name]} for name in names}
 
@@ -196,6 +200,7 @@ def main() -> None:
     parser.add_argument("--sample-size", type=int, default=120)
     parser.add_argument("--bridge-group", default="范家坪1号大桥")
     parser.add_argument("--variants", default="coarse_anchor,independent,multiview_checklist")
+    parser.add_argument("--config", type=Path, default=CODE_DIR / "config" / "qwen3-vl-4b-review.json")
     parser.add_argument("--output", type=Path, default=WORKSPACE / "logs" / "holdout_evaluation.json")
     args = parser.parse_args()
 
@@ -204,8 +209,7 @@ def main() -> None:
     os.environ["MODELSCOPE_OFFLINE"] = "1"
 
     train, _, full_lexicon = load_assets(WORKSPACE)
-    config_path = CODE_DIR / "config" / "qwen3-vl-4b-review.json"
-    config = json.loads(config_path.read_text(encoding="utf-8"))
+    config = json.loads(args.config.resolve().read_text(encoding="utf-8"))
     sample, training, split_report = _make_holdout(
         train, args.sample_size, int(config["seed"]), args.bridge_group
     )

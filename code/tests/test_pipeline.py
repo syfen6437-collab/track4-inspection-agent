@@ -95,6 +95,28 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(prediction["defectType"], "裂缝")
         self.assertEqual(prediction["ratingScale"], "2")
 
+    def test_full_label_scope_exposes_rare_legal_labels(self) -> None:
+        lexicon = {
+            "categories": {
+                "桥梁": {
+                    "allowed_labels": ["完好", "伸缩缝病害", "剥落"],
+                    "label_specs": {
+                        "完好": {"count": 10, "rating_distribution": {}, "default_rating": ""},
+                        "伸缩缝病害": {"count": 1, "rating_distribution": {"2": 1}, "default_rating": "2"},
+                        "剥落": {"count": 1, "rating_distribution": {"2": 1}, "default_rating": "2"},
+                    },
+                    "scene_label_counts": {"aerial": {"完好": 10}},
+                }
+            }
+        }
+        prompt = build_checklist_prompt(
+            {"questionCategory": "桥梁", "filename": "DJI_0001.JPG"},
+            lexicon,
+            label_scope="all",
+        )
+        self.assertIn("伸缩缝病害", prompt)
+        self.assertIn("剥落", prompt)
+
     def test_sanitize_prediction_fills_missing_nonhealthy_rating(self) -> None:
         prediction, valid = sanitize_prediction(
             '{"defectType":"裂缝","defectDescription":"梁底可见细裂缝",'
@@ -157,6 +179,27 @@ class PipelineTests(unittest.TestCase):
         self.assertEqual(result["defectType"], "裂缝")
         self.assertEqual(len(records), 2)
         self.assertNotIn("初筛模型观察到的粗类别", client.prompts[1])
+
+    def test_strict_review_does_not_replace_with_low_confidence_valid_json(self) -> None:
+        client = self.FakeClient([
+            '{"defectType":"完好","defectDescription":"无明显病害",'
+            '"ratingScale":"","confidence":0.8,"evidence":"未见异常"}',
+            '{"defectType":"渗水/泛碱","defectDescription":"疑似水痕",'
+            '"ratingScale":"2","confidence":0.2,"evidence":"颜色变化"}',
+        ])
+        item = {"id": "test.jpg", "questionCategory": "桥梁", "bridgeName": "示例桥", "filename": "支座.JPG"}
+        config = {
+            "global_max_side": 128, "bridge_max_side": 128, "bridge_use_crops": False,
+            "crop_size": 64, "confidence_threshold": 0.55, "bridge_review_enabled": True,
+            "review_selection": "strict", "bridge_review_scenes": ["support"],
+        }
+        with tempfile.TemporaryDirectory() as directory:
+            image_path = Path(directory) / "test.jpg"
+            Image.new("RGB", (128, 96), "gray").save(image_path)
+            result, records = infer_item(client, item, LEXICON, config, image_path,
+                                         raw_dir=Path(directory))
+        self.assertEqual(result["defectType"], "完好")
+        self.assertEqual(len(records), 2)
 
     def test_aerial_healthy_prediction_can_trigger_crop_review(self) -> None:
         client = self.FakeClient([

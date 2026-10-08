@@ -115,7 +115,13 @@ def infer_item(
     raw_records: list[dict[str, Any]] = []
     first_images = _first_pass_images(image_path, item, config)
     use_checklist = bool(config.get("bridge_checklist", False) and item["questionCategory"] == "桥梁")
-    first_prompt = build_checklist_prompt(item, lexicon) if use_checklist else build_prompt(item, lexicon)
+    label_scope = str(config.get("label_scope", "scene"))
+    if label_scope not in {"scene", "all"}:
+        raise ValueError(f"Unsupported label_scope: {label_scope!r}")
+    first_prompt = (
+        build_checklist_prompt(item, lexicon, label_scope=label_scope)
+        if use_checklist else build_prompt(item, lexicon, label_scope=label_scope)
+    )
     if config.get("two_stage_bridge", False) and item["questionCategory"] == "桥梁":
         presence_raw = client.generate(first_images, build_presence_prompt(item))
         presence = _parse_presence(presence_raw)
@@ -161,9 +167,12 @@ def infer_item(
     if should_review and raw_dir is not None:
         review_images = _review_images(image_path, item, config, neighbors or {}, raw_dir)
         review_prompt = (
-            build_checklist_prompt(item, lexicon, review=True)
+            build_checklist_prompt(item, lexicon, review=True, label_scope=label_scope)
             if use_checklist
-            else build_prompt(item, lexicon, review=True, prior_prediction=first_prediction)
+            else build_prompt(
+                item, lexicon, review=True, prior_prediction=first_prediction,
+                label_scope=label_scope,
+            )
         )
         review_raw = client.generate(review_images, review_prompt)
         if use_checklist:
@@ -177,11 +186,22 @@ def infer_item(
         raw_records.append(
             {"round": 2, "raw": review_raw, "prediction": review_prediction, "valid": review_valid}
         )
-        if (
-            (first_prediction["defectType"] == "完好" and review_prediction["defectType"] != "完好")
-            or review_valid
-            or review_prediction["confidence"] >= first_prediction["confidence"]
-        ):
+        strict_review = config.get("review_selection", "legacy") == "strict"
+        if strict_review:
+            # A second pass is allowed to replace the first pass only when it
+            # is structurally valid and meets the same confidence bar that
+            # triggered review. This keeps a low-confidence review from
+            # overwriting a better first prediction merely because it parsed.
+            use_review = review_valid and review_prediction["confidence"] >= float(config["confidence_threshold"])
+        else:
+            # Preserve the historical submission behavior unless an
+            # experiment explicitly opts into strict selection.
+            use_review = (
+                (first_prediction["defectType"] == "完好" and review_prediction["defectType"] != "完好")
+                or review_valid
+                or review_prediction["confidence"] >= first_prediction["confidence"]
+            )
+        if use_review:
             chosen = review_prediction
 
     final = {

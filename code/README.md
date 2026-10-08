@@ -56,6 +56,12 @@
 
 候选输出、Qwen原始响应和审计记录始终位于 `runs/`，不会被该命令写入正式结果。Qwen 不会看到候选标签或原始答案；证据不足、零置信度或缓存不完整都会拒绝或中止。
 
+可用完整合法标签范围做独立留出对照，不会改写正式结果：
+
+```powershell
+& $py .\code\evaluate_holdout.py --config .\code\config\qwen3-vl-4b-all-label-holdout.json --variants full_label_scope
+```
+
 ## 训练图片浏览与人工审核
 
 启动一个只读图片浏览器，并把人工意见单独保存到 `qa/review_annotations.jsonl`：
