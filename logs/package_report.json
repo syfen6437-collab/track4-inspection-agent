@@ -2,9 +2,9 @@
   "package": "E:\\赛题四_智能体\\track4_submission.tar.gz",
   "result_sha256": "6fc15c1b03c63b0fe48c4f637731f2bafe1a9693aa1c778dc437513e2e0492a1",
   "source_commit": "d2f6bde0c2109130b95e42a32463d036baec33e1",
-  "package_sha256": "27372a9df1c95e7c0ae1bafd0da05c15daf428998cae6b4b022530111ee707c4",
-  "size_bytes": 146108,
-  "file_count": 54,
+  "package_sha256": "82aa3cd9387fb6a4e31770f4902b44fd31d614048d698c73856a12e04a6d10ee",
+  "size_bytes": 147718,
+  "file_count": 55,
   "roots": [
     "code",
     "design",
@@ -29,11 +29,11 @@
     },
     {
       "name": "code/track4_agent/model.py",
-      "size": 21439
+      "size": 22045
     },
     {
       "name": "code/track4_agent/inference.py",
-      "size": 18759
+      "size": 19821
     },
     {
       "name": "code/review_server.py",
