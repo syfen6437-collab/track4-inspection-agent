@@ -163,6 +163,15 @@ def main() -> None:
     bridge_scenes = {value.strip() for value in args.bridge_scenes.split(",") if value.strip()}
     allowed = {category: set(data["allowed_labels"])
                for category, data in lexicon["categories"].items()}
+    config = load_config(args.config.resolve())
+    cache_context = {
+        "base_sha256": sha256_file(args.base.resolve()),
+        "vision_sha256": sha256_file(args.vision.resolve()),
+        "config": config,
+        "bridge_scenes": sorted(bridge_scenes),
+        "track": bool(args.track),
+        "min_confidence": float(args.min_confidence),
+    }
 
     changes: list[dict[str, Any]] = []
     for key, original in base_by_key.items():
@@ -184,10 +193,14 @@ def main() -> None:
     saved: dict[str, dict[str, Any]] = {}
     if args.resume and descriptions_path.exists():
         saved_doc = json.loads(descriptions_path.read_text(encoding="utf-8"))
+        if saved_doc.get("context") != cache_context:
+            raise ValueError(
+                "Saved descriptions context differs from the current base, vision records, "
+                "configuration, or selection policy; choose a new --descriptions path"
+            )
         saved = {row["key"]: row for row in saved_doc.get("records", [])}
     client = None
     raw_dir = ROOT / "data" / "raw"
-    config = load_config(args.config.resolve())
     for index, change in enumerate(changes, start=1):
         key_text = "|".join(change["key"])
         if key_text in saved:
@@ -195,7 +208,9 @@ def main() -> None:
                 existing = saved[key_text]
                 fallback = str(existing.get("visual", {}).get("defectType", change["label"]))
                 parsed = _strict_review(
-                    str(existing.get("raw", "")), allowed[item["questionCategory"]], fallback
+                    str(existing.get("raw", "")),
+                    allowed[change["item"]["questionCategory"]],
+                    fallback,
                 )
                 existing["prediction"] = parsed
                 existing["valid"] = parsed is not None
@@ -217,7 +232,8 @@ def main() -> None:
             "prediction": parsed,
         }
         descriptions_path.parent.mkdir(parents=True, exist_ok=True)
-        write_json(descriptions_path, {"model_id": config["model_id"], "count": len(saved),
+        write_json(descriptions_path, {"model_id": config["model_id"], "context": cache_context,
+                                       "count": len(saved),
                                        "records": sorted(saved.values(), key=lambda row: row["key"])})
         print(f"[describe] {index}/{len(changes)} {item['filename']}", flush=True)
 

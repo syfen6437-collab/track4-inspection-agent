@@ -46,4 +46,4 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 
 新增 120 张标签均衡留出评测：整座范家坪1号大桥从训练候选和词典中排除，评估其中 84 张桥梁图及 36 张轨道图。Qwen 提示消融显示，删除粗病害初筛提示和增加多视图清单都没有提升，因此正式配置保持不变。Apache-2.0 的 SigLIP2 冻结特征加平衡线性分类头，在 94 张标签训练样本充足的留出图片上精确率为 45.7%，高于 Qwen 同标签口径的 40.4%；另外 26 张罕见/未见标签样本不纳入该比较。目前只有一座桥的独立留出结果。
 
-复现脚本与逐类指标见 [`code/SIGLIP2_EXPERIMENT.md`](code/SIGLIP2_EXPERIMENT.md)。当前 56.11 分对应的 `result/result.json` 保持原样；在更多桥梁分组和完整类别输出验证前，不应将该探针分类头替换为正式模型。
+复现脚本与逐类指标见 [`code/SIGLIP2_EXPERIMENT.md`](code/SIGLIP2_EXPERIMENT.md)。赛事返回的基线反馈为43分（桥梁约4.31/10、轨道约0.43/1）；仓库没有官方评分器，因此本地留出指标只用于版本比较，不能宣称为赛事得分。当前 `result/result.json` 仍由模型和经过审计的视觉候选流程生成；在更多桥梁分组和完整类别输出验证前，不应把探针分类头直接替换为正式模型。
