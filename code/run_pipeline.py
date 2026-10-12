@@ -41,6 +41,8 @@ def load_client(config: dict[str, Any]) -> ModelClient:
         max_new_tokens=int(config["max_new_tokens"]),
         global_max_side=int(config["global_max_side"]),
         crop_size=int(config["crop_size"]),
+        gpu_max_memory_mib=config.get("gpu_max_memory_mib"),
+        gpu_reserve_mib=config.get("gpu_reserve_mib", 1536),
     )
 
 

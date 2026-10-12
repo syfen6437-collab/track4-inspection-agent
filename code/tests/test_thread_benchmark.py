@@ -66,6 +66,12 @@ class ThreadBenchmarkTests(unittest.TestCase):
         self.assertEqual(report["records"][0]["prediction"]["defectType"], "0")
         self.assertEqual(report["records"][-1]["prediction"]["defectType"], "7")
 
+    def test_offload_profile_keeps_weight_budget_and_activation_reserve(self):
+        benchmark.load_config.return_value = {"model_id": "fixture", "gpu_max_memory_mib": 6144,
+                                              "gpu_reserve_mib": 1536}
+        self.run_main()
+        benchmark._gpu_preflight.assert_called_once_with(7680)
+
     def test_existing_output_is_preserved_before_gpu_load(self):
         self.output.parent.mkdir(parents=True)
         self.output.write_bytes(b"preserve previous diagnostic")

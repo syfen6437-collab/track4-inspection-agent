@@ -217,6 +217,19 @@ def _variants(names: list[str], base: dict[str, Any]) -> dict[str, dict[str, Any
             "label_scope": "all",
             "review_selection": "strict",
         },
+        "training_evidence": {
+            "label_scope": "scene", "review_selection": "legacy",
+            "training_description_guidance": True,
+            "track_atomic_checklist": True,
+        },
+        "bridge_descriptions": {
+            "training_description_guidance": True,
+            "track_atomic_checklist": False,
+        },
+        "track_atoms": {
+            "training_description_guidance": False,
+            "track_atomic_checklist": True,
+        },
     }
     if not names or len(set(names)) != len(names) or any(name not in variants for name in names):
         raise ValueError(f"Provide unique known variants from: {', '.join(variants)}")
@@ -238,7 +251,8 @@ def _label_coverage(sample, lexicon, config):
     for category in dict.fromkeys(row["questionCategory"] for row in sample):
         rows = [row for row in sample if row["questionCategory"] == category]
         excluded = Counter(row["defectType"] for row in rows if row["defectType"] not in candidate_labels(
-            lexicon, category, scene_key(row), include_all=config.get("label_scope", "scene") == "all"))
+            lexicon, category, scene_key(row), include_all=(config.get("label_scope", "scene") == "all"
+                or (category == "轨道" and config.get("track_atomic_checklist", False)))))
         coverage[category] = {"sample_size": len(rows), "included_targets": len(rows) - sum(excluded.values()),
                               "excluded_label_counts": dict(excluded)}
     return coverage
@@ -412,6 +426,21 @@ def _gpu_preflight(min_free_mib: int):
                            f"need {min_free_mib} MiB free. Checkpoint preserved; release GPU and use --resume.")
 
 
+def _required_gpu_memory(config, minimum=None):
+    from track4_agent.model import ModelClient
+    client = ModelClient.__new__(ModelClient)
+    client.gpu_max_memory_mib = config.get("gpu_max_memory_mib")
+    client.gpu_reserve_mib = config.get("gpu_reserve_mib", 1536)
+    client.memory_plan()
+    required = (client.gpu_max_memory_mib + client.gpu_reserve_mib
+                if client.gpu_max_memory_mib is not None else 10240)
+    if minimum is not None:
+        if isinstance(minimum, bool) or not isinstance(minimum, int) or minimum <= 0:
+            raise ValueError("Minimum free GPU memory must be a positive integer")
+        required = max(required, minimum)
+    return required
+
+
 def run_holdout(workspace, config, sample, training, lexicon, split, variants, output,
                 *, resume=False, prepare_only=False, max_images=None, client_factory=None):
     output = candidate_path(workspace, output)
@@ -497,7 +526,7 @@ def main() -> None:
     parser.add_argument("--prepare-only", action="store_true", help="Validate inputs and prepare checkpoints without loading GPU model")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--max-images", type=int, help="Pause after this many newly evaluated images, including raw-response replay")
-    parser.add_argument("--min-free-gpu-mib", type=int, default=10240, help="Required free memory on GPU 0 before loading 4B")
+    parser.add_argument("--min-free-gpu-mib", type=int, default=None, help="Additional GPU free-memory floor; capped configs also require weight budget plus reserve")
     args = parser.parse_args()
 
     os.environ["TRANSFORMERS_OFFLINE"] = "1"
@@ -514,7 +543,7 @@ def main() -> None:
     variants = _variants(names, config)
 
     def client_factory():
-        _gpu_preflight(args.min_free_gpu_mib)
+        _gpu_preflight(_required_gpu_memory(config, args.min_free_gpu_mib))
         return load_client(config)
 
     report = run_holdout(WORKSPACE, config, sample, training, lexicon, split_report,

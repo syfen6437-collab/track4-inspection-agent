@@ -15,12 +15,14 @@ from track4_agent.data import load_assets, write_json
 from track4_agent.vision_classifier import (
     feature_bank, fit_head, fit_knn, predict_head, predict_knn, model_identity,
 )
-from track4_agent.vision_review import digest_json, sha256_file
+from track4_agent.vision_review import candidate_path, digest_json, sha256_file
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="完整标签范围的跨桥监督视觉模型评测")
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
+    parser.add_argument("--views", choices=("global", "quadrants"), default="global")
+    parser.add_argument("--precision", choices=("auto", "float32"), default="auto")
     parser.add_argument("--threads", type=int, default=4)
     parser.add_argument("--batch-size", type=int, default=8)
     parser.add_argument("--sample-size", type=int, default=120)
@@ -33,17 +35,27 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=None, help="仅用于特征抽取冒烟，不允许生成指标")
     parser.add_argument("--output", type=Path, default=ROOT / "logs" / "vision_heads_holdout.json")
     args = parser.parse_args()
+    if args.views == "quadrants":
+        args.output = candidate_path(ROOT, args.output)
+    if args.output.exists() and not args.cache_only:
+        parser.error("Output already exists; choose a new --output")
     if args.min_class_count < 1:
         parser.error("--min-class-count must be positive")
     if args.limit and not args.cache_only:
         parser.error("--limit requires --cache-only")
     train, _, lexicon = load_assets(ROOT)
     started = time.time()
+    cache_suffix = "" if args.views == "global" else "_quadrants"
+    if args.precision == "float32" and args.device == "cuda":
+        cache_suffix += "_fp32"
+    cache_path = ROOT / "models" / f"siglip2_train_features_{args.device}{cache_suffix}.npz"
     features = feature_bank(
         ROOT, train[:args.limit] if args.limit else train,
         ROOT / "models" / "SigLIP2-base-patch16-224",
-        cache_path=ROOT / "models" / f"siglip2_train_features_{args.device}.npz",
+        cache_path=cache_path,
         device=args.device, batch_size=args.batch_size, threads=args.threads,
+        views=args.views,
+        precision=args.precision,
     )
     if args.cache_only:
         print(f"[cache] images={len(features)} elapsed={time.time()-started:.1f}s", flush=True)
@@ -52,12 +64,16 @@ def main() -> None:
     report = {
         "model_id": "google/siglip2-base-patch16-224", "license": "Apache-2.0",
         "device": args.device, "seed": 20261005,
+        "views": args.views,
+        "feature_dtype": "float32" if args.precision == "float32" or args.device == "cpu" else "float16",
         "min_class_count": args.min_class_count,
         "bridge_method": args.bridge_method, "knn_k": args.knn_k,
         "training_manifest_sha256": digest_json(train),
-        "feature_cache_sha256": sha256_file(ROOT / "models" / f"siglip2_train_features_{args.device}.npz"),
+        "feature_cache_sha256": sha256_file(cache_path),
         "model_identity": model_identity(ROOT / "models" / "SigLIP2-base-patch16-224"),
         "head_implementation_sha256": sha256_file(CODE / "track4_agent" / "vision_classifier.py"),
+        "crop_implementation_sha256": sha256_file(CODE / "track4_agent" / "model.py"),
+        "evaluation_implementation_sha256": sha256_file(Path(__file__)),
         "evaluation_scope": "All selected holdout labels counted, including unseen and rare labels",
         "groups": {},
     }

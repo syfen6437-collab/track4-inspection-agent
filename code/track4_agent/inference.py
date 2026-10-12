@@ -24,6 +24,8 @@ from .model import (
     sanitize_prediction,
     scene_key,
     checklist_prediction,
+    build_track_atomic_prompt,
+    track_atomic_prediction,
 )
 
 
@@ -115,15 +117,20 @@ def infer_item(
     raw_records: list[dict[str, Any]] = []
     first_images = _first_pass_images(image_path, item, config)
     use_checklist = bool(config.get("bridge_checklist", False) and item["questionCategory"] == "桥梁")
+    use_track_atoms = bool(config.get("track_atomic_checklist", False) and item["questionCategory"] == "轨道")
+    training_examples = bool(config.get("training_description_guidance", False))
     label_scope = str(config.get("label_scope", "scene"))
     if label_scope not in {"scene", "all"}:
         raise ValueError(f"Unsupported label_scope: {label_scope!r}")
     first_prompt = (
         build_checklist_prompt(item, lexicon, label_scope=label_scope)
-        if use_checklist else build_prompt(item, lexicon, label_scope=label_scope)
+        if use_checklist else build_prompt(item, lexicon, label_scope=label_scope, training_examples=training_examples)
     )
+    if use_track_atoms:
+        first_prompt = build_track_atomic_prompt(item, lexicon)
     if config.get("two_stage_bridge", False) and item["questionCategory"] == "桥梁":
-        presence_raw = client.generate(first_images, build_presence_prompt(item))
+        presence_raw = client.generate(first_images, build_presence_prompt(
+            item, lexicon=lexicon, training_examples=training_examples))
         presence = _parse_presence(presence_raw)
         raw_records.append({"round": 0, "raw": presence_raw, "presence": presence})
         # Preserve the current submission behavior for older configs; ablations
@@ -133,7 +140,9 @@ def infer_item(
             if coarse:
                 first_prompt += f"\n初筛模型观察到的粗类别（仅作辅助，必须重新核对图像）：{coarse}"
     first_raw = client.generate(first_images, first_prompt)
-    if use_checklist:
+    if use_track_atoms:
+        first_prediction, first_valid = track_atomic_prediction(first_raw, lexicon)
+    elif use_checklist:
         first_prediction, first_valid = checklist_prediction(
             first_raw, lexicon, item["questionCategory"], scene_key(item), label_scope=label_scope
         )
@@ -172,10 +181,15 @@ def infer_item(
             else build_prompt(
                 item, lexicon, review=True, prior_prediction=first_prediction,
                 label_scope=label_scope,
+                training_examples=training_examples,
             )
         )
+        if use_track_atoms:
+            review_prompt = build_track_atomic_prompt(item, lexicon, review=True)
         review_raw = client.generate(review_images, review_prompt)
-        if use_checklist:
+        if use_track_atoms:
+            review_prediction, review_valid = track_atomic_prediction(review_raw, lexicon)
+        elif use_checklist:
             review_prediction, review_valid = checklist_prediction(
                 review_raw, lexicon, item["questionCategory"], scene_key(item), label_scope=label_scope
             )

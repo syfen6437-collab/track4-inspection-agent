@@ -145,6 +145,27 @@ def review_guidance_prompt(lexicon: dict[str, Any]) -> str:
     )
 
 
+def training_description_prompt(item: dict[str, Any], lexicon: dict[str, Any], *, label_scope: str = "scene") -> str:
+    if item["questionCategory"] != "桥梁":
+        return ""
+    specs = lexicon["categories"]["桥梁"]["label_specs"]
+    examples = []
+    for label in candidate_labels(lexicon, "桥梁", scene_key(item), include_all=label_scope == "all"):
+        descriptions = specs.get(label, {}).get("descriptions", [])
+        descriptions = [str(value).strip()[:96] for value in descriptions[:2] if str(value).strip()]
+        if descriptions:
+            examples.append(f"- {label}: {'；'.join(descriptions)}")
+    if not examples:
+        return ""
+    return (
+        "\n训练子集标签释义示例（不是当前照片的答案，不可照抄描述）：\n"
+        + "\n".join(examples)
+        + "\n先根据当前图像核对这些痕迹。可见的修补/孔洞封堵块即使表面完整，也应考虑修补类标签；"
+        "接缝处沿水流方向的深色水渍、白色析出物应与阴影、普通模板纹理区别。"
+        "只有当前照片没有对应视觉证据时才选完好，不得因示例提到某病害就直接选择。\n"
+    )
+
+
 def build_prompt(
     item: dict[str, Any],
     lexicon: dict[str, Any],
@@ -152,6 +173,7 @@ def build_prompt(
     review: bool = False,
     prior_prediction: dict[str, Any] | None = None,
     label_scope: str = "scene",
+    training_examples: bool = False,
 ) -> str:
     category = item["questionCategory"]
     scene = scene_key(item)
@@ -175,6 +197,7 @@ def build_prompt(
         "generic": "先判断照片中的结构部位，再选择最符合可见证据的病害。",
     }[scene]
     reviewed_guidance = review_guidance_prompt(lexicon)
+    training_guidance = training_description_prompt(item, lexicon, label_scope=label_scope) if training_examples else ""
     return f"""你是城市桥梁与轨道结构病害巡检专家。{scene_instruction} {review_instruction}
 
 输入元数据：
@@ -184,7 +207,7 @@ def build_prompt(
 
 只能从以下训练集合法病害类型中选择 defectType，必须保持文字完全一致：
 {label_text}
-{reviewed_guidance}
+{reviewed_guidance}{training_guidance}
 
 要求：
 1. 先在内部判断 visible_defect：只有看到裂缝、剥落、锈蚀、渗水/泛碱、明显修补或明确异常色斑时才选病害；正常纹理、阴影、施工接缝和远景不可辨细节应选“完好”。
@@ -199,7 +222,10 @@ JSON 字段必须严格为：
 {prior}"""
 
 
-def build_presence_prompt(item: dict[str, Any], *, review: bool = False) -> str:
+def build_presence_prompt(
+    item: dict[str, Any], *, review: bool = False,
+    lexicon: dict[str, Any] | None = None, training_examples: bool = False,
+) -> str:
     scene = scene_key(item)
     scene_hint = {
         "aerial": "航拍桥面远景",
@@ -209,10 +235,68 @@ def build_presence_prompt(item: dict[str, Any], *, review: bool = False) -> str:
         "track": "轨道结构近景",
         "generic": "桥梁结构照片",
     }[scene]
+    guidance = training_description_prompt(item, lexicon) if training_examples and lexicon is not None else ""
     return f"""你是基础设施病害初筛专家。这是一张{scene_hint}。{('请重点检查细小缺陷。' if review else '只依据图中可见证据。')}
 先判断是否存在明确可见病害，再给出一个粗类别。阴影、反光、正常施工接缝、混凝土纹理和远景不可辨细节不算病害。
-粗类别只能从：完好、裂缝、破损/剥落、渗水/泛碱、锈蚀、修补、异常色斑、其他 中选择。
+粗类别只能从：完好、裂缝、破损/剥落、渗水/泛碱、锈蚀、修补、异常色斑、其他 中选择。{guidance}
 只输出 JSON：{{"has_defect":true,"coarse_type":"锈蚀","evidence":"不超过15个汉字","confidence":0.0}}"""
+
+
+def _track_atoms(lexicon: dict[str, Any]) -> list[str]:
+    return list(dict.fromkeys(
+        atom.strip() for label in lexicon["categories"]["轨道"]["allowed_labels"]
+        for atom in re.split(r"[、,+，]", label) if atom.strip()
+    ))
+
+
+def build_track_atomic_prompt(item: dict[str, Any], lexicon: dict[str, Any], *, review: bool = False) -> str:
+    definitions = {
+        "裂缝(混凝土裂缝)": "混凝土表面的不规则细线开裂；规则接缝不能单凭有缝就判裂缝",
+        "破损": "混凝土缺角、剥落、碎裂或缺失，注意边缘及支座周围",
+        "渗水泛碱": "水流痕、湿渍、白色析出物；普通灰白混凝土颜色不是泛碱",
+        "钢结构锈蚀": "钢梁、钢板等钢结构构件表面锈斑或涂层损坏",
+        "钢筋锈蚀": "混凝土内部或外露钢筋锈蚀，区别于钢梁和支座",
+        "支座锈蚀": "承托结构的金属支座、底板或连接部位锈蚀",
+        "完好": "以上病害均无可见证据；不能与其他病害同时选择",
+    }
+    entries = [f"- {atom}: {definitions.get(atom, '只依据可见证据判断')}" for atom in _track_atoms(lexicon)]
+    return f"""你是轨道结构病害巡检专家。输入包含整图及局部细节，同一部位重复出现只计一次。
+请分别检查每一项病害，不要只挑最显眼的一种；同时有多种可见病害时全部列入 selected。
+结构名称：{item.get('bridgeName', '') or '轨道设施'}；照片编号：{item['filename']}。
+{('这是局部复核，请独立检查。' if review else '只依据当前图片，不推测遮挡区域。')}
+selected 只能包含以下标签原文：
+{chr(10).join(entries)}
+仅在所有病害都没有可见证据时选 ["完好"]。不可把阴影、反光或正常接缝计作病害。
+描述不超过20个汉字，confidence 为0到1的小数，ratingScale 为空字符串或字符串1到5。
+只输出一个完整 JSON，不要解释：
+{{"selected":["标签1","标签2"],"defectDescription":"可见证据","ratingScale":"","confidence":0.0}}"""
+
+
+def track_atomic_prediction(raw_text: str, lexicon: dict[str, Any]) -> tuple[dict[str, Any], bool]:
+    parsed = _extract_json(raw_text)
+    selected = parsed.get("selected") if parsed else None
+    atoms = set(_track_atoms(lexicon))
+    valid = isinstance(selected, list) and bool(selected) and all(isinstance(x, str) and x in atoms for x in selected)
+    observed = {x for x in selected if isinstance(x, str) and x in atoms} if isinstance(selected, list) else set()
+    if len(observed) > 1:
+        observed.discard("完好")
+    data = lexicon["categories"]["轨道"]
+    # Normalize order and select only combinations made of model-observed atoms.
+    # Never introduce an extra defect merely to fit a legal training combination.
+    options = [label for label in data["allowed_labels"]
+               if set(re.split(r"[、,+，]", label)) <= observed]
+    if options:
+        label = max(options, key=lambda x: (len(set(re.split(r"[、,+，]", x))),
+                                           data["label_specs"].get(x, {}).get("count", 0)))
+    else:
+        label = "完好" if "完好" in data["allowed_labels"] else data["allowed_labels"][0]
+        valid = False
+    normalized = {**(parsed or {}), "defectType": label}
+    prediction, _ = sanitize_prediction(json.dumps(normalized, ensure_ascii=False), lexicon, "轨道", "track", label_scope="all")
+    prediction["raw"] = raw_text
+    prediction["selected_atoms"] = sorted(observed)
+    prediction["dropped_atoms"] = sorted(observed - set(re.split(r"[、,+，]", label)))
+    return prediction, valid
 
 
 def build_checklist_prompt(
@@ -413,6 +497,19 @@ class ModelClient:
     max_new_tokens: int = 72
     global_max_side: int = 448
     crop_size: int = 224
+    gpu_max_memory_mib: int | None = None
+    gpu_reserve_mib: int = 1536
+
+    def memory_plan(self, free_mib: int | None = None) -> dict[Any, Any]:
+        if self.gpu_max_memory_mib is None:
+            return {0: "11GiB", "cpu": "22GiB"}
+        for value in (self.gpu_max_memory_mib, self.gpu_reserve_mib):
+            if isinstance(value, bool) or not isinstance(value, int) or value <= 0:
+                raise ValueError("GPU weight budget and reserve must be positive integer MiB")
+        required = self.gpu_max_memory_mib + self.gpu_reserve_mib
+        if free_mib is not None and free_mib < required:
+            raise RuntimeError(f"GPU budget needs {required} MiB free including reserve; only {free_mib} MiB available")
+        return {0: self.gpu_max_memory_mib * 1024**2, "cpu": "22GiB"}
 
     def __post_init__(self) -> None:
         import torch
@@ -425,6 +522,8 @@ class ModelClient:
 
         if not torch.cuda.is_available():
             raise RuntimeError("CUDA GPU is required for the six-hour baseline")
+        free_bytes, _ = torch.cuda.mem_get_info(0)
+        max_memory = self.memory_plan(free_bytes // 1024**2)
         torch.manual_seed(20261005)
         torch.cuda.manual_seed_all(20261005)
         self.torch = torch
@@ -433,18 +532,27 @@ class ModelClient:
             min_pixels=28 * 28 * 16,
             max_pixels=self.global_max_side * self.global_max_side,
             trust_remote_code=True,
+            local_files_only=True,
         )
         self.model = ModelClass.from_pretrained(
             str(self.model_path),
             torch_dtype=torch.bfloat16,
             device_map="auto",
-            max_memory={0: "11GiB", "cpu": "22GiB"},
+            max_memory=max_memory,
             attn_implementation="sdpa",
             trust_remote_code=True,
+            local_files_only=True,
         )
         self.model.eval()
         self.device = next(self.model.parameters()).device
         print(f"[model] loaded on {self.device}", flush=True)
+        if self.gpu_max_memory_mib is not None:
+            device_counts = {}
+            for device in self.model.hf_device_map.values():
+                key = str(device)
+                device_counts[key] = device_counts.get(key, 0) + 1
+            print(f"[model] weight budget={self.gpu_max_memory_mib} MiB; "
+                  f"reserve={self.gpu_reserve_mib} MiB; device modules={device_counts}", flush=True)
 
     def generate(self, images: list[Image.Image], prompt: str) -> str:
         content: list[dict[str, Any]] = [{"type": "image", "image": image} for image in images]

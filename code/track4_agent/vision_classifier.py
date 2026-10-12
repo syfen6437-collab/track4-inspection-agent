@@ -13,6 +13,14 @@ import torch
 from PIL import Image, ImageOps
 
 
+def fuse_view_features(vectors: torch.Tensor) -> torch.Tensor:
+    if vectors.ndim != 3 or vectors.shape[1] != 5:
+        raise ValueError("Expected one global and four quadrant feature vectors per image")
+    vectors = torch.nn.functional.normalize(vectors.float(), dim=-1)
+    fused = torch.cat((vectors[:, 0], vectors[:, 1:].mean(1), vectors[:, 1:].amax(1)), dim=-1)
+    return torch.nn.functional.normalize(fused, dim=-1)
+
+
 def atomic_parts(label: str) -> set[str]:
     if label == "完好":
         return set()
@@ -41,15 +49,20 @@ def model_identity(model_dir: Path) -> dict[str, str]:
 def feature_bank(
     workspace: Path, rows: list[dict[str, Any]], model_dir: Path, *,
     cache_path: Path, device: str = "cpu", batch_size: int = 8, threads: int = 4,
+    views: str = "global",
+    precision: str = "auto",
 ) -> np.ndarray:
     """Cache feature vectors with weight, processor and input-file provenance.
 
     Cache entries contain no targets. Extracting a held-out image is allowed;
     its label is withheld later when fitting the supervised head.
     """
+    if views not in {"global", "quadrants"} or precision not in {"auto", "float32"} or batch_size < 1 or threads < 1:
+        raise ValueError("Unsupported feature views or invalid batch/thread count")
     for name in ("TRANSFORMERS_OFFLINE", "HF_HUB_OFFLINE", "MODELSCOPE_OFFLINE"):
         os.environ[name] = "1"
     torch.set_num_threads(threads)
+    dtype_name = "float32" if device == "cpu" or precision == "float32" else "float16"
     identity = model_identity(model_dir)
     fingerprints = []
     for row in rows:
@@ -59,15 +72,18 @@ def feature_bank(
     if cache_path.exists():
         with np.load(cache_path, allow_pickle=False) as saved:
             metadata = json.loads(str(saved["metadata"].item()))
-            if metadata["model"] == identity and metadata["device"] == device:
-                cache = {str(key): value for key, value in zip(saved["keys"], saved["vectors"])}
+            if (metadata["model"] == identity and metadata["device"] == device
+                    and metadata.get("views", "global") == views):
+                legacy_dtype = "float32" if metadata["device"] == "cpu" else "float16"
+                if metadata.get("dtype", legacy_dtype) == dtype_name:
+                    cache = {str(key): value for key, value in zip(saved["keys"], saved["vectors"])}
     keys = [json.dumps(value, ensure_ascii=False) for value in fingerprints]
     missing = [i for i, key in enumerate(keys) if key not in cache]
     if not missing:
         return np.stack([cache[key] for key in keys])
 
     from transformers import AutoModel, AutoProcessor
-    dtype = torch.float32 if device == "cpu" else torch.float16
+    dtype = torch.float32 if dtype_name == "float32" else torch.float16
     base = AutoModel.from_pretrained(model_dir, dtype=dtype, local_files_only=True,
                                      attn_implementation="sdpa")
     vision = base.vision_model.to(device).eval()
@@ -78,20 +94,29 @@ def feature_bank(
         cache_path.parent.mkdir(parents=True, exist_ok=True)
         temporary = cache_path.with_suffix(".tmp.npz")
         np.savez_compressed(temporary, keys=np.array(list(cache)), vectors=np.stack(list(cache.values())),
-                            metadata=json.dumps({"model": identity, "device": device}, ensure_ascii=False))
+                            metadata=json.dumps({"model": identity, "device": device, "views": views,
+                                                 "dtype": dtype_name}, ensure_ascii=False))
         temporary.replace(cache_path)
 
-    print(f"[features] cached={len(rows)-len(missing)} missing={len(missing)} device={device}", flush=True)
+    print(f"[features] cached={len(rows)-len(missing)} missing={len(missing)} device={device} views={views}", flush=True)
     for start in range(0, len(missing), batch_size):
         indices = missing[start:start + batch_size]
         images = []
         for index in indices:
             with Image.open(workspace / "data" / "raw" / rows[index]["image"]) as source:
-                images.append(ImageOps.exif_transpose(source).convert("RGB"))
+                image = ImageOps.exif_transpose(source).convert("RGB")
+            images.append(image)
+            if views == "quadrants":
+                from .model import quadrant_crops
+                images.extend(quadrant_crops(image, 224))
         pixels = processor(images=images, return_tensors="pt")["pixel_values"].to(device, dtype=dtype)
         with torch.inference_mode():
             embedding = vision(pixel_values=pixels).pooler_output.float()
-            embedding = torch.nn.functional.normalize(embedding, dim=-1).cpu().numpy()
+            if views == "quadrants":
+                embedding = fuse_view_features(embedding.reshape(len(indices), 5, -1))
+            else:
+                embedding = torch.nn.functional.normalize(embedding, dim=-1)
+            embedding = embedding.cpu().numpy()
         for index, vector in zip(indices, embedding):
             cache[keys[index]] = vector
         del pixels, embedding, images

@@ -11,7 +11,7 @@ CODE = Path(__file__).resolve().parent
 ROOT = CODE.parent
 sys.path.insert(0, str(CODE))
 
-from evaluate_holdout import _gpu_preflight, _input_item, _write_report
+from evaluate_holdout import _gpu_preflight, _input_item, _required_gpu_memory, _write_report
 from run_pipeline import DEFAULT_CONFIG, load_client, load_config
 from track4_agent.data import load_assets
 from track4_agent.inference import infer_item
@@ -34,7 +34,7 @@ def main():
     items = [_input_item(next(row for row in train if row["questionCategory"] == category))
              for category in ("桥梁", "轨道")]
     config = load_config(args.config.resolve())
-    _gpu_preflight(10240)
+    _gpu_preflight(_required_gpu_memory(config))
     client = load_client(config)
     default_threads = client.torch.get_num_threads()
     report = {"kind": "paired CPU-thread performance diagnostic, not accuracy evaluation",
