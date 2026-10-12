@@ -1,15 +1,20 @@
 {
+  "valid": true,
   "package": "E:\\赛题四_智能体\\track4_submission.tar.gz",
   "result_sha256": "6fc15c1b03c63b0fe48c4f637731f2bafe1a9693aa1c778dc437513e2e0492a1",
   "source_commit": "d2f6bde0c2109130b95e42a32463d036baec33e1",
-  "package_sha256": "82aa3cd9387fb6a4e31770f4902b44fd31d614048d698c73856a12e04a6d10ee",
-  "size_bytes": 147718,
-  "file_count": 55,
+  "engineering_commit": "6622c5fe3d99cfd7942c76416d32bf4045b462ea",
+  "engineering_dirty": false,
+  "design_sha256": "f781dc2babdaa45d3ba574a3d7e7e6cfd148e88fa2d1c9ef0aa6a3cca2ef6dc0",
+  "package_sha256": "f7255621f6ba7205f369221a2be4975f4a3080afcf410e88b32444d8e8cbbe50",
+  "size_bytes": 185964,
+  "file_count": 71,
   "roots": [
     "code",
     "design",
     "result"
   ],
+  "all_file_hashes_verified": true,
   "largest_files": [
     {
       "name": "code/logs/raw_responses.jsonl",
@@ -28,28 +33,28 @@
       "size": 36175
     },
     {
+      "name": "code/evaluate_holdout.py",
+      "size": 26622
+    },
+    {
       "name": "code/track4_agent/model.py",
-      "size": 22045
-    },
-    {
-      "name": "code/track4_agent/inference.py",
-      "size": 19821
-    },
-    {
-      "name": "code/review_server.py",
-      "size": 18597
-    },
-    {
-      "name": "design/AI智能体设计方案.docx",
-      "size": 17678
+      "size": 22411
     },
     {
       "name": "code/track4_agent/document.py",
-      "size": 15511
+      "size": 22168
     },
     {
-      "name": "code/evaluate_vision_review.py",
-      "size": 13838
+      "name": "code/track4_agent/inference.py",
+      "size": 19921
+    },
+    {
+      "name": "code/review_server.py",
+      "size": 19459
+    },
+    {
+      "name": "design/AI智能体设计方案.docx",
+      "size": 17993
     }
   ]
 }
