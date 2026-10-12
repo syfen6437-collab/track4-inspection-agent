@@ -73,6 +73,8 @@
 
 可先运行 `audit_training_data.py` 检查训练图片完整解码、相同像素的冲突标签和整桥留出内容泄漏。它只读训练图片并报告问题，不修改标签；严格结果校验还会核对桥名、类别、字段类型及重复 JSON 键。使用方法见 [`TRAINING_AUDIT.md`](TRAINING_AUDIT.md)。
 
+`evaluate_dedup_heads.py` 可用已有 SigLIP2 CPU 特征比较原记录、相同标签内容去重及暂排冲突三种训练策略。两座整桥的实测没有一致收益，所以不启用为默认策略；原始训练清单不变，实验标签预测不会覆盖正式结果。
+
 ## 训练图片浏览与人工审核
 
 启动一个只读图片浏览器，并把人工意见单独保存到 `qa/review_annotations.jsonl`：
