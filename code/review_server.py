@@ -9,6 +9,8 @@ never edits the training manifest or the competition result file.
 import argparse
 import json
 import mimetypes
+import os
+import tempfile
 import threading
 import webbrowser
 from collections import Counter
@@ -28,6 +30,7 @@ CALIBRATION_FILES = (
 )
 QA_DIR = ROOT / "qa"
 QA_FILE = QA_DIR / "review_annotations.jsonl"
+STATE_LOCK = threading.Lock()
 
 
 def read_jsonl(path: Path) -> list[dict]:
@@ -51,9 +54,37 @@ def load_state() -> dict[str, dict]:
 
 def save_state(state: dict[str, dict]) -> None:
     QA_DIR.mkdir(parents=True, exist_ok=True)
-    with QA_FILE.open("w", encoding="utf-8", newline="\n") as handle:
-        for key in sorted(state, key=str.lower):
-            handle.write(json.dumps(state[key], ensure_ascii=False, separators=(",", ":")) + "\n")
+    temporary = None
+    try:
+        with tempfile.NamedTemporaryFile(mode="w", encoding="utf-8", newline="\n",
+                                         dir=QA_DIR, prefix=QA_FILE.name + ".",
+                                         suffix=".tmp", delete=False) as handle:
+            temporary = Path(handle.name)
+            for key in sorted(state, key=str.lower):
+                handle.write(json.dumps(state[key], ensure_ascii=False, allow_nan=False,
+                                        separators=(",", ":")) + "\n")
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(temporary, QA_FILE)
+    finally:
+        if temporary is not None and temporary.exists():
+            temporary.unlink()
+
+
+def record_review(item_id: str, status: str, label: str, note: str) -> dict:
+    # The HTTP server handles concurrent requests; protect the whole read-modify-write.
+    with STATE_LOCK:
+        state = load_state()
+        record = {
+            "id": item_id,
+            "status": status,
+            "reviewedLabel": label.strip()[:120],
+            "note": note.strip()[:1000],
+            "reviewedAt": __import__("datetime").datetime.now().isoformat(timespec="seconds"),
+        }
+        state[item_id] = record
+        save_state(state)
+        return record
 
 
 def load_items() -> list[dict]:
@@ -208,16 +239,9 @@ class Handler(BaseHTTPRequestHandler):
             status = str(payload.get("status", "unreviewed"))
             if status not in {"unreviewed", "confirmed", "needs_review"}:
                 raise ValueError("invalid status")
-            state = load_state()
-            state[item_id] = {
-                "id": item_id,
-                "status": status,
-                "reviewedLabel": str(payload.get("reviewedLabel", "")).strip()[:120],
-                "note": str(payload.get("note", "")).strip()[:1000],
-                "reviewedAt": __import__("datetime").datetime.now().isoformat(timespec="seconds"),
-            }
-            save_state(state)
-            self._send(json.dumps(state[item_id], ensure_ascii=False).encode("utf-8"), "application/json; charset=utf-8")
+            record = record_review(item_id, status, str(payload.get("reviewedLabel", "")),
+                                   str(payload.get("note", "")))
+            self._send(json.dumps(record, ensure_ascii=False).encode("utf-8"), "application/json; charset=utf-8")
         except Exception as exc:
             self._send(str(exc).encode("utf-8"), "text/plain; charset=utf-8", HTTPStatus.BAD_REQUEST)
 

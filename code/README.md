@@ -86,6 +86,8 @@ $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\pyth
 
 审核记录可以作为下一轮提示词和标签词典优化依据；正式提交的测试预测仍必须由模型自动生成，不能把人工意见写回测试结果。
 
+保存审核记录使用同目录临时文件及原子替换，写入失败时保留上一份记录；同一服务内的并发保存不会互相丢失记录。备注可留空，“已确认”状态会随记录持久保存。这些行为与输出校验、留出恢复等测试合计通过 67 项自动测试。
+
 开源复用和许可证说明见 [`OPEN_SOURCE.md`](OPEN_SOURCE.md)。当前优先推荐研究 [Label Studio](https://github.com/HumanSignal/label-studio) 和 [FiftyOne](https://github.com/voxel51/fiftyone)；只有新增病害框/掩膜标注时才考虑 [CVAT](https://github.com/cvat-ai/cvat) 或 YOLO。
 
 ## SigLIP2 候选复核
