@@ -56,11 +56,18 @@
 
 候选输出、Qwen原始响应和审计记录始终位于 `runs/`，不会被该命令写入正式结果。Qwen 不会看到候选标签或原始答案；证据不足、零置信度或缓存不完整都会拒绝或中止。
 
-可用完整合法标签范围做独立留出对照，不会改写正式结果：
+可对标签范围、复核选择做四组独立留出对照，不会改写正式结果：
 
 ```powershell
-& $py .\code\evaluate_holdout.py --config .\code\config\qwen3-vl-4b-all-label-holdout.json --variants full_label_scope
+.\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
+  --bridge-group 范家坪1号大桥 `
+  --output runs\prompt_ablation_v2\fanjaping.json --prepare-only
+.\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
+  --bridge-group 范家坪1号大桥 `
+  --output runs\prompt_ablation_v2\fanjaping.json --resume
 ```
+
+先准备、确认 GPU 空闲后再推理。每张图原子保存断点，配置、图片、词典、模型或代码变化会拒绝旧缓存；仅改变复核替换条件时复用相同原始响应，不额外占用 GPU。评测中的桥梁复核开关与正式推理一致。两座整桥的命令、指标及限制见 [`HOLDOUT_EXPERIMENT.md`](HOLDOUT_EXPERIMENT.md)。
 
 ## 训练图片浏览与人工审核
 
@@ -104,10 +111,11 @@ Qwen 重新生成七字段内部结果，最后由 `code/apply_vision_hybrid.py`
 4B 模型配置位于 `code/config/qwen3-vl-4b.json`。下载完成后可用同一套入口做小样本测试：
 
 ```powershell
-& $py .\code\run_pipeline.py --config .\code\config\qwen3-vl-4b.json infer --limit 1
+& $py .\code\run_pipeline.py --config .\code\config\qwen3-vl-4b.json infer --limit 1 `
+  --artifact-dir .\runs\smoke_4b
 ```
 
-该命令会写入当前 `result/` 和 `logs/`，建议先复制首版结果或使用单独工作目录；它不上传官网。
+该命令只写入 `runs/smoke_4b/`，不会覆盖正式结果；它不上传官网。
 
 `package` 命令固定生成根目录的 `track4_submission.tar.gz`，重复运行会覆盖同一个文件，不会继续产生带时间戳的提交包。旧的时间戳包属于历史产物，已被 Git 忽略。
 

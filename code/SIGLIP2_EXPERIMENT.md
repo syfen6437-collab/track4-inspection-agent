@@ -31,8 +31,14 @@ $env:HF_HUB_OFFLINE = '1'
 The paired prompt ablation is:
 
 ```powershell
-.\.venv\Scripts\python.exe code\evaluate_holdout.py --sample-size 120
+.\.venv\Scripts\python.exe code\evaluate_holdout.py --sample-size 120 `
+  --variants coarse_anchor,independent,multiview_checklist `
+  --output runs\historical_prompt_reproduction\holdout.json
 ```
+
+The historical report under `logs/` is not overwritten. The current default
+evaluates separate label-scope and review-selection factors and supports
+per-image resume; see [`HOLDOUT_EXPERIMENT.md`](HOLDOUT_EXPERIMENT.md).
 
 ## Results on 2026-10-07
 
