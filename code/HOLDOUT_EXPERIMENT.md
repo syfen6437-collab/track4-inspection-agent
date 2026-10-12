@@ -36,10 +36,10 @@ Run from the repository root using the project's environment:
 ```powershell
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v2\fanjaping.json --prepare-only
+  --output runs\prompt_ablation_v3\fanjaping.json --prepare-only
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 青树湾1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v2\qingshuwan.json --prepare-only
+  --output runs\prompt_ablation_v3\qingshuwan.json --prepare-only
 ```
 
 Each fold selects 84 label-balanced bridge images and 36 label-balanced track
@@ -67,7 +67,7 @@ another large job occupies the GPU; it does not stop other projects' processes.
 nvidia-smi
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v2\fanjaping.json --resume --max-images 12
+  --output runs\prompt_ablation_v3\fanjaping.json --resume --max-images 12
 ```
 
 The optional limit pauses after 12 newly evaluated records, including replayed
@@ -77,10 +77,10 @@ without the limit to finish:
 ```powershell
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v2\fanjaping.json --resume
+  --output runs\prompt_ablation_v3\fanjaping.json --resume
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 青树湾1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v2\qingshuwan.json --resume
+  --output runs\prompt_ablation_v3\qingshuwan.json --resume
 ```
 
 Every completed image is saved with its raw model rounds. Snapshots are flushed
@@ -127,8 +127,14 @@ held-out training target counts, not correct predictions or official scores:
 For example, the first fold's old bridge prompts excluded five expansion-joint
 defects and three spalling targets. Coverage alone does not establish that Qwen
 can visually identify them. The new runner and existing pipeline passed 51
-automated tests, including changed-input rejection, interrupted writes, raw
-response replay and preservation of the official output.
+automated tests at that stage, including changed-input rejection, interrupted
+writes, raw response replay and preservation of the official output. The next
+update passed 63 tests, including training-only content audits, stricter output
+validation and all-label normalization. In all-label mode, the prompt and the
+spelling/combination postprocessor now use the same ontology; the default scene
+mode is unchanged. Preparation snapshots made before this source change must
+not be resumed under the new code; the commands above use `prompt_ablation_v3`.
+Training audit instructions are in [`TRAINING_AUDIT.md`](TRAINING_AUDIT.md).
 
 On 2026-10-12, inspection of the registered baseline's 1,274 raw response records
 found zero invalid parsed rounds, zero missing closing JSON braces and zero

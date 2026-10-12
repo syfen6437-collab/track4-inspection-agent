@@ -135,11 +135,11 @@ def infer_item(
     first_raw = client.generate(first_images, first_prompt)
     if use_checklist:
         first_prediction, first_valid = checklist_prediction(
-            first_raw, lexicon, item["questionCategory"], scene_key(item)
+            first_raw, lexicon, item["questionCategory"], scene_key(item), label_scope=label_scope
         )
     else:
         first_prediction, first_valid = sanitize_prediction(
-            first_raw, lexicon, item["questionCategory"], scene_key(item)
+            first_raw, lexicon, item["questionCategory"], scene_key(item), label_scope=label_scope
         )
     raw_records.append({"round": 1, "raw": first_raw, "prediction": first_prediction, "valid": first_valid})
     chosen = first_prediction
@@ -177,11 +177,11 @@ def infer_item(
         review_raw = client.generate(review_images, review_prompt)
         if use_checklist:
             review_prediction, review_valid = checklist_prediction(
-                review_raw, lexicon, item["questionCategory"], scene_key(item)
+                review_raw, lexicon, item["questionCategory"], scene_key(item), label_scope=label_scope
             )
         else:
             review_prediction, review_valid = sanitize_prediction(
-                review_raw, lexicon, item["questionCategory"], scene_key(item)
+                review_raw, lexicon, item["questionCategory"], scene_key(item), label_scope=label_scope
             )
         raw_records.append(
             {"round": 2, "raw": review_raw, "prediction": review_prediction, "valid": review_valid}

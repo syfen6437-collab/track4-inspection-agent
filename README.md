@@ -8,10 +8,13 @@
 $py = "C:\Users\MR\.cache\codex-runtimes\codex-primary-runtime\dependencies\python\python.exe"
 & $py .\code\run_pipeline.py prepare --archive .\赛题四.zip
 & $py .\code\run_pipeline.py download
-& $py .\code\run_pipeline.py infer --resume
-& $py .\code\run_pipeline.py validate
-& $py .\code\run_pipeline.py package
+& $py .\code\run_pipeline.py infer --resume --artifact-dir .\runs\my_candidate
+& $py .\code\run_pipeline.py validate `
+  --result .\runs\my_candidate\result\result.json `
+  --report .\runs\my_candidate\logs\validation_report.json
 ```
+
+上面的推理只生成隔离候选，不覆盖当前 56.11 分基线。候选通过完整留出比较和校验后，才考虑升级正式结果。不要把候选目录与正式 `result/` 混用；修改模型、配置或输入时应换一个候选目录，不能强行沿用旧断点。`package` 只打包正式结果，不会自动选择候选。
 
 最终压缩包固定为根目录的 `track4_submission.tar.gz`，重复运行会覆盖同一个文件。训练图片、模型权重和原始数据压缩包不进入 Git；具体模型 ID、哈希和复核记录见 [`code/MODEL.md`](code/MODEL.md)。
 
@@ -53,3 +56,5 @@ Git 中的 `d2f6bde` 保存了官方56.11分版本。运行 `restore_scored_base
 ### 2026-10-12 评测工程更新
 
 `evaluate_holdout.py` 现在支持逐图原子断点、恢复前原始响应核验、GPU 空闲检查和完整输入/模型/代码哈希。桥梁复核开关与正式推理一致；标签范围和复核替换规则分别做对照，仅改变替换规则时复用相同模型响应。新增按桥梁/轨道、场景及成对增益/退化的指标，以及提示词可选标签覆盖检查。运行方法见 [`code/HOLDOUT_EXPERIMENT.md`](code/HOLDOUT_EXPERIMENT.md)。这些是评测可靠性改进，不代表官方成绩已经提高；56.11 分正式结果保持不变。
+
+训练图片的只读完整解码、重复内容和冲突标签检查见 [`code/TRAINING_AUDIT.md`](code/TRAINING_AUDIT.md)。加强后的结果校验要求七个字段均为字符串，并按文件名核对输入元数据，拒绝重复 JSON 键、非 UTF-8 和非有限数字。完整标签实验的提示与后处理使用同一词典范围，默认场景范围保持不变。本次代码通过 63 项自动测试。

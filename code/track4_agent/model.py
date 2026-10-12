@@ -262,11 +262,14 @@ def checklist_prediction(
     lexicon: dict[str, Any],
     category: str,
     scene: str,
+    *, label_scope: str = "scene",
 ) -> tuple[dict[str, Any], bool]:
     parsed = _extract_json(raw_text) or {}
     category_data = lexicon["categories"][category]
     allowed = category_data["allowed_labels"]
-    candidates = candidate_labels(lexicon, category, scene, limit=14)
+    if label_scope not in {"scene", "all"}:
+        raise ValueError(f"Unsupported label_scope: {label_scope!r}")
+    candidates = candidate_labels(lexicon, category, scene, limit=14, include_all=label_scope == "all")
     selected = parsed.get("selected", [])
     if not isinstance(selected, list):
         selected = [selected]
@@ -333,12 +336,15 @@ def sanitize_prediction(
     lexicon: dict[str, Any],
     category: str,
     scene: str = "generic",
+    *, label_scope: str = "scene",
 ) -> tuple[dict[str, Any], bool]:
     parsed = _extract_json(raw_text)
     was_valid_json = parsed is not None
     parsed = parsed or {}
     category_data = lexicon["categories"][category]
-    allowed = candidate_labels(lexicon, category, scene)
+    if label_scope not in {"scene", "all"}:
+        raise ValueError(f"Unsupported label_scope: {label_scope!r}")
+    allowed = candidate_labels(lexicon, category, scene, include_all=label_scope == "all")
     global_allowed = category_data["allowed_labels"]
     raw_label = str(parsed.get("defectType", raw_text))
     label = _closest_label(raw_label, allowed, fallback=allowed[0])

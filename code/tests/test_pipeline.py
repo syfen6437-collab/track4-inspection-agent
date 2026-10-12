@@ -127,6 +127,43 @@ class PipelineTests(unittest.TestCase):
         self.assertTrue(valid)
         self.assertEqual(prediction["ratingScale"], "2")
 
+    def test_full_label_normalization_uses_same_scope_as_prompt(self) -> None:
+        lexicon = {"categories": {"桥梁": {
+            "allowed_labels": ["完好", "伸缩缝病害", "剥落"],
+            "label_specs": {label: {"count": 1, "rating_distribution": {}, "default_rating": ""}
+                            for label in ("完好", "伸缩缝病害", "剥落")},
+            "scene_label_counts": {"aerial": {"完好": 10}},
+        }}}
+        raw = json.dumps({"defectType": "伸缩缝 病害", "defectDescription": "伸缩缝局部异常",
+                          "ratingScale": "", "confidence": 0.9, "evidence": "接缝异常"})
+        historical, _ = sanitize_prediction(raw, lexicon, "桥梁", "aerial")
+        full, valid = sanitize_prediction(raw, lexicon, "桥梁", "aerial", label_scope="all")
+        self.assertEqual(historical["defectType"], "完好")
+        self.assertEqual(full["defectType"], "伸缩缝病害")
+        self.assertFalse(valid)
+        item = {"id": "test.jpg", "filename": "DJI_0001.JPG", "questionCategory": "桥梁"}
+        config = {"global_max_side": 64, "bridge_use_crops": False,
+                  "confidence_threshold": 0.55, "label_scope": "all"}
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "test.jpg"
+            Image.new("RGB", (64, 64)).save(path)
+            result, _ = infer_item(self.FakeClient([raw]), item, lexicon, config, path, allow_review=False)
+        self.assertEqual(result["defectType"], "伸缩缝病害")
+
+    def test_full_label_checklist_does_not_prefer_extra_scene_defect(self) -> None:
+        allowed = ["完好", "裂缝、破损", "裂缝、破损、剥落"]
+        lexicon = {"categories": {"桥梁": {
+            "allowed_labels": allowed,
+            "label_specs": {label: {"count": 1, "rating_distribution": {}, "default_rating": ""}
+                            for label in allowed},
+            "scene_label_counts": {"bottom": {"裂缝、破损、剥落": 10}},
+        }}}
+        raw = '{"selected":["裂缝","破损"],"description":"裂缝和局部破损","confidence":0.8}'
+        historical, _ = checklist_prediction(raw, lexicon, "桥梁", "bottom")
+        full, _ = checklist_prediction(raw, lexicon, "桥梁", "bottom", label_scope="all")
+        self.assertEqual(historical["defectType"], "裂缝、破损、剥落")
+        self.assertEqual(full["defectType"], "裂缝、破损")
+
     def test_checklist_prediction_maps_selected_atomic_labels(self) -> None:
         lexicon = {
             "categories": {

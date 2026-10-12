@@ -8,11 +8,13 @@
 .\code\run.ps1 prepare --archive .\赛题四.zip
 .\code\run.ps1 download
 .\code\run.ps1 calibrate --sample-size 120
-.\code\run.ps1 infer --resume
-.\code\run.ps1 validate
-.\code\run.ps1 document
-.\code\run.ps1 package
+.\code\run.ps1 infer --resume --artifact-dir .\runs\my_candidate
+.\code\run.ps1 validate `
+  --result .\runs\my_candidate\result\result.json `
+  --report .\runs\my_candidate\logs\validation_report.json
 ```
+
+以上推理保存隔离候选，保留已登记的正式基线。只有完成留出对照及候选校验后，才考虑升级正式结果，再运行 `document` 和 `package`。`package` 只读取正式 `result/result.json`，不会自动选取候选。更换配置、模型或输入时必须使用新的候选目录。
 
 六小时首版实际校准可先使用24张分层样本；时间充足时再执行计划中的120张：
 
@@ -20,7 +22,7 @@
 .\code\run.ps1 calibrate --sample-size 24
 ```
 
-也可运行完整流水线：
+首次新建工程时也可运行完整流水线；已有官方基线的工作目录不要直接执行此命令，它会写入正式结果和设计书：
 
 ```powershell
 .\code\run.ps1 all --archive .\赛题四.zip --calibration-sample-size 120
@@ -61,13 +63,15 @@
 ```powershell
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 `
-  --output runs\prompt_ablation_v2\fanjaping.json --prepare-only
+  --output runs\prompt_ablation_v3\fanjaping.json --prepare-only
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 `
-  --output runs\prompt_ablation_v2\fanjaping.json --resume
+  --output runs\prompt_ablation_v3\fanjaping.json --resume
 ```
 
 先准备、确认 GPU 空闲后再推理。每张图原子保存断点，配置、图片、词典、模型或代码变化会拒绝旧缓存；仅改变复核替换条件时复用相同原始响应，不额外占用 GPU。评测中的桥梁复核开关与正式推理一致。两座整桥的命令、指标及限制见 [`HOLDOUT_EXPERIMENT.md`](HOLDOUT_EXPERIMENT.md)。
+
+可先运行 `audit_training_data.py` 检查训练图片完整解码、相同像素的冲突标签和整桥留出内容泄漏。它只读训练图片并报告问题，不修改标签；严格结果校验还会核对桥名、类别、字段类型及重复 JSON 键。使用方法见 [`TRAINING_AUDIT.md`](TRAINING_AUDIT.md)。
 
 ## 训练图片浏览与人工审核
 

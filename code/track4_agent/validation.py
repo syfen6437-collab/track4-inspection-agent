@@ -2,7 +2,6 @@ from __future__ import annotations
 
 import json
 import hashlib
-import math
 import shutil
 import tarfile
 from collections import Counter
@@ -10,6 +9,19 @@ from pathlib import Path
 from typing import Any
 
 from .data import OUTPUT_KEYS, copy_submission_code, read_json, write_json
+
+
+def _unique_object(pairs):
+    value = {}
+    for key, item in pairs:
+        if key in value:
+            raise ValueError(f"duplicate JSON key: {key}")
+        value[key] = item
+    return value
+
+
+def _reject_constant(value):
+    raise ValueError(f"non-finite JSON constant: {value}")
 
 
 def validate_result(
@@ -20,8 +32,13 @@ def validate_result(
     report_path: Path | None = None,
 ) -> dict[str, Any]:
     result_path = result_path or workspace / "result" / "result.json"
-    results = read_json(result_path)
     errors: list[str] = []
+    try:
+        results = json.loads(result_path.read_text(encoding="utf-8-sig"),
+                             object_pairs_hook=_unique_object, parse_constant=_reject_constant)
+    except (UnicodeError, ValueError) as exc:
+        errors.append(f"result.json is not valid UTF-8 JSON: {exc}")
+        results = []
     if not isinstance(results, list):
         errors.append("result.json root must be an array")
         results = []
@@ -29,7 +46,13 @@ def validate_result(
         errors.append(f"result count {len(results)} != manifest count {len(manifest)}")
 
     expected_names = Counter(item["filename"] for item in manifest)
-    actual_names = Counter(str(item.get("filename", "")) for item in results if isinstance(item, dict))
+    if any(not isinstance(name, str) or not name.strip() for name in expected_names):
+        errors.append("manifest contains an empty or non-string filename")
+    if any(count != 1 for count in expected_names.values()):
+        errors.append("manifest contains duplicate filenames; image matching is ambiguous")
+    by_name = {item["filename"]: item for item in manifest}
+    actual_names = Counter(item.get("filename", "") for item in results
+                           if isinstance(item, dict) and isinstance(item.get("filename", ""), str))
     if expected_names != actual_names:
         errors.append("filename multiset does not match test manifest")
 
@@ -39,27 +62,35 @@ def validate_result(
             continue
         if list(result.keys()) != OUTPUT_KEYS:
             errors.append(f"row {index}: keys/order mismatch: {list(result.keys())}")
-        category = str(result.get("questionCategory", ""))
+        for key in OUTPUT_KEYS:
+            if not isinstance(result.get(key), str):
+                errors.append(f"row {index}: {key} must be a string")
+        filename = result.get("filename")
+        if not isinstance(filename, str) or not filename.strip():
+            errors.append(f"row {index}: empty or non-string filename")
+        expected = by_name.get(filename) if isinstance(filename, str) else None
+        if expected is not None:
+            for key in ("questionCategory", "bridgeName", "defectLocation", "filename"):
+                if result.get(key) != expected.get(key, ""):
+                    errors.append(f"row {index}: {key} does not match input metadata for {filename}")
+        category = result.get("questionCategory")
+        if not isinstance(category, str):
+            continue
         if category not in lexicon["categories"]:
             errors.append(f"row {index}: invalid category {category!r}")
             continue
-        label = str(result.get("defectType", ""))
+        label = result.get("defectType", "")
         if label not in lexicon["categories"][category]["allowed_labels"]:
             errors.append(f"row {index}: invalid label {label!r} for {category}")
-        rating = str(result.get("ratingScale(1-5)", ""))
-        if rating not in {"", "1", "2", "3", "4", "5"}:
+        rating = result.get("ratingScale(1-5)", "")
+        if not isinstance(rating, str) or rating not in {"", "1", "2", "3", "4", "5"}:
             errors.append(f"row {index}: invalid rating {rating!r}")
-        for key in OUTPUT_KEYS:
-            value = result.get(key)
-            if value is None:
-                errors.append(f"row {index}: null value in {key}")
-            if isinstance(value, float) and not math.isfinite(value):
-                errors.append(f"row {index}: non-finite value in {key}")
 
     report = {
         "valid": not errors,
         "result_count": len(results),
         "expected_count": len(manifest),
+        "error_count": len(errors),
         "errors": errors[:100],
     }
     write_json(report_path or workspace / "logs" / "validation_report.json", report)
