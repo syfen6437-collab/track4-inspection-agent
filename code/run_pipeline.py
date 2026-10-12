@@ -15,10 +15,10 @@ if str(CODE_DIR) not in sys.path:
     sys.path.insert(0, str(CODE_DIR))
 
 from track4_agent.data import load_assets, prepare_dataset, read_json
-from track4_agent.document import build_design_document
+from track4_agent.document import build_design_document, refresh_submission_design
 from track4_agent.inference import run_calibration, run_inference
 from track4_agent.model import ModelClient, download_model
-from track4_agent.validation import build_submission_package, validate_result
+from track4_agent.validation import build_submission_package, validate_result, verify_submission_package
 
 
 DEFAULT_CONFIG = CODE_DIR / "config" / "qwen3-vl-4b-review.json"
@@ -86,6 +86,10 @@ def cmd_validate(args, config):
 
 
 def cmd_document(args, config):
+    if args.refresh:
+        _, test, lexicon = load_assets(WORKSPACE)
+        validate_result(WORKSPACE, test, lexicon)
+        return refresh_submission_design(WORKSPACE)
     return build_design_document(WORKSPACE, team_name=args.team_name)
 
 
@@ -93,6 +97,12 @@ def cmd_package(args, config):
     _, test, lexicon = load_assets(WORKSPACE)
     validate_result(WORKSPACE, test, lexicon)
     return build_submission_package(WORKSPACE)
+
+
+def cmd_package_check(args, config):
+    report = verify_submission_package(args.archive)
+    print(json.dumps(report, ensure_ascii=False, indent=2))
+    return args.archive
 
 
 def cmd_all(args, config):
@@ -132,9 +142,13 @@ def make_parser() -> argparse.ArgumentParser:
 
     document = subparsers.add_parser("document", help="生成智能体设计方案")
     document.add_argument("--team-name", default="")
+    document.add_argument("--refresh", action="store_true", help="保留现有设计书模板并更新已登记基线的提交说明")
 
     package = subparsers.add_parser("package", help="生成tar.gz提交包")
     package.add_argument("--team-name", default="")
+
+    package_check = subparsers.add_parser("package-check", help="读回提交包并校验全部文件哈希")
+    package_check.add_argument("--archive", type=Path, default=WORKSPACE / "track4_submission.tar.gz")
 
     all_parser = subparsers.add_parser("all", help="执行完整流水线")
     all_parser.add_argument("--archive", type=Path, default=WORKSPACE / "赛题四.zip")
@@ -156,6 +170,7 @@ def main() -> int:
         "validate": cmd_validate,
         "document": cmd_document,
         "package": cmd_package,
+        "package-check": cmd_package_check,
         "all": cmd_all,
     }
     result = handlers[args.command](args, config)

@@ -1,6 +1,11 @@
 from __future__ import annotations
 
 import json
+import hashlib
+import io
+import os
+import tempfile
+import zipfile
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -80,9 +85,10 @@ def _format_table(table) -> None:
     table.alignment = WD_TABLE_ALIGNMENT.CENTER
     table.autofit = True
     header_properties = table.rows[0]._tr.get_or_add_trPr()
-    repeat_header = OxmlElement("w:tblHeader")
-    repeat_header.set(qn("w:val"), "true")
-    header_properties.append(repeat_header)
+    if header_properties.find(qn("w:tblHeader")) is None:
+        repeat_header = OxmlElement("w:tblHeader")
+        repeat_header.set(qn("w:val"), "true")
+        header_properties.append(repeat_header)
     for row_index, row in enumerate(table.rows):
         for cell in row.cells:
             cell.vertical_alignment = WD_CELL_VERTICAL_ALIGNMENT.CENTER
@@ -123,6 +129,100 @@ def _find_paragraph(document: Document, startswith: str):
         if paragraph.text.strip().startswith(startswith):
             return paragraph
     raise KeyError(startswith)
+
+
+def refresh_submission_design(workspace: Path) -> Path:
+    """Update the retained design in place, preserving unrelated OOXML parts."""
+    output = workspace / "design" / "AI智能体设计方案.docx"
+    provenance = _read_optional(workspace / "logs" / "submission_provenance.json")
+    validation = _read_optional(workspace / "logs" / "validation_report.json")
+    result_hash = hashlib.sha256((workspace / "result" / "result.json").read_bytes()).hexdigest()
+    if provenance.get("result_sha256") != result_hash or not validation.get("valid"):
+        raise ValueError("Validate and register the official result before refreshing its design")
+    if provenance.get("status") != "restored_scored_baseline":
+        raise ValueError("This refresh applies only to the registered historical baseline")
+    source = output.read_bytes()
+    document = Document(io.BytesIO(source))
+    replacements = {
+        "完成日期": f"完成日期：{date.today().strftime('%Y年%m月%d日')}",
+        "分域视觉模块": "分域视觉模块：桥梁航拍使用整图，支座及梁底近景使用整图和四象限细节拼图；桥梁增加一次粗类别初筛。轨道使用整图和四象限细节拼图。基座为本地Qwen3-VL-4B-Instruct，模型生成与数据后处理均保留日志。",
+        "工程可靠性模块": "工程可靠性模块：正式推理每25张图片保存断点，并保留原始模型响应。校验七个字符串字段、输入元数据、UTF-8编码、合法标签及重复项。打包先生成临时压缩包，逐文件读回核对SHA-256，再原子替换唯一提交包；失败时保留上一份包。",
+        "1. 基于数据域": "1. 基于数据域的自适应视觉输入：桥梁航拍使用整图，支座和梁底近景、轨道使用整图加四象限细节拼图，同一模型按场景切换视觉预算。",
+        "3. 证据一致性": "3. 证据一致性检查：保留类别、描述和可见依据，用于发现矛盾及触发可选复核。历史正式结果没有普通第二轮复核；扩展复核策略仍须通过隔离留出评估，不据此宣称准确率提高。",
+    }
+    for prefix, text in replacements.items():
+        paragraph = _find_paragraph(document, prefix)
+        paragraph.text = text
+        _style_paragraph(paragraph, bold=prefix == "完成日期")
+    feedback = provenance.get("official_feedback", {})
+    note = (
+        f"提交版本说明：正式输出来自Git提交{str(provenance.get('source_commit', ''))[:7]}，"
+        f"保留历史官方反馈{feedback.get('total')}分的完整模型结果；共{validation.get('result_count')}条，"
+        "没有人工逐图改写。53.06分视觉候选已撤回。本次工程检查不代表新官方成绩，"
+        "标签范围扩展尚未完成两座整桥的配对验证，不替换正式输出。"
+    )
+    existing = next((p for p in document.paragraphs if p.text.startswith("提交版本说明：")), None)
+    paragraph = existing or _insert_paragraph_after(_find_paragraph(document, "1. 评估结果"))
+    paragraph.text = note
+    _style_paragraph(paragraph)
+    holdout = _read_optional(workspace / "runs" / "prompt_ablation_v3" / "fanjaping.json")
+    baseline = holdout.get("results", {}).get("baseline", {})
+    metrics = baseline.get("metrics", {})
+    complete_fold = (baseline.get("status") == "complete"
+                     and len(baseline.get("records", [])) == 120
+                     and metrics.get("sample_size") == 120)
+    for table in document.tables:
+        for row in table.rows:
+            if row.cells[0].text == "校准样本":
+                if complete_fold:
+                    row.cells[0].text = "留出样本"
+                    row.cells[1].text = "120"
+                    row.cells[-1].text = "范家坪整桥单折基线，84桥梁、36轨道"
+                else:
+                    row.cells[-1].text = "初版压力抽样，不是当前完整留出对照"
+            elif row.cells[0].text == "留出样本" and complete_fold:
+                row.cells[1].text = "120"
+                row.cells[-1].text = "范家坪整桥单折基线，84桥梁、36轨道"
+            elif row.cells[0].text == "病害类型精确率" and complete_fold:
+                row.cells[1].text = f"{metrics['defect_type_exact_accuracy']:.4f}"
+                by_category = metrics["category_metrics"]
+                row.cells[-1].text = (
+                    f"桥梁{by_category['桥梁']['exact_correct']}/84；"
+                    f"轨道{by_category['轨道']['exact_correct']}/36"
+                )
+            elif row.cells[0].text == "原子病害Macro-F1" and complete_fold:
+                row.cells[1].text = f"{metrics['atomic_macro_f1']:.4f}"
+                row.cells[-1].text = "组合标签拆分；仅用于本地比较"
+            elif row.cells[0].text == "评定标度准确率" and complete_fold:
+                row.cells[1].text = f"{metrics['rating_accuracy']:.4f}"
+                row.cells[-1].text = "轨道目标均为空，不代表掌握严重程度"
+            elif row.cells[0].text == "正式结果候选改动":
+                row.cells[-1].text = "实验候选未应用于正式结果"
+            elif row.cells[0].text == "模型推理":
+                row.cells[-1].text = "历史基线运行日志，不是本次实验耗时"
+            elif row.cells[0].text == "视觉推理":
+                row.cells[1].text = "航拍整图；近景整图加细节拼图"
+            elif row.cells[0].text == "复核模块":
+                row.cells[-1].text = "可选模型复核；视觉候选仅限隔离实验"
+        _format_table(table)
+    buffer = io.BytesIO()
+    document.save(buffer)
+    temporary = None
+    try:
+        with zipfile.ZipFile(io.BytesIO(source)) as original, zipfile.ZipFile(buffer) as edited:
+            with tempfile.NamedTemporaryFile(dir=output.parent, suffix=".docx", delete=False) as handle:
+                temporary = Path(handle.name)
+            with zipfile.ZipFile(temporary, "w") as final:
+                for info in original.infolist():
+                    payload = (edited.read(info.filename) if info.filename == "word/document.xml"
+                               else original.read(info.filename))
+                    final.writestr(info, payload)
+        os.replace(temporary, output)
+    finally:
+        if temporary is not None and temporary.exists():
+            temporary.unlink()
+    print(f"[document] refreshed {output}")
+    return output
 
 
 def build_design_document(workspace: Path, team_name: str = "") -> Path:

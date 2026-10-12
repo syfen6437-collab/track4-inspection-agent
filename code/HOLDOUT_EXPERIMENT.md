@@ -36,10 +36,10 @@ Run from the repository root using the project's environment:
 ```powershell
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v3\fanjaping.json --prepare-only
+  --output runs\prompt_ablation_v4\fanjaping.json --prepare-only
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 青树湾1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v3\qingshuwan.json --prepare-only
+  --output runs\prompt_ablation_v4\qingshuwan.json --prepare-only
 ```
 
 Each fold selects 84 label-balanced bridge images and 36 label-balanced track
@@ -67,7 +67,7 @@ another large job occupies the GPU; it does not stop other projects' processes.
 nvidia-smi
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v3\fanjaping.json --resume --max-images 12
+  --output runs\prompt_ablation_v4\fanjaping.json --resume --max-images 12
 ```
 
 The optional limit pauses after 12 newly evaluated records, including replayed
@@ -77,10 +77,10 @@ without the limit to finish:
 ```powershell
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v3\fanjaping.json --resume
+  --output runs\prompt_ablation_v4\fanjaping.json --resume
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 青树湾1号大桥 --sample-size 120 `
-  --output runs\prompt_ablation_v3\qingshuwan.json --resume
+  --output runs\prompt_ablation_v4\qingshuwan.json --resume
 ```
 
 Every completed image is saved with its raw model rounds. Snapshots are flushed
@@ -147,3 +147,26 @@ An actual startup attempt was safely refused with approximately 270 MiB free;
 new GPU inference must wait for the separate track-one benchmark to release
 the device. Prepared checkpoints and passing engineering tests do not count as
 completed model evaluation. No new official score is claimed.
+
+## Submission Handoff on 2026-10-12
+
+The earlier track-one GPU workers were paused with user authorization. A later
+attempt still failed the unchanged memory guard: 9,108 of 12,227 MiB was free,
+below the required 10,240 MiB. No other applications were stopped to obtain GPU
+memory, and no second inference worker remains running.
+
+The retained `prompt_ablation_v3/fanjaping.json` has a complete 120-image
+baseline: bridge 33/84 and track 5/36 exact matches, overall atomic Macro-F1
+0.253131. Bridge severity matched 30/84; all 36 track severity targets are
+empty, so their perfect matching is not evidence of severity understanding.
+The all-label variant has only 19 images: it gains one correct label and loses
+two compared with the same baseline images. This is a partial observation,
+not a complete strategy comparison. Selection-only variants and the second
+fold remain incomplete.
+
+Packaging/document CLI changes alter the bound runner source digest. The
+examples above now use a new `prompt_ablation_v4` output directory. Do not edit
+old checkpoint contexts to force reuse; retain the v3 reports as historical
+evidence, or reproduce them under their original bound sources. Neither these
+partial experiments nor the tested packaging changes establish a higher
+official score. The registered historical 56.11 result remains unchanged.

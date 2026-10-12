@@ -63,10 +63,10 @@
 ```powershell
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 `
-  --output runs\prompt_ablation_v3\fanjaping.json --prepare-only
+  --output runs\prompt_ablation_v4\fanjaping.json --prepare-only
 .\.venv\Scripts\python.exe -u -X utf8 code\evaluate_holdout.py `
   --bridge-group 范家坪1号大桥 `
-  --output runs\prompt_ablation_v3\fanjaping.json --resume
+  --output runs\prompt_ablation_v4\fanjaping.json --resume
 ```
 
 先准备、确认 GPU 空闲后再推理。每张图原子保存断点，配置、图片、词典、模型或代码变化会拒绝旧缓存；仅改变复核替换条件时复用相同原始响应，不额外占用 GPU。评测中的桥梁复核开关与正式推理一致。两座整桥的命令、指标及限制见 [`HOLDOUT_EXPERIMENT.md`](HOLDOUT_EXPERIMENT.md)。
@@ -126,6 +126,21 @@ Qwen 重新生成七字段内部结果，最后由 `code/apply_vision_hybrid.py`
 该命令只写入 `runs/smoke_4b/`，不会覆盖正式结果；它不上传官网。
 
 `package` 命令固定生成根目录的 `track4_submission.tar.gz`，重复运行会覆盖同一个文件，不会继续产生带时间戳的提交包。旧的时间戳包属于历史产物，已被 Git 忽略。
+
+提交前的最终检查：
+
+```powershell
+.\code\run.ps1 validate
+.\code\run.ps1 document --refresh
+.\code\run.ps1 package
+.\code\run.ps1 package-check
+```
+
+`document --refresh` 仅更新已登记历史基线的现有设计书，保留队伍名称、模板和未修改的 DOCX 包部件；它不会修改预测结果。修改设计书后仍需渲染检查分页。`package` 先在独立临时目录构建，检查 gzip 完整性、全部文件 SHA-256、结果来源和小于 1GB 的限制，再原子替换唯一提交包。失败时保留旧包，不删除已有 `submission_staging/`。
+
+`package-check` 不解压、不改写任何文件，读回压缩包及内置的 `code/logs/submission_manifest.json`，校验当前工程、设计书和结果的完整性。外层 `logs/package_report.json` 记录整个包的哈希，内置清单不包含自身哈希。结果来源提交与工程提交分开记录，避免把代码更新误认为重新推理或官方提分。
+
+本次全工程通过 91 项自动测试，正式 1,274 条预测与保存的模型原始响应重新解析结果一致。当前交付保留历史 56.11 分结果，实验状态见 [`SUBMISSION_STATUS.md`](SUBMISSION_STATUS.md)。
 
 最终提交包同时携带 `code/review_annotations.jsonl`，其中只记录训练难例审核状态和证据摘要；它不会改写训练清单，也不会覆盖测试结果。
 

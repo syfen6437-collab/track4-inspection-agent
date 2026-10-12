@@ -2,10 +2,14 @@ from __future__ import annotations
 
 import json
 import hashlib
+import gzip
+import os
 import shutil
+import subprocess
 import tarfile
+import tempfile
 from collections import Counter
-from pathlib import Path
+from pathlib import Path, PurePosixPath
 from typing import Any
 
 from .data import OUTPUT_KEYS, copy_submission_code, read_json, write_json
@@ -100,17 +104,110 @@ def validate_result(
     return report
 
 
+MAX_SUBMISSION_BYTES = 1_000_000_000
+PACKAGE_MANIFEST = "code/logs/submission_manifest.json"
+
+
+def _sha256_file(path: Path) -> str:
+    with path.open("rb") as handle:
+        return hashlib.file_digest(handle, "sha256").hexdigest()
+
+
+def verify_submission_package(output: Path) -> dict[str, Any]:
+    if output.stat().st_size >= MAX_SUBMISSION_BYTES:
+        raise ValueError("Submission archive must be smaller than 1 GB")
+    # tar readers may stop at their end marker before checking the gzip trailer.
+    with gzip.open(output, "rb") as handle:
+        while handle.read(1024 * 1024):
+            pass
+    hashes = {}
+    with tarfile.open(output, "r:gz") as archive:
+        members = archive.getmembers()
+        names = set()
+        roots = set()
+        for member in members:
+            name = member.name
+            path = PurePosixPath(name)
+            if (name in names or path.is_absolute() or ".." in path.parts
+                    or "\\" in name or not path.parts or path.as_posix() != name.rstrip("/")
+                    or not (member.isfile() or member.isdir())):
+                raise ValueError(f"Unsafe or duplicate archive member: {name}")
+            names.add(name)
+            roots.add(path.parts[0])
+            if member.isfile():
+                if member.size >= MAX_SUBMISSION_BYTES:
+                    raise ValueError(f"File exceeds 1 GB: {name}")
+                with archive.extractfile(member) as handle:
+                    hashes[name] = hashlib.file_digest(handle, "sha256").hexdigest()
+        if roots != {"code", "design", "result"}:
+            raise ValueError(f"Unexpected package roots: {roots}")
+        required = {"code/run_pipeline.py", "code/README.md", "code/MODEL.md",
+                    "code/requirements.txt", "code/logs/raw_responses.jsonl",
+                    "code/logs/submission_provenance.json", PACKAGE_MANIFEST,
+                    "design/AI智能体设计方案.docx", "result/result.json"}
+        if required - hashes.keys():
+            raise ValueError(f"Missing package files: {sorted(required - hashes.keys())}")
+        with archive.extractfile(PACKAGE_MANIFEST) as handle:
+            manifest = json.load(handle, object_pairs_hook=_unique_object,
+                                 parse_constant=_reject_constant)
+        expected = manifest.get("file_sha256")
+        actual = {name: digest for name, digest in hashes.items() if name != PACKAGE_MANIFEST}
+        if manifest.get("version") != 1 or expected != actual:
+            raise ValueError("Archive contents differ from the submission manifest")
+        with archive.extractfile("code/logs/submission_provenance.json") as handle:
+            provenance = json.load(handle, object_pairs_hook=_unique_object,
+                                   parse_constant=_reject_constant)
+        result_hash = hashes["result/result.json"]
+        if (manifest.get("result_sha256") != result_hash
+                or provenance.get("result_sha256") != result_hash
+                or manifest.get("result_source_commit") != provenance.get("source_commit")):
+            raise ValueError("Packaged result differs from its registered provenance")
+    return {
+        "valid": True,
+        "package": str(output.resolve()),
+        "result_sha256": result_hash,
+        "source_commit": provenance.get("source_commit"),
+        "engineering_commit": manifest.get("engineering_commit"),
+        "engineering_dirty": manifest.get("engineering_dirty"),
+        "design_sha256": hashes["design/AI智能体设计方案.docx"],
+        "package_sha256": _sha256_file(output),
+        "size_bytes": output.stat().st_size,
+        "file_count": len(hashes),
+        "roots": sorted(roots),
+        "all_file_hashes_verified": True,
+        "largest_files": sorted(
+            ({"name": member.name, "size": member.size} for member in members if member.isfile()),
+            key=lambda item: item["size"], reverse=True,
+        )[:10],
+    }
+
+
+def _engineering_revision(workspace: Path) -> dict[str, Any]:
+    try:
+        commit = subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=workspace,
+                                         stderr=subprocess.DEVNULL).decode().strip()
+        dirty = bool(subprocess.check_output(
+            ["git", "status", "--porcelain", "--", "code", "design"],
+            cwd=workspace, stderr=subprocess.DEVNULL))
+        return {"engineering_commit": commit, "engineering_dirty": dirty}
+    except (OSError, subprocess.CalledProcessError):
+        return {"engineering_commit": None, "engineering_dirty": None}
+
+
 def build_submission_package(workspace: Path) -> Path:
     provenance_path = workspace / "logs" / "submission_provenance.json"
     if not provenance_path.exists():
         raise ValueError("Missing submission provenance; register the result before packaging")
     provenance = read_json(provenance_path)
-    result_hash = hashlib.sha256((workspace / "result" / "result.json").read_bytes()).hexdigest()
+    result_hash = _sha256_file(workspace / "result" / "result.json")
     if provenance.get("result_sha256") != result_hash:
         raise ValueError("Result differs from the registered submission provenance; package was not changed")
-    staging = workspace / "submission_staging"
-    if staging.exists():
-        shutil.rmtree(staging)
+    # Build in an owned temporary directory; never remove another staging tree.
+    with tempfile.TemporaryDirectory(prefix="track4-package-", dir=workspace) as folder:
+        return _build_verified_package(workspace, Path(folder), provenance, result_hash)
+
+
+def _build_verified_package(workspace, staging, provenance, result_hash):
     (staging / "code").mkdir(parents=True, exist_ok=True)
     (staging / "design").mkdir(parents=True, exist_ok=True)
     (staging / "result").mkdir(parents=True, exist_ok=True)
@@ -145,41 +242,36 @@ def build_submission_package(workspace: Path) -> Path:
     shutil.copy2(design_source, staging / "design" / design_source.name)
     shutil.copy2(result_source, staging / "result" / result_source.name)
 
+    files = [path for path in staging.rglob("*") if path.is_file()]
+    if any(path.stat().st_size >= MAX_SUBMISSION_BYTES for path in files):
+        raise ValueError("A submission file exceeds 1 GB")
+    manifest = {
+        "version": 1,
+        "result_sha256": result_hash,
+        "result_source_commit": provenance.get("source_commit"),
+        **_engineering_revision(workspace),
+        "file_sha256": {path.relative_to(staging).as_posix(): _sha256_file(path)
+                        for path in sorted(files)},
+    }
+    write_json(staging / PACKAGE_MANIFEST, manifest)
+
     # Keep one canonical artifact in the workspace. Re-running package replaces
     # this file instead of creating timestamped copies that drift apart.
     output = workspace / "track4_submission.tar.gz"
-    with tarfile.open(output, "w:gz") as archive:
+    temporary = staging / "submission.tar.gz"
+    with tarfile.open(temporary, "w:gz") as archive:
         for folder in ("code", "design", "result"):
             archive.add(staging / folder, arcname=folder, recursive=True)
 
-    with tarfile.open(output, "r:gz") as archive:
-        members = [member for member in archive.getmembers() if member.isfile()]
-        roots = {member.name.split("/", 1)[0] for member in members}
-        oversized = [member.name for member in members if member.size >= 1024**3]
-        if roots != {"code", "design", "result"}:
-            raise RuntimeError(f"Unexpected package roots: {roots}")
-        if oversized:
-            raise RuntimeError(f"Files exceed 1 GB: {oversized}")
-        required = {"design/AI智能体设计方案.docx", "result/result.json"}
-        names = {member.name for member in members}
-        missing = required - names
-        if missing:
-            raise RuntimeError(f"Missing package files: {missing}")
-
-    package_report = {
-        "package": str(output),
-        "result_sha256": result_hash,
-        "source_commit": provenance.get("source_commit"),
-        "package_sha256": hashlib.sha256(output.read_bytes()).hexdigest(),
-        "size_bytes": output.stat().st_size,
-        "file_count": len(members),
-        "roots": sorted(roots),
-        "largest_files": sorted(
-            ({"name": member.name, "size": member.size} for member in members),
-            key=lambda item: item["size"],
-            reverse=True,
-        )[:10],
-    }
-    write_json(workspace / "logs" / "package_report.json", package_report)
+    package_report = verify_submission_package(temporary)
+    package_report["package"] = str(output)
+    report_file = staging / "package_report.json"
+    write_json(report_file, package_report)
+    with temporary.open("ab") as handle:
+        handle.flush()
+        os.fsync(handle.fileno())
+    # Replace the archive last so a report write failure preserves the old package.
+    os.replace(report_file, workspace / "logs" / "package_report.json")
+    os.replace(temporary, output)
     print(json.dumps(package_report, ensure_ascii=False, indent=2))
     return output
