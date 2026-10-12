@@ -49,3 +49,16 @@
 稳定吞吐或全测试集 ETA。详细性能文件仅在本地
 `runs/prompt_ablation_v3/inference_profile.pstats`。当前环境的推理质量需要
 重新做成对留出比较，不把旧环境的官方分数当作新环境的评测结果。
+
+`benchmark_inference_threads.py` 在各类别清单首张训练图上完成了 ABBA 线程
+诊断（默认 16、4、4、默认 16），八次原始模型响应与结构化结果在各自图片上
+均一致。桥梁逐图耗时分别为 46.943、43.733、45.043、48.768 秒；轨道为
+21.177、23.640、22.631、21.557 秒。两张图不足以推广性能结论，且 4 线程
+没有跨类别的稳定优势，因此不改变默认线程配置。这个诊断关闭普通二次复核，
+不能代替完整策略的准确率或吞吐评测。输出仅在
+`runs/thread_benchmark_20261012/report.json`，不改写正式结果。
+
+```powershell
+.\.venv\Scripts\python.exe -u -X utf8 code\benchmark_inference_threads.py `
+  --output runs\thread_benchmark_new\report.json
+```
