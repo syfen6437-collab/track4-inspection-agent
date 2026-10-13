@@ -21,7 +21,7 @@
 ## 解压后的只读验收
 
 在解压目录打开 PowerShell。已安装工程依赖的 Python 可直接运行以下命令；
-仅检查包和回放模型日志时，Python 3.11 以上加 Pillow 即可，不要求 CUDA：
+仅检查包和回放模型日志时，Python 3.11 以上加 Pillow、python-docx 即可，不要求 CUDA：
 
 ```powershell
 python -X utf8 code\run_pipeline.py --help
