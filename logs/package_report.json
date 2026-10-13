@@ -3,12 +3,12 @@
   "package": "E:\\赛题四_智能体\\track4_submission.tar.gz",
   "result_sha256": "6fc15c1b03c63b0fe48c4f637731f2bafe1a9693aa1c778dc437513e2e0492a1",
   "source_commit": "d2f6bde0c2109130b95e42a32463d036baec33e1",
-  "engineering_commit": "6622c5fe3d99cfd7942c76416d32bf4045b462ea",
+  "engineering_commit": "7c77bb9a8bd3f39345a09dddf52815797837901b",
   "engineering_dirty": false,
   "design_sha256": "f781dc2babdaa45d3ba574a3d7e7e6cfd148e88fa2d1c9ef0aa6a3cca2ef6dc0",
-  "package_sha256": "f7255621f6ba7205f369221a2be4975f4a3080afcf410e88b32444d8e8cbbe50",
-  "size_bytes": 185964,
-  "file_count": 71,
+  "package_sha256": "1cde823f654fcaebdafc48cf8510303b7cbda34aaadccf2128cf261b0c2fce04",
+  "size_bytes": 223467,
+  "file_count": 92,
   "roots": [
     "code",
     "design",
@@ -33,12 +33,12 @@
       "size": 36175
     },
     {
-      "name": "code/evaluate_holdout.py",
-      "size": 26622
+      "name": "code/track4_agent/model.py",
+      "size": 30469
     },
     {
-      "name": "code/track4_agent/model.py",
-      "size": 22411
+      "name": "code/evaluate_holdout.py",
+      "size": 28136
     },
     {
       "name": "code/track4_agent/document.py",
@@ -46,7 +46,7 @@
     },
     {
       "name": "code/track4_agent/inference.py",
-      "size": 19921
+      "size": 20959
     },
     {
       "name": "code/review_server.py",
