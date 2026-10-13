@@ -3,12 +3,12 @@
   "package": "E:\\赛题四_智能体\\track4_submission.tar.gz",
   "result_sha256": "6fc15c1b03c63b0fe48c4f637731f2bafe1a9693aa1c778dc437513e2e0492a1",
   "source_commit": "d2f6bde0c2109130b95e42a32463d036baec33e1",
-  "engineering_commit": "7c77bb9a8bd3f39345a09dddf52815797837901b",
+  "engineering_commit": "97602584caf2be1f66c54db6f68b60f95fd555eb",
   "engineering_dirty": false,
   "design_sha256": "f781dc2babdaa45d3ba574a3d7e7e6cfd148e88fa2d1c9ef0aa6a3cca2ef6dc0",
-  "package_sha256": "1cde823f654fcaebdafc48cf8510303b7cbda34aaadccf2128cf261b0c2fce04",
-  "size_bytes": 223467,
-  "file_count": 92,
+  "package_sha256": "5e5f985633d175a745f0ab6775532ce1d49120fdccead76e363929a7e2ed21d0",
+  "size_bytes": 256775,
+  "file_count": 98,
   "roots": [
     "code",
     "design",
@@ -25,12 +25,20 @@
       "size": 345226
     },
     {
+      "name": "code/logs/test_manifest.jsonl",
+      "size": 313461
+    },
+    {
       "name": "code/logs/qwen3_vl_4b_calibration.json",
       "size": 70183
     },
     {
       "name": "code/logs/calibration_records.json",
       "size": 36175
+    },
+    {
+      "name": "code/logs/label_lexicon.json",
+      "size": 31740
     },
     {
       "name": "code/track4_agent/model.py",
@@ -47,14 +55,6 @@
     {
       "name": "code/track4_agent/inference.py",
       "size": 20959
-    },
-    {
-      "name": "code/review_server.py",
-      "size": 19459
-    },
-    {
-      "name": "design/AI智能体设计方案.docx",
-      "size": 17993
     }
   ]
 }

@@ -1,0 +1,48 @@
+{
+  "valid": true,
+  "package_sha256": "5e5f985633d175a745f0ab6775532ce1d49120fdccead76e363929a7e2ed21d0",
+  "engineering_commit": "97602584caf2be1f66c54db6f68b60f95fd555eb",
+  "engineering_dirty": false,
+  "extracted_command_checks": [
+    {
+      "command": [
+        "code/run_pipeline.py",
+        "--help"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "code/run_pipeline.py",
+        "package-check"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    },
+    {
+      "command": [
+        "code/replay_submission.py",
+        "--archive"
+      ],
+      "returncode": 0,
+      "stderr": ""
+    }
+  ],
+  "raw_replay": {
+    "valid": true,
+    "replayed_count": 1274,
+    "category_counts": {
+      "桥梁": 974,
+      "轨道": 300
+    },
+    "model_loaded": false,
+    "predictions_written": false,
+    "scope": "saved first-pass emissions; not a new GPU inference",
+    "package_sha256": "5e5f985633d175a745f0ab6775532ce1d49120fdccead76e363929a7e2ed21d0",
+    "result_sha256": "6fc15c1b03c63b0fe48c4f637731f2bafe1a9693aa1c778dc437513e2e0492a1",
+    "result_source_commit": "d2f6bde0c2109130b95e42a32463d036baec33e1",
+    "engineering_commit": "97602584caf2be1f66c54db6f68b60f95fd555eb"
+  },
+  "temporary_extract_removed": true
+}
