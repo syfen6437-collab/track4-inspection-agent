@@ -35,6 +35,20 @@ def decode_atomic(probabilities: np.ndarray, atoms: list[str], allowed: list[str
     return [allowed[i] for i in log_scores.argmax(axis=1)]
 
 
+def decode_atomic_with_confidence(
+    probabilities: np.ndarray, atoms: list[str], allowed: list[str]
+) -> tuple[list[str], np.ndarray]:
+    """Decode legal combinations and return a confidence over that ontology."""
+    values = np.clip(np.asarray(probabilities, dtype=np.float64), 1e-7, 1 - 1e-7)
+    membership = np.asarray([[atom in atomic_parts(label) for atom in atoms] for label in allowed])
+    log_scores = np.log(values) @ membership.T + np.log1p(-values) @ (~membership).T
+    shifted = log_scores - log_scores.max(axis=1, keepdims=True)
+    normalized = np.exp(shifted)
+    normalized /= normalized.sum(axis=1, keepdims=True)
+    indices = log_scores.argmax(axis=1)
+    return [allowed[i] for i in indices], normalized[np.arange(len(indices)), indices]
+
+
 def model_identity(model_dir: Path) -> dict[str, str]:
     identity = {}
     for name in ("config.json", "preprocessor_config.json", "model.safetensors"):
