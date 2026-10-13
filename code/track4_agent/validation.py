@@ -12,7 +12,7 @@ from collections import Counter
 from pathlib import Path, PurePosixPath
 from typing import Any
 
-from .data import OUTPUT_KEYS, copy_submission_code, read_json, write_json
+from .data import OUTPUT_KEYS, copy_submission_code, load_assets, read_json, write_json
 
 
 def _unique_object(pairs):
@@ -143,7 +143,8 @@ def verify_submission_package(output: Path) -> dict[str, Any]:
             raise ValueError(f"Unexpected package roots: {roots}")
         required = {"code/run_pipeline.py", "code/README.md", "code/MODEL.md",
                     "code/requirements.txt", "code/logs/raw_responses.jsonl",
-                    "code/logs/submission_provenance.json", PACKAGE_MANIFEST,
+                    "code/logs/submission_provenance.json", "code/logs/test_manifest.jsonl",
+                    "code/logs/label_lexicon.json", PACKAGE_MANIFEST,
                     "design/AI智能体设计方案.docx", "result/result.json"}
         if required - hashes.keys():
             raise ValueError(f"Missing package files: {sorted(required - hashes.keys())}")
@@ -224,6 +225,7 @@ def _build_verified_package(workspace, staging, provenance, result_hash):
         "raw_responses.jsonl",
         "validation_report.json",
         "submission_provenance.json",
+        "delivery_audit.json",
     ):
         source = workspace / "logs" / name
         if source.exists():
@@ -231,6 +233,12 @@ def _build_verified_package(workspace, staging, provenance, result_hash):
     dataset_summary = workspace / "data" / "processed" / "dataset_summary.json"
     if dataset_summary.exists():
         shutil.copy2(dataset_summary, submission_logs / "dataset_summary.json")
+    # Small input snapshots let reviewers replay saved emissions without images,
+    # model weights, or assumptions about another checkout's reviewed lexicon.
+    _, _, lexicon = load_assets(workspace)
+    shutil.copy2(workspace / "data" / "processed" / "test_manifest.jsonl",
+                 submission_logs / "test_manifest.jsonl")
+    write_json(submission_logs / "label_lexicon.json", lexicon)
 
     design_source = workspace / "design" / "AI智能体设计方案.docx"
     result_source = workspace / "result" / "result.json"

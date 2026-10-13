@@ -32,6 +32,11 @@ class SubmissionPackageTests(unittest.TestCase):
         (self.root / "logs" / "submission_provenance.json").write_text(
             json.dumps(self.provenance), encoding="utf-8")
         (self.root / "logs" / "raw_responses.jsonl").write_text("", encoding="utf-8")
+        processed = self.root / "data" / "processed"
+        processed.mkdir(parents=True)
+        for name, text in (("train_manifest.jsonl", ""), ("test_manifest.jsonl", ""),
+                           ("label_lexicon.json", '{"categories":{}}')):
+            (processed / name).write_text(text, encoding="utf-8")
         self.output = self.root / "track4_submission.tar.gz"
 
     def rewrite_archive(self, transform):

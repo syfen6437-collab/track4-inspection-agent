@@ -1,0 +1,21 @@
+{
+  "status": "ready_for_user_upload",
+  "checked_at": "2026-10-13",
+  "result_count": 1274,
+  "category_counts": {
+    "桥梁": 974,
+    "轨道": 300
+  },
+  "result_sha256": "6fc15c1b03c63b0fe48c4f637731f2bafe1a9693aa1c778dc437513e2e0492a1",
+  "official_feedback_preserved": 56.11,
+  "official_upload_performed": false,
+  "official_measurement_started": false,
+  "validation": "passed",
+  "package_check": "passed",
+  "offline_raw_replay": "passed",
+  "unit_tests": 144,
+  "design_render_pages": 3,
+  "model_weights_in_package": false,
+  "test_images_in_package": false,
+  "notes": "Engineering experiments remain isolated; no new official score is claimed."
+}
