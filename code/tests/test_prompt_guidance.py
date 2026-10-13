@@ -13,6 +13,7 @@ from track4_agent.model import (
     build_presence_prompt, build_prompt, build_track_atomic_prompt,
     track_atomic_prediction, training_description_prompt,
 )
+from evaluate_track_prompt import select_track_sample
 
 
 class PromptGuidanceTests(unittest.TestCase):
@@ -109,6 +110,22 @@ class PromptGuidanceTests(unittest.TestCase):
         self.assertTrue(variants["training_evidence"]["track_atomic_checklist"])
         row = {**self.item, "defectType": "钢筋锈蚀、破损、渗水泛碱"}
         self.assertEqual(_label_coverage([row], self.lexicon, variants["training_evidence"])["轨道"]["included_targets"], 1)
+
+    def test_track_definitions_are_opt_in_and_never_change_bridge_prompts(self):
+        plain = build_prompt(self.item, self.lexicon)
+        improved = build_prompt(self.item, self.lexicon, track_definitions=True)
+        self.assertNotIn("轨道病害判断标准", plain)
+        self.assertIn("支座钢板", improved)
+        self.assertIn("金属的旧漆", improved)
+        bridge = {**self.item, "questionCategory": "桥梁"}
+        self.assertEqual(build_prompt(bridge, self.lexicon), build_prompt(bridge, self.lexicon, track_definitions=True))
+
+    def test_track_prompt_sampling_is_label_blind_and_excludes_prior_diagnostic(self):
+        rows = [{"image": str(i), "questionCategory": "轨道", "defectType": "a"} for i in range(20)]
+        selected = select_track_sample(rows, 8, 17, ["1", "2"])
+        changed = select_track_sample([{**r, "defectType": "b"} for r in rows], 8, 17, ["1", "2"])
+        self.assertEqual([r["image"] for r in selected], [r["image"] for r in changed])
+        self.assertFalse({r["image"] for r in selected} & {"1", "2"})
 
 
 if __name__ == "__main__":

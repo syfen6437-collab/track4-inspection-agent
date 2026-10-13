@@ -1,0 +1,22 @@
+{
+  "kind": "paired generic track definition prompt diagnostic",
+  "status": "complete_small_gain_not_promoted",
+  "source_report": "runs/track_definitions_holdout_20261013/report.json",
+  "source_report_sha256": "28dab6140a0bde92213a44b7f24095c786060a47dc0a87ca0cdd062ba553e16d",
+  "sample_count": 32,
+  "sampling_seed": 20261015,
+  "sampling": "random sorted track training images; independent of labels; excludes previous 66 common holdout images",
+  "baseline": {"exact_correct": 12, "exact_accuracy": 0.375, "atomic_macro_f1": 0.354757, "missed_nonhealthy": 3, "false_nonhealthy": 6},
+  "definitions": {"exact_correct": 13, "exact_accuracy": 0.40625, "atomic_macro_f1": 0.390340, "missed_nonhealthy": 3, "false_nonhealthy": 6},
+  "gained_correct": 1,
+  "lost_correct": 0,
+  "label_changes": 3,
+  "baseline_elapsed_seconds": 481.420,
+  "definitions_elapsed_seconds": 481.072,
+  "severity_evaluated": false,
+  "complete_checkpoint_replay_passed": true,
+  "baseline_prompts_unchanged_when_disabled": {"metadata_count": 3402, "mismatches": 0},
+  "official_result_changed": false,
+  "new_official_score_verified": false,
+  "decision": "Keep an opt-in experimental config; one additional correct label in 32 public images is insufficient evidence to replace the historical scored submission."
+}

@@ -124,7 +124,8 @@ def infer_item(
         raise ValueError(f"Unsupported label_scope: {label_scope!r}")
     first_prompt = (
         build_checklist_prompt(item, lexicon, label_scope=label_scope)
-        if use_checklist else build_prompt(item, lexicon, label_scope=label_scope, training_examples=training_examples)
+        if use_checklist else build_prompt(item, lexicon, label_scope=label_scope, training_examples=training_examples,
+                                          track_definitions=bool(config.get("track_label_definitions", False)))
     )
     if use_track_atoms:
         first_prompt = build_track_atomic_prompt(item, lexicon)
@@ -182,6 +183,7 @@ def infer_item(
                 item, lexicon, review=True, prior_prediction=first_prediction,
                 label_scope=label_scope,
                 training_examples=training_examples,
+                track_definitions=bool(config.get("track_label_definitions", False)),
             )
         )
         if use_track_atoms:

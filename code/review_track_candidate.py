@@ -1,30 +1,26 @@
-"""Have local Qwen independently review an isolated track adapter candidate.
-
-The adapter labels are never included in the prompt. A changed track row is
-accepted only when Qwen's own structured label matches the adapter consensus;
-then Qwen supplies the description and rating. Otherwise the model-generated
-baseline row is retained. Bridge rows are always copied unchanged.
-"""
+"""Independently review isolated track changes with local Qwen and per-image checkpoints."""
 from __future__ import annotations
 
 import argparse
 import json
 import os
-import sys
 from pathlib import Path
 
+from apply_track_adapter import _validate_base
+from evaluate_holdout import _gpu_preflight, _report_lock, _required_gpu_memory, _write_report
 from run_pipeline import load_client, load_config
-from track4_agent.data import OUTPUT_KEYS, load_assets, write_json
-from track4_agent.inference import _neighbor_index
+from track4_agent.data import OUTPUT_KEYS, load_assets
+from track4_agent.track_consensus import checked_review, merge_track_reviews
 from track4_agent.validation import validate_result
-from track4_agent.vision_review import candidate_path, index_unique, review_image, sha256_file
+from track4_agent.vision_review import (
+    candidate_path, digest_json, index_unique, probability, review_context, review_image, sha256_file,
+)
 
 CODE = Path(__file__).resolve().parent
 ROOT = CODE.parent
-sys.path.insert(0, str(CODE))
 
 
-def _load_rows(path: Path):
+def _load_rows(path):
     value = json.loads(path.read_text(encoding="utf-8"))
     if not isinstance(value, list):
         raise ValueError(f"Result must be a JSON array: {path}")
@@ -32,26 +28,46 @@ def _load_rows(path: Path):
 
 
 def _validate_candidate(base, candidate, manifest, lexicon):
-    by_name = index_unique(manifest, "filename")
-    if len(base) != len(candidate) or len(candidate) != len(manifest):
-        raise ValueError("Base, candidate and manifest counts differ")
+    _validate_base(base, manifest, lexicon)
+    _validate_base(candidate, manifest, lexicon)
     for before, after in zip(base, candidate, strict=True):
-        if list(before) != OUTPUT_KEYS or list(after) != OUTPUT_KEYS:
-            raise ValueError(f"Seven-field schema differs: {before.get('filename')}")
         if before["filename"] != after["filename"]:
             raise ValueError("Candidate row order or filename differs")
-        item = by_name[before["filename"]]
-        for key in ("questionCategory", "bridgeName", "defectLocation", "filename"):
-            if after[key] != item.get(key, ""):
-                raise ValueError(f"Candidate metadata differs for {after['filename']}: {key}")
         if before["questionCategory"] == "桥梁" and before != after:
             raise ValueError(f"Bridge row changed in track candidate: {before['filename']}")
-        allowed = lexicon["categories"][after["questionCategory"]]["allowed_labels"]
-        if after["defectType"] not in allowed or after["ratingScale(1-5)"] not in {"", "1", "2", "3", "4", "5"}:
-            raise ValueError(f"Illegal candidate label/rating: {after['filename']}")
+        if any(before[key] != after[key] for key in OUTPUT_KEYS if key != "defectType"):
+            raise ValueError("Adapter candidate may change only the label")
 
 
-def main() -> None:
+def _checked_adapter_audit(audit, base, candidate, base_hash, train_hash):
+    if audit.get("base_result_sha256") != base_hash:
+        raise ValueError("Adapter audit belongs to a different baseline")
+    if audit.get("training_manifest_sha256") != train_hash:
+        raise ValueError("Adapter training manifest differs")
+    decisions = index_unique(audit.get("records", []), "filename")
+    if set(decisions) != {row["filename"] for row in base}:
+        raise ValueError("Adapter audit coverage differs")
+    threshold = probability(audit.get("threshold"))
+    for before, after in zip(base, candidate, strict=True):
+        record = decisions[before["filename"]]
+        if (record.get("original_label") != before["defectType"]
+                or record.get("final_label") != after["defectType"]
+                or record.get("questionCategory") != before["questionCategory"]):
+            raise ValueError("Adapter audit and result disagree")
+        if before["questionCategory"] != "轨道" or before == after:
+            continue
+        # Legacy intermediate candidates may contain healthy proposals, rejected downstream.
+        labels, scores = record.get("adapter_labels", []), record.get("adapter_confidences", [])
+        if len(labels) != 2 or len(scores) != 2:
+            raise ValueError("Adapter consensus evidence is missing")
+        if labels != [after["defectType"]] * 2 or min(probability(s) for s in scores) < threshold:
+            raise ValueError("Adapter consensus evidence disagrees")
+        if before["defectType"] == "完好":
+            raise ValueError("Baseline healthy boundary was changed")
+    return decisions
+
+
+def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--config", type=Path, default=CODE / "config" / "qwen3-vl-4b-offload.json")
     parser.add_argument("--base-result", type=Path, default=ROOT / "result" / "result.json")
@@ -59,88 +75,87 @@ def main() -> None:
     parser.add_argument("--adapter-audit", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--audit", type=Path, required=True)
-    parser.add_argument("--limit", type=int, default=None)
+    parser.add_argument("--limit", type=int)
+    parser.add_argument("--min-confidence", type=float, default=0.55)
+    parser.add_argument("--threads", type=int, default=4)
+    parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--revalidate-only", action="store_true")
     args = parser.parse_args()
-    output = candidate_path(ROOT, args.output)
-    audit_path = candidate_path(ROOT, args.audit)
-    if output.exists() or audit_path.exists():
-        raise ValueError("Output exists; use a new runs directory")
-    if args.limit is not None and args.limit <= 0:
-        parser.error("Limit must be positive")
+    probability(args.min_confidence)
+    if args.threads <= 0 or (args.limit is not None and args.limit <= 0):
+        parser.error("Threads and limit must be positive")
+    output, audit_path = candidate_path(ROOT, args.output), candidate_path(ROOT, args.audit)
+    checkpoint = audit_path.with_name(audit_path.stem + ".checkpoint.json")
+    validation = audit_path.with_name("validation_report.json")
+    inputs = {p.resolve() for p in (args.base_result, args.candidate, args.adapter_audit, args.config)}
+    if len({output, audit_path, checkpoint, validation}) != 4 or inputs & {output, audit_path, checkpoint, validation}:
+        raise ValueError("Input and output paths overlap")
     for name in ("TRANSFORMERS_OFFLINE", "HF_HUB_OFFLINE", "MODELSCOPE_OFFLINE"):
         os.environ[name] = "1"
     train, manifest, lexicon = load_assets(ROOT)
-    base = _load_rows(args.base_result.resolve())
-    candidate = _load_rows(args.candidate.resolve())
+    base, candidate = _load_rows(args.base_result), _load_rows(args.candidate)
     _validate_candidate(base, candidate, manifest, lexicon)
     adapter_audit = json.loads(args.adapter_audit.read_text(encoding="utf-8"))
-    decisions = index_unique(adapter_audit.get("records", []), "filename")
-    changed = [row for row in candidate if row["questionCategory"] == "轨道"
-               and row["defectType"] != index_unique(base, "filename")[row["filename"]]["defectType"]]
+    decisions = _checked_adapter_audit(adapter_audit, base, candidate, sha256_file(args.base_result), digest_json(train))
+    bases, candidates = index_unique(base, "filename"), index_unique(candidate, "filename")
+    selected = [item for item in manifest if item["questionCategory"] == "轨道"
+                and bases[item["filename"]]["defectType"] != "完好"
+                and candidates[item["filename"]]["defectType"] not in ("完好", bases[item["filename"]]["defectType"])]
     if args.limit is not None:
-        changed = changed[:args.limit]
-    expected_changed = {row["filename"] for row in candidate if row["questionCategory"] == "轨道"
-                        and row["defectType"] != index_unique(base, "filename")[row["filename"]]["defectType"]}
-    if args.limit is None and set(decisions) != {row["filename"] for row in candidate}:
-        raise ValueError("Adapter audit does not cover every manifest row")
+        selected = selected[:args.limit]
     config = load_config(args.config.resolve())
-    client = load_client(config)
-    neighbors = _neighbor_index(manifest)
-    raw_dir = ROOT / "data" / "raw"
-    base_by_name = index_unique(base, "filename")
-    candidate_by_name = index_unique(candidate, "filename")
-    reviewed = {}
-    for index, row in enumerate(changed, start=1):
-        item = next(item for item in manifest if item["filename"] == row["filename"])
-        adapter = decisions[row["filename"]]
-        vision = {"defectType": row["defectType"], "confidence": max(adapter.get("adapter_confidences", [0.0]))}
-        review = review_image(client, item, base_by_name[row["filename"]], vision, lexicon, config,
-                              raw_dir / item["image"], raw_dir, neighbors)
-        reviewed[row["filename"]] = review
-        print(f"[qwen-review] {index}/{len(changed)} {row['filename']} valid={review['valid']}", flush=True)
-    final = [dict(row) for row in base]
-    accepted = 0
-    audit_rows = []
-    for row in final:
-        name = row["filename"]
-        adapter = decisions.get(name, {})
-        review = reviewed.get(name)
-        before = dict(row)
-        if review is not None and review.get("valid") and review.get("prediction"):
-            prediction = review["prediction"]
-            agree = prediction["defectType"] == candidate_by_name[name]["defectType"]
-            if agree and prediction["defectType"] != "完好":
-                row["defectType"] = prediction["defectType"]
-                row["defectDescription"] = prediction["defectDescription"]
-                row["ratingScale(1-5)"] = prediction["ratingScale"]
-                accepted += int(row != before)
-                reason = "Qwen independent label agrees with two adapters"
-            else:
-                reason = "Qwen label disagrees with adapter consensus"
-        elif review is not None:
-            reason = "Qwen review invalid or contradictory"
+    context = review_context(ROOT, config, selected, base, candidate, lexicon,
+                             min_confidence=args.min_confidence, scenes=())
+    context.update(adapter_audit_sha256=sha256_file(args.adapter_audit), threads=args.threads,
+                   implementation={p.name: sha256_file(p) for p in
+                                   (Path(__file__), CODE / "track4_agent" / "track_consensus.py")})
+    with _report_lock(checkpoint):
+        if checkpoint.exists():
+            if not args.resume:
+                raise ValueError("Checkpoint exists; pass --resume")
+            state = json.loads(checkpoint.read_text(encoding="utf-8"))
+            if state.get("context") != context:
+                raise ValueError("Checkpoint input/config/model/code changed; choose a new directory")
         else:
-            reason = "not selected for Qwen review"
-        audit_rows.append({"filename": name, "questionCategory": row["questionCategory"],
-                           "adapter_label": adapter.get("final_label", row["defectType"]),
-                           "qwen_review": review, "accepted": row != before, "reason": reason})
-    output.parent.mkdir(parents=True, exist_ok=True)
-    audit_path.parent.mkdir(parents=True, exist_ok=True)
-    write_json(output, final)
-    write_json(audit_path, {
-        "policy": "two-adapter consensus followed by independent Qwen label agreement",
-        "base_result_sha256": sha256_file(args.base_result.resolve()),
-        "adapter_candidate_sha256": sha256_file(args.candidate.resolve()),
-        "adapter_audit_sha256": sha256_file(args.adapter_audit.resolve()),
-        "reviewed_count": len(changed), "accepted_count": accepted,
-        "bridge_unchanged": all(a == b for a, b in zip(base, final, strict=True)
-                                  if a["questionCategory"] == "桥梁"),
-        "records": audit_rows,
-    })
-    validate_result(ROOT, manifest, lexicon, result_path=output,
-                    report_path=audit_path.with_name("validation_report.json"))
-    print(json.dumps({"output": str(output), "audit": str(audit_path),
-                      "reviewed_count": len(changed), "accepted_count": accepted}, ensure_ascii=False, indent=2))
+            if args.revalidate_only or output.exists() or audit_path.exists():
+                raise ValueError("Checkpoint missing or untracked output exists; choose a new directory")
+            state = {"context": context, "status": "running", "records": []}
+        records = state["records"]
+        index_unique(records, "filename")
+        if [r["filename"] for r in records] != [i["filename"] for i in selected[:len(records)]]:
+            raise ValueError("Checkpoint reviews are stale, duplicated or reordered")
+        for record, item in zip(records, selected):
+            checked_review(record, item, candidates[item["filename"]], lexicon)
+        if args.revalidate_only and len(records) != len(selected):
+            raise ValueError("Revalidation requires complete checkpoints; no model calls allowed")
+        _write_report(checkpoint, state)
+        if len(records) < len(selected):
+            import torch
+            torch.set_num_threads(args.threads)
+            _gpu_preflight(_required_gpu_memory(config))
+            client = load_client(config)
+            for item in selected[len(records):]:
+                row = candidates[item["filename"]]
+                scores = decisions[item["filename"]]["adapter_confidences"]
+                vision = {"defectType": row["defectType"], "confidence": min(scores)}
+                review = review_image(client, item, bases[item["filename"]], vision, lexicon, config,
+                                      ROOT / "data" / "raw" / item["image"], ROOT / "data" / "raw")
+                records.append(review)
+                _write_report(checkpoint, state)
+                print(f"[qwen-review] {len(records)}/{len(selected)} valid={review['valid']}", flush=True)
+        final, audit_rows = merge_track_reviews(base, candidate, manifest, records, lexicon, args.min_confidence)
+        accepted = sum(row["accepted"] for row in audit_rows)
+        _write_report(output, final)
+        _write_report(audit_path, {"policy": "two-adapter consensus plus independent Qwen agreement/confidence",
+                                 "context_sha256": digest_json(context), "reviewed_count": len(records),
+                                 "accepted_count": accepted, "bridge_unchanged": all(a == b for a, b in zip(base, final)
+                                     if a["questionCategory"] == "桥梁"), "records": audit_rows})
+        report = validate_result(ROOT, manifest, lexicon, result_path=output, report_path=validation)
+        if not report["valid"]:
+            raise ValueError("Candidate failed validation")
+        state["status"] = "complete"
+        _write_report(checkpoint, state)
+        print(json.dumps({"output": str(output), "reviewed_count": len(records), "accepted_count": accepted}, ensure_ascii=False))
 
 
 if __name__ == "__main__":

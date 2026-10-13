@@ -230,6 +230,11 @@ def _variants(names: list[str], base: dict[str, Any]) -> dict[str, dict[str, Any
             "training_description_guidance": False,
             "track_atomic_checklist": True,
         },
+        "track_definitions": {
+            "training_description_guidance": False,
+            "track_atomic_checklist": False,
+            "track_label_definitions": True,
+        },
     }
     if not names or len(set(names)) != len(names) or any(name not in variants for name in names):
         raise ValueError(f"Provide unique known variants from: {', '.join(variants)}")

@@ -166,6 +166,22 @@ def training_description_prompt(item: dict[str, Any], lexicon: dict[str, Any], *
     )
 
 
+def track_definition_prompt() -> str:
+    """Generic object/defect distinctions; never contains an image-specific target."""
+    return (
+        "\n轨道病害判断标准：先辨认构件及材质，再辨认异常，逐项核对。\n"
+        "- 支座锈蚀：梁底与墩顶之间的金属支座、支座钢板、螺栓出现棕红锈斑；"
+        "涂漆剥落不等于混凝土破损。只有看清支座和锈迹才选。\n"
+        "- 钢结构锈蚀：钢梁、钢板、钢构件表面锈斑，不包括支座或混凝土内钢筋。\n"
+        "- 钢筋锈蚀：混凝土中或外露钢筋有锈迹；普通金属板不能当作钢筋。\n"
+        "- 破损：混凝土缺角、材料缺失、剥落或碎裂；金属的旧漆、焊缝及表面纹理不能单凭粗糙就判破损。\n"
+        "- 裂缝(混凝土裂缝)：混凝土上的不规则开裂，需区别规则施工缝、划线和阴影。\n"
+        "- 渗水泛碱：湿渍、水流痕或白色析出物；白色裂纹与泛碱可能并存，需分别核对。\n"
+        "- 完好：上述病害均无可见依据。仅有灰尘、反光、正常接缝或拍摄阴影时选完好。\n"
+        "若多个病害各有证据，选择对应合法组合；证据不足不得为凑组合添加病害。\n"
+    )
+
+
 def build_prompt(
     item: dict[str, Any],
     lexicon: dict[str, Any],
@@ -174,6 +190,7 @@ def build_prompt(
     prior_prediction: dict[str, Any] | None = None,
     label_scope: str = "scene",
     training_examples: bool = False,
+    track_definitions: bool = False,
 ) -> str:
     category = item["questionCategory"]
     scene = scene_key(item)
@@ -198,6 +215,7 @@ def build_prompt(
     }[scene]
     reviewed_guidance = review_guidance_prompt(lexicon)
     training_guidance = training_description_prompt(item, lexicon, label_scope=label_scope) if training_examples else ""
+    domain_guidance = track_definition_prompt() if track_definitions and category == "轨道" else ""
     return f"""你是城市桥梁与轨道结构病害巡检专家。{scene_instruction} {review_instruction}
 
 输入元数据：
@@ -207,7 +225,7 @@ def build_prompt(
 
 只能从以下训练集合法病害类型中选择 defectType，必须保持文字完全一致：
 {label_text}
-{reviewed_guidance}{training_guidance}
+{reviewed_guidance}{training_guidance}{domain_guidance}
 
 要求：
 1. 先在内部判断 visible_defect：只有看到裂缝、剥落、锈蚀、渗水/泛碱、明显修补或明确异常色斑时才选病害；正常纹理、阴影、施工接缝和远景不可辨细节应选“完好”。

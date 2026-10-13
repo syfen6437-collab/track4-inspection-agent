@@ -144,7 +144,7 @@ Qwen 重新生成七字段内部结果，最后由 `code/apply_vision_hybrid.py`
 
 `package-check` 不解压、不改写任何文件，读回压缩包及内置的 `code/logs/submission_manifest.json`，校验当前工程、设计书和结果的完整性。外层 `logs/package_report.json` 记录整个包的哈希，内置清单不包含自身哈希。结果来源提交与工程提交分开记录，避免把代码更新误认为重新推理或官方提分。
 
-本次全工程通过 91 项自动测试，正式 1,274 条预测与保存的模型原始响应重新解析结果一致。当前交付保留历史 56.11 分结果，实验状态见 [`SUBMISSION_STATUS.md`](SUBMISSION_STATUS.md)。
+正式 1,274 条预测与保存的模型原始响应重新解析结果一致。当前交付保留历史 56.11 分结果，实验状态见 [`SUBMISSION_STATUS.md`](SUBMISSION_STATUS.md)。轨道双适配器和独立 Qwen 复核、逐图恢复及成对留出命令见 [`TRACK_CONSENSUS.md`](TRACK_CONSENSUS.md)；这些实验不会自动替换正式结果。
 
 最终提交包同时携带 `code/review_annotations.jsonl`，其中只记录训练难例审核状态和证据摘要；它不会改写训练清单，也不会覆盖测试结果。
 

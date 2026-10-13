@@ -25,6 +25,7 @@ sys.path.insert(0, str(CODE))
 from run_pipeline import load_config
 from track4_agent.data import OUTPUT_KEYS, load_assets, write_json
 from track4_agent.validation import validate_result
+from track4_agent.track_consensus import adapter_decision
 from track4_agent.vision_classifier import (
     decode_atomic_with_confidence, model_identity,
 )
@@ -45,15 +46,17 @@ def _load_report(path: Path) -> tuple[dict, dict]:
         raise ValueError(f"Adapter vocabulary differs: {path}")
     if not isinstance(state.get("mean"), torch.Tensor) or not isinstance(state.get("scale"), torch.Tensor):
         raise ValueError(f"Adapter normalization is missing: {path}")
+    from verify_track_adapter import check_snapshot
+    check_snapshot(state, report)
     return report, state
 
 
 def _validate_base(results, manifest, lexicon):
     by_name = index_unique(manifest, "filename")
-    if len(results) != len(manifest):
+    if len(results) != len(manifest) or set(index_unique(results, "filename")) != set(by_name):
         raise ValueError("Base result count differs from test manifest")
     for result in results:
-        if list(result) != OUTPUT_KEYS:
+        if list(result) != OUTPUT_KEYS or any(not isinstance(result[k], str) for k in OUTPUT_KEYS):
             raise ValueError(f"Base result schema differs for {result.get('filename')}")
         item = by_name.get(result["filename"])
         if item is None:
@@ -130,6 +133,8 @@ def main() -> None:
         raise ValueError("Adapters use different base model files")
     if states[0]["atoms"] != states[1]["atoms"]:
         raise ValueError("Adapters use different atom vocabularies")
+    if any(report["training_manifest_sha256"] != digest_json(train) for report in reports):
+        raise ValueError("Training manifest changed since adapter training")
     model_path = ROOT / "models" / "SigLIP2-base-patch16-224"
     if model_identity(model_path) != reports[0]["model_identity"]:
         raise ValueError("Base visual model files changed")
@@ -147,7 +152,6 @@ def main() -> None:
                    for state in states]
     del base_model, processor
     torch.cuda.empty_cache()
-    base_by_name = index_unique(base_result, "filename")
     candidate = []
     audit = []
     changed = 0
@@ -158,17 +162,8 @@ def main() -> None:
                     "accepted": False, "reason": "bridge row unchanged"}
         if row["questionCategory"] == "轨道":
             first, second = (prediction[row["filename"]] for prediction in predictions)
-            decision.update({"adapter_labels": [first["label"], second["label"]],
-                             "adapter_confidences": [first["confidence"], second["confidence"]]})
-            if (first["label"] == second["label"] and first["confidence"] >= args.threshold
-                    and second["confidence"] >= args.threshold and row["defectType"] != "完好"):
-                final["defectType"] = first["label"]
-                decision.update({"final_label": first["label"], "accepted": first["label"] != row["defectType"],
-                                 "reason": "two independent adapters agree above threshold; baseline healthy protected"})
-            else:
-                decision["reason"] = ("baseline healthy protected"
-                                       if row["defectType"] == "完好"
-                                       else "adapters disagree or confidence is below threshold")
+            decision = adapter_decision(row, first, second, args.threshold)
+            final["defectType"] = decision["final_label"]
         if final["defectType"] != row["defectType"]:
             changed += 1
         candidate.append(final)

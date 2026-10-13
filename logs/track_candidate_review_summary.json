@@ -1,0 +1,33 @@
+{
+  "kind": "isolated track adapter candidate with local Qwen independent review",
+  "status": "review_complete_not_promoted",
+  "official_score_verified": false,
+  "baseline_official_score": 56.11,
+  "baseline_result_sha256": "6fc15c1b03c63b0fe48c4f637731f2bafe1a9693aa1c778dc437513e2e0492a1",
+  "adapter_candidate": {
+    "path": "runs/track_adapter_candidate_20261013_protected/result.json",
+    "sha256": "8bd42eeda6df0d68e06689e13c4d6bdf05c15782488e0d74ebe2bce0dd23d660",
+    "proposed_track_changes": 57
+  },
+  "independent_review": {
+    "path": "runs/track_adapter_qwen_review_20261013/audit.json",
+    "sha256": "427b2cab854f6fd4394c10cc074b7309fd082a8c17c9498f6d7c514d6e34686a",
+    "reviewed_count": 57,
+    "strict_valid_count": 53,
+    "invalid_count": 4,
+    "accepted_changes": 2,
+    "accepted_below_0_55": 0,
+    "accepted_healthy_replacements": 0,
+    "candidate_result_sha256": "475fd8c158899b0c99d635f83099dd3e2b589817534b03c4ca1ebb025f2f0919",
+    "result_count": 1274,
+    "bridge_changes": 0,
+    "input_metadata_changes": 0,
+    "validation_passed": true
+  },
+  "decision": "Retain complete historical model output. Test-set label agreement is not accuracy evidence; the isolated candidate has no new official feedback.",
+  "limitations": [
+    "The two visual adapters share one public training dataset and have correlated errors.",
+    "The legacy review audit predates resumable source-bound checkpoints; do not relabel it as a new checkpoint.",
+    "No per-image hidden test targets or official field weights are available."
+  ]
+}

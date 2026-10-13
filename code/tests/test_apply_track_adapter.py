@@ -48,10 +48,21 @@ class ApplyTrackAdapterTests(unittest.TestCase):
             candidate_path(Path("C:/workspace"), Path("C:/workspace/result/result.json"))
 
     def test_healthy_baseline_protection_is_explicit_in_candidate_policy(self):
-        source = Path(__file__).resolve().parents[1] / "apply_track_adapter.py"
-        text = source.read_text(encoding="utf-8")
-        self.assertIn('row["defectType"] != "完好"', text)
-        self.assertIn("baseline healthy protected", text)
+        from track4_agent.track_consensus import adapter_decision
+        base = {"filename": "a.jpg", "questionCategory": "轨道", "defectType": "完好"}
+        prediction = {"label": "破损", "confidence": 1.0}
+        self.assertFalse(adapter_decision(base, prediction, prediction)["accepted"])
+        base["defectType"] = "破损"
+        prediction["label"] = "完好"
+        self.assertFalse(adapter_decision(base, prediction, prediction)["accepted"])
+
+    def test_duplicate_baseline_is_rejected_before_model_loading(self):
+        manifest = [{"filename": name, "questionCategory": "轨道", "bridgeName": "", "defectLocation": ""}
+                    for name in ("a.jpg", "b.jpg")]
+        row = {"questionCategory": "轨道", "bridgeName": "", "defectLocation": "", "filename": "a.jpg",
+               "defectType": "完好", "defectDescription": "模型", "ratingScale(1-5)": ""}
+        with self.assertRaisesRegex(ValueError, "duplicate"):
+            _validate_base([row, row], manifest, {"categories": {"轨道": {"allowed_labels": ["完好"]}}})
 
 
 if __name__ == "__main__":

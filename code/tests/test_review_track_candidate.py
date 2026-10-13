@@ -35,7 +35,7 @@ class ReviewTrackCandidateTests(unittest.TestCase):
     def test_illegal_candidate_label_is_rejected(self):
         candidate = [dict(row) for row in self.base]
         candidate[1]["defectType"] = "非法"
-        with self.assertRaisesRegex(ValueError, "Illegal"):
+        with self.assertRaisesRegex(ValueError, "illegal"):
             _validate_candidate(self.base, candidate, self.manifest, self.lexicon)
 
 

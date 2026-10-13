@@ -1,0 +1,21 @@
+{
+  "kind": "paired full track pipeline diagnostic on common untouched adapter holdout",
+  "status": "complete_not_promoted",
+  "source_report": "runs/track_consensus_holdout_20261013/report.json",
+  "source_report_sha256": "2322fede11a7b9db82e835faf26aa53c6789dee15a734df926b2d37626feb40c",
+  "sample_count": 66,
+  "selection": "intersection of both adapters' outer test sets; excludes both fitting and internal model selection",
+  "threshold": 0.55,
+  "qwen_dictionary": "excludes union of adapter outer test sets and all human review guidance",
+  "proposed_changes": 9,
+  "accepted_changes": 0,
+  "baseline": {"exact_correct": 30, "atomic_macro_f1": 0.401684, "missed_nonhealthy": 9, "false_nonhealthy": 6},
+  "candidate": {"exact_correct": 30, "atomic_macro_f1": 0.401684, "missed_nonhealthy": 9, "false_nonhealthy": 6},
+  "gained_correct": 0,
+  "lost_correct": 0,
+  "original_elapsed_seconds": 1136.001,
+  "complete_checkpoint_replay_passed": true,
+  "new_official_score_verified": false,
+  "decision": "No end-to-end gain demonstrated. Keep the entire 56.11 scored baseline; do not submit the experimental adapter candidate.",
+  "limitation": "These 66 public training images were already inspected during development; the diagnostic is not a final untouched acceptance set."
+}
